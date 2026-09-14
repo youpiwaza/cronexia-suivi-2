@@ -1,0 +1,177 @@
+# Ignore files/folders in git repositories
+#   @see https://git-scm.com/docs/gitignore
+
+# 🗃️ Archives
+*.tar.gz
+*.tar.bz2
+*.gz
+*.zip
+*.bz2
+*.rar
+
+
+
+# 🤖 Generated files & folders
+build/
+dist/
+prod/
+## Ansible custom generated files
+### everything in the generated/ folder..
+generated/
+### .. except README.md
+!generated/README.md
+### also ignore everywhere any "-generated" suffixed file
+**/*-generated*
+### Temporary folder, used for generated WIP, notes or debug
+tmp/
+
+
+
+# 📄 Logs
+logs/
+*.log
+
+
+
+# 🖥️ OS Specific
+
+## Linux
+*~
+### KDE directory preferences
+.directory
+### Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+## macOS / OS X
+.DS_Store
+.DS_Store?
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
+ehthumbs.db
+Thumbs.db
+.AppleDouble
+.LSOverride
+### Thumbnails
+._*
+
+## Windows
+### image file caches
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+### Recycle Bin used on file shares
+$RECYCLE.BIN/
+### Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+### shortcuts
+*.lnk
+
+
+
+# 📦️ Package manager stuff
+
+## Exclude npm/yarn package folders
+node_modules/
+npm-debug.log
+npm-debug.log*
+stats.json
+### Optional npm cache directory
+.npm
+### Exclude package manager files
+package-lock.json
+yarn.lock
+
+## Bower dependency directory (https://bower.io/)
+bower_components/
+
+## Composer
+vendor/
+### Keep public vendors, like ~Bootstrap, Font awesome
+!public/assets/vendor/
+
+
+
+## 🔒️ Secrets
+# Ignore everywhere any "_secret" suffixed file
+**/*_secret*
+
+
+
+### 🤖 Ansible
+#### Real hosts file
+hosts
+hostsWithCustomSSHPort
+#### Real variables file
+**/**/vars/main.yml
+
+
+
+### WordPress
+#       Remove sensitive informations
+**/wp-config.php
+
+#       Remove folders to get from a fresh installation
+wp-admin/
+wp-includes/
+wp-content/languages/
+wp-content/upgrade/
+www/wp-admin/
+www/wp-includes/
+www/wp-content/languages/
+www/wp-content/upgrade/
+
+#       Remove caching folders / logs, plugins dependant
+wp-content/ai1wm-backups/
+wp-content/cache/
+wp-content/et-cache/
+wp-content/wflogs/
+www/wp-content/ai1wm-backups/
+www/wp-content/cache/
+www/wp-content/et-cache/
+www/wp-content/wflogs/
+
+#   🖼️ If too many picture, github might get grumpy
+wp-content/uploads/
+wp-content/uploads-webpc/
+www/wp-content/uploads/
+www/wp-content/uploads-webpc/
+
+
+
+# 📌 Tests / Unit tests reports
+coverage/
+tests/coverage*
+
+
+
+# 🖥️ Text editors
+.idea
+.projects
+.netbeans
+.metadata
+.phpintel
+.project
+.settings
+.svn
+## helpers
+*.patch
+.phpstorm.meta.php
+*.phpstorm.meta.php
+## Modules Testing
+_modules/*
+## phpenv local config
+.php-version
+## Don't save phpunit under version control.
+phpunit
+## Jetbrains editors (PHPStorm, etc)
+.idea/
+*.iml
+## Visual Studio Code
+.vscode/
+/results/
+/phpunit*.xml
+/.phpunit.*.cache

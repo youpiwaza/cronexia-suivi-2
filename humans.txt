@@ -1,0 +1,7 @@
+// https://humanstxt.org/
+
+/* TEAM */
+Dev:        Maxime Chevasson
+Site:       masamune.code@gmail.com / masamune.fr
+Location:   France, Reims
+Quote:      Have a beautiful day 🐬
