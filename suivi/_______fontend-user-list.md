@@ -28,4 +28,4 @@ P!zz@&T@c0$#FTW
 
 yay cronexia-gta-back\app\prisma\seeds\habilitation\seed-habilitation.seed.ts
 
-Alphonse_Eldrich > Profil administrateur ? ptain je bite rien
+alphonse.eldrich > Profil administrateur ? ptain je bite rien
