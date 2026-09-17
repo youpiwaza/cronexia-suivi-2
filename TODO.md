@@ -69,6 +69,7 @@ List of pending tasks.
 - 🧩 Composant
 - 🍪 Cookies
 - 🔐 auth
+- ⚔️ Conflits
 
 ## Raccourcis Cursor
 
