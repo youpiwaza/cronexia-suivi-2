@@ -27,3 +27,13 @@
 - validator level 2, profile "HrManager" : Pierre-Olivier
 
 ---
+
+## Tab navigation (post GTA-1631)
+
+- Source of truth: backend `WorkflowTab` + `WorkflowOnWorkflowTab`, query `workflowTabsForNavigation` (`affected: true` for `/demands` and `/request-management`).
+- URL segment = catalog **`name`** (derived from `code`, e.g. `schedule-change` → `scheduleChange`). Kebab / old FR aliases redirect via `legacyEmployeeTabSegmentToName`.
+- Synthetic tabs (not DB rows), always first: collab `summary`, validator `my-requests`. Keep `declaration-view`.
+- Nav lists **affected** tabs only. Unassigned pool (`workflowTabId` null): `WORKFLOW_SCHEDULE_OVERLOAD_TT` (STO) — no UI. Clockings / CMAR / ENFM / hours-declaration stay `affected: false` until organize (out of scope).
+- Columns = union of display families on the tab’s workflows. Create list = workflows on the tab ∩ `isActive` ∩ rights ∩ existing modal.
+
+---

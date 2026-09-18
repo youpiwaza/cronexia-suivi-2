@@ -52,6 +52,7 @@ List of pending tasks.
   - 🏭 Boilerplate
 - 🧹 Cleaner le code, virer les console.log
   - 🛡️ Guards
+  - ⚔️ Conflits
 - ⛓️ Contraintes
 - 🔗 Relation
 - 🛣️ Création de routes / roadmaps
@@ -69,7 +70,6 @@ List of pending tasks.
 - 🧩 Composant
 - 🍪 Cookies
 - 🔐 auth
-- ⚔️ Conflits
 
 ## Raccourcis Cursor
 

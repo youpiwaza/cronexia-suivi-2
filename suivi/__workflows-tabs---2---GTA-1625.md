@@ -1,5 +1,7 @@
 # 💾 Back / 🌊 ✅ Workflows / 🔧 Onglets / 🌱 Seeds
 
+> **Superseded by GTA-1631 + current seeds.** `employee-demands-tabs.ts` is no longer the tab catalog (redirects/hrefs only). `clockings` is `affected: false` (empty tab). STO has **no** `remote-work-by-schedule` tab and **no** `/request-management/remote-work-schedule-overload` route — pool `workflowTabId: null` only. See [`02-recommended/workflow-tab/README.md`](../../cronexia-gta-back/app/prisma/seeds-new/02-recommended/workflow-tab/README.md).
+
 ## 👨‍💻 Dev
 
 Rétablir les onglets existants, mais de manière dynamique (remplacer le hardcode)

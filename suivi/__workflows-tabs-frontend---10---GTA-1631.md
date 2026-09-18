@@ -1,5 +1,7 @@
 # 🎨 Front / 🌊✔️Workflows / 🔧 Onglets / 🎨🌐 Page de base & renderer familles
 
+> **Implemented (2026-09).** Phases A / B / C done. Nav + tables + create consume `workflowTabsForNavigation`. URLs use catalog `name` (`scheduleChange`, …). Synthetic tabs: collab `summary`, validator `my-requests`. STO is unassigned pool (no UI). Clockings is `affected: false`. §1 below is **AS-WAS** at ticket open — not current architecture.
+
 ## Workflows references
 
 workflow notes@cronexia-suivi-2/suivi/________________workflow-context.md
@@ -32,7 +34,7 @@ Hors périmètre (détail Q10) : page admin **organize** des onglets ; **page / 
 
 ---
 
-## 1. Fichiers & rôles
+## 1. Fichiers & rôles (AS-WAS — ticket open)
 
 ### Collab — `/demands` (already `[tab]`)
 
@@ -292,21 +294,21 @@ Les pages collab + valideur restent branchées sur `workflowEmployeeTabs` / `Wor
 
 ---
 
-### Phase C — Cleanup
+### Phase C — Cleanup - ✅ **DONE**
 
-**C1 — Dead code tabs**
+**C1 — Dead code tabs** - ✅ **DONE**
 
 - `employee-demands-tabs.ts` : plus que redirects + hrefs. Plus d’union TS `WorkflowTab`, plus de `workflowEmployeeTabs` comme source de vérité.
 
-**C2 — Deep-links / droits**
+**C2 — Deep-links / droits** - ✅ **DONE**
 
 - Cible = premier onglet **affected** qui contient le WF. Plus `resolveWorkflowDemandTab(type)`. STO = pas de cible (synthèse).
 
-**C3 — Pointages par famille**
+**C3 — Pointages par famille** - ✅ **DONE**
 
 - Plus de `showClockingsTab` sur une clé d’onglet. Cacher si famille `clockingOverload` et collab pas en pointages réels. Valideur : afficher ssi `affected`.
 
-**C4 — Smoke**
+**C4 — Smoke** - ✅ **DONE**
 
 - Patrick, Murielle, Pierre-Olivier.
 - Tab inconnu, onglet vide, WF inactif, PJ, bookmark STO, URLs kebab.
