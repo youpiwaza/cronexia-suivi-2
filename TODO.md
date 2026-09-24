@@ -33,7 +33,7 @@ List of pending tasks.
 - ❓❔ Question / Question répondue
 - 🔨 chop²
 - 🔧 config
-- 👨‍💻 Notes dev
+  - 👨‍💻 Notes dev
   - 👷 Exemple / Note pour aider les autres devs
   - 🤵‍♂️ Attentes métier / utilisateur
 - ⚡️🐌 Optimisation / Lenteur
