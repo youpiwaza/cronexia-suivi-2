@@ -1,12 +1,24 @@
 
-warn @ client.js?v=15e9407a:3441
-HomeLazy.svelte:22 [ECharts] Can't get DOM width or height. Please check dom.clientWidth and dom.clientHeight. They should not be 0.For example, you may need to call this in the callback of window.onload.
+[MISSING_EXPORT] "workflowTabReplace" is not exported by "src/routes/functions/cronexia/workflow-tab/organize/form/workflow-tab-replace.ts".
+   ╭─[ src/routes/(app)/(without-filters)/admin/workflow/organize/+page.server.ts:4:10 ]
+   │
+ 4 │ import { workflowTabReplace } from "$functions/cronexia/workflow-tab/organize/form/workflow-tab-replace";
+   │          ─────────┬────────
+   │                   ╰────────── Missing export
+───╯
 
----
+[MISSING_EXPORT] "workflowTabCodeFromLabel" is not exported by "src/routes/functions/cronexia/workflow-tab/organize/workflow-tab-code-from-label.ts".
+   ╭─[ src/routes/functions/cronexia/workflow-tab/organize/form/workflow-tab-create.ts:4:10 ]
+   │
+ 4 │ import { workflowTabCodeFromLabel } from "$functions/cronexia/workflow-tab/organize/workflow-tab-code-from-label";
+   │          ────────────┬───────────
+   │                      ╰───────────── Missing export
+───╯
 
-MdOutlinedSelect.svelte:91 Invalid keyframe value for property transform: translateX(0px) translateY(NaNpx) scale(NaN)
-
-
----
-
-SoldesCongesSourceLazy.svelte:45 [ECharts] Can't get DOM width or height. Please check dom.clientWidth and dom.clientHeight. They should not be 0.For example, you may need to call this in the callback of window.onload.
+[MISSING_EXPORT] "buildOrganizeDndNodes" is not exported by "src/routes/functions/cronexia/workflow-tab/organize/build-organize-dnd-nodes.ts".
+    ╭─[ src/routes/components/cronexia/workflow-tab/organize/OrganizeWorkflowTabsDragAndDrop.svelte:12:10 ]
+    │
+ 12 │ import { buildOrganizeDndNodes } from '$functions/cronexia/workflow-tab/organize/build-organize-dnd-nodes';
+    │          ──────────┬──────────
+    │                    ╰──────────── Missing export
+────╯

@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" width="900" height="640" role="img" aria-labelledby="chart-title chart-desc">
+  <title id="chart-title">Temps de chargement planning (PROD)</title>
+  <desc id="chart-desc">Temps de chargement de 0 a 8 secondes, de la baseline PROD aux etapes 1, 2, 3, 4, 5 et 7. Huit series : premiere semaine et premier mois, avec et sans cache navigateur, plus la moyenne des periodes 2 a 4 pour chaque combinaison.</desc>
+
+  <rect x="0" y="0" width="900" height="640" fill="#ffffff"/>
+
+  <text x="450" y="32" text-anchor="middle" font-family="Calibri, Segoe UI, Arial, sans-serif" font-size="18" fill="#333333">Temps de chargement planning (PROD)</text>
+
+  <!-- Plot frame: x 70-820, y 50-450. y = 450 - 50*t -->
+  <g font-family="Calibri, Segoe UI, Arial, sans-serif" font-size="12" fill="#666666">
+    <text x="28" y="250" text-anchor="middle" transform="rotate(-90 28 250)" fill="#555555">Temps (s)</text>
+    <g stroke="#e6e6e6" stroke-width="1">
+      <line x1="70" y1="50" x2="820" y2="50"/>
+      <line x1="70" y1="100" x2="820" y2="100"/>
+      <line x1="70" y1="150" x2="820" y2="150"/>
+      <line x1="70" y1="200" x2="820" y2="200"/>
+      <line x1="70" y1="250" x2="820" y2="250"/>
+      <line x1="70" y1="300" x2="820" y2="300"/>
+      <line x1="70" y1="350" x2="820" y2="350"/>
+      <line x1="70" y1="400" x2="820" y2="400"/>
+    </g>
+    <g text-anchor="end">
+      <text x="62" y="54">8</text>
+      <text x="62" y="104">7</text>
+      <text x="62" y="154">6</text>
+      <text x="62" y="204">5</text>
+      <text x="62" y="254">4</text>
+      <text x="62" y="304">3</text>
+      <text x="62" y="354">2</text>
+      <text x="62" y="404">1</text>
+      <text x="62" y="454">0</text>
+    </g>
+    <line x1="70" y1="50" x2="70" y2="450" stroke="#b3b3b3" stroke-width="1"/>
+    <line x1="70" y1="450" x2="820" y2="450" stroke="#b3b3b3" stroke-width="1"/>
+    <g text-anchor="middle" fill="#555555">
+      <text x="70" y="470">Aucune</text>
+      <text x="195" y="470">1</text>
+      <text x="320" y="470">2</text>
+      <text x="445" y="470">3</text>
+      <text x="570" y="470">4</text>
+      <text x="695" y="470">5</text>
+      <text x="820" y="470">7</text>
+    </g>
+    <text x="445" y="492" text-anchor="middle" fill="#555555">&#201;tapes d'optimisation</text>
+  </g>
+
+  <g fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- 1re semaine, sans cache: 3.20, 3.20, 3.25, 3.00, 2.50, 1.80, 1.60 -->
+    <polyline stroke="#1f4e79" points="70,290 195,290 320,287.5 445,300 570,325 695,360 820,370"/>
+    <!-- 1re semaine, cache navigateur: 0.75, 0.72, 0.85, 0.76, 0.10, 0.10, 0.10 -->
+    <polyline stroke="#5b9bd5" points="70,412.5 195,414 320,407.5 445,412 570,445 695,445 820,445"/>
+    <!-- 1er mois, sans cache: 2.00, 2.50, 1.70, 3.00, 1.80, 1.80, 1.80 -->
+    <polyline stroke="#c45911" points="70,350 195,325 320,365 445,300 570,360 695,360 820,360"/>
+    <!-- 1er mois, cache navigateur: 1.10, 1.00, 0.88, 0.90, 0.20, 0.15, 0.10 -->
+    <polyline stroke="#ed7d31" points="70,395 195,400 320,406 445,405 570,440 695,442.5 820,445"/>
+    <!-- Moy. sem. 2-4, sans cache: 0.90, 0.75, 0.82, 0.69, 0.30, 0.10, 0.10 -->
+    <polyline stroke="#375623" points="70,405 195,412.5 320,409 445,415.5 570,435 695,445 820,445"/>
+    <!-- Moy. sem. 2-4, cache navigateur: 0.83, 0.84, 0.74, 0.83, 0.16, 0.10, 0.10 -->
+    <polyline stroke="#70ad47" points="70,408.5 195,408 320,413 445,408.5 570,442 695,445 820,445"/>
+    <!-- Moy. mois 2-4, sans cache: 1.08, 0.97, 0.95, 0.79, 0.20, 0.15, 0.10 -->
+    <polyline stroke="#5b2c6f" points="70,396 195,401.5 320,402.5 445,410.5 570,440 695,442.5 820,445"/>
+    <!-- Moy. mois 2-4, cache navigateur: 1.05, 1.03, 0.88, 0.87, 0.20, 0.15, 0.10 -->
+    <polyline stroke="#b07cc6" points="70,397.5 195,398.5 320,406 445,406.5 570,440 695,442.5 820,445"/>
+  </g>
+
+  <g fill="#ffffff" stroke-width="2">
+    <g stroke="#1f4e79">
+      <circle cx="70" cy="290" r="5"/>
+      <circle cx="195" cy="290" r="5"/>
+      <circle cx="320" cy="287.5" r="5"/>
+      <circle cx="445" cy="300" r="5"/>
+      <circle cx="570" cy="325" r="5"/>
+      <circle cx="695" cy="360" r="5"/>
+      <circle cx="820" cy="370" r="5"/>
+    </g>
+    <g stroke="#5b9bd5">
+      <circle cx="70" cy="412.5" r="5"/>
+      <circle cx="195" cy="414" r="5"/>
+      <circle cx="320" cy="407.5" r="5"/>
+      <circle cx="445" cy="412" r="5"/>
+      <circle cx="570" cy="445" r="5"/>
+      <circle cx="695" cy="445" r="5"/>
+      <circle cx="820" cy="445" r="5"/>
+    </g>
+    <g stroke="#c45911">
+      <circle cx="70" cy="350" r="5"/>
+      <circle cx="195" cy="325" r="5"/>
+      <circle cx="320" cy="365" r="5"/>
+      <circle cx="445" cy="300" r="5"/>
+      <circle cx="570" cy="360" r="5"/>
+      <circle cx="695" cy="360" r="5"/>
+      <circle cx="820" cy="360" r="5"/>
+    </g>
+    <g stroke="#ed7d31">
+      <circle cx="70" cy="395" r="5"/>
+      <circle cx="195" cy="400" r="5"/>
+      <circle cx="320" cy="406" r="5"/>
+      <circle cx="445" cy="405" r="5"/>
+      <circle cx="570" cy="440" r="5"/>
+      <circle cx="695" cy="442.5" r="5"/>
+      <circle cx="820" cy="445" r="5"/>
+    </g>
+    <g stroke="#375623">
+      <circle cx="70" cy="405" r="5"/>
+      <circle cx="195" cy="412.5" r="5"/>
+      <circle cx="320" cy="409" r="5"/>
+      <circle cx="445" cy="415.5" r="5"/>
+      <circle cx="570" cy="435" r="5"/>
+      <circle cx="695" cy="445" r="5"/>
+      <circle cx="820" cy="445" r="5"/>
+    </g>
+    <g stroke="#70ad47">
+      <circle cx="70" cy="408.5" r="5"/>
+      <circle cx="195" cy="408" r="5"/>
+      <circle cx="320" cy="413" r="5"/>
+      <circle cx="445" cy="408.5" r="5"/>
+      <circle cx="570" cy="442" r="5"/>
+      <circle cx="695" cy="445" r="5"/>
+      <circle cx="820" cy="445" r="5"/>
+    </g>
+    <g stroke="#5b2c6f">
+      <circle cx="70" cy="396" r="5"/>
+      <circle cx="195" cy="401.5" r="5"/>
+      <circle cx="320" cy="402.5" r="5"/>
+      <circle cx="445" cy="410.5" r="5"/>
+      <circle cx="570" cy="440" r="5"/>
+      <circle cx="695" cy="442.5" r="5"/>
+      <circle cx="820" cy="445" r="5"/>
+    </g>
+    <g stroke="#b07cc6">
+      <circle cx="70" cy="397.5" r="5"/>
+      <circle cx="195" cy="398.5" r="5"/>
+      <circle cx="320" cy="406" r="5"/>
+      <circle cx="445" cy="406.5" r="5"/>
+      <circle cx="570" cy="440" r="5"/>
+      <circle cx="695" cy="442.5" r="5"/>
+      <circle cx="820" cy="445" r="5"/>
+    </g>
+  </g>
+
+  <g font-family="Calibri, Segoe UI, Arial, sans-serif" font-size="12" fill="#333333">
+    <circle cx="180" cy="528" r="5" fill="#ffffff" stroke="#1f4e79" stroke-width="2"/>
+    <text x="192" y="532">1re semaine, sans cache</text>
+    <circle cx="500" cy="528" r="5" fill="#ffffff" stroke="#5b9bd5" stroke-width="2"/>
+    <text x="512" y="532">1re semaine, cache navigateur</text>
+
+    <circle cx="180" cy="554" r="5" fill="#ffffff" stroke="#c45911" stroke-width="2"/>
+    <text x="192" y="558">1er mois, sans cache</text>
+    <circle cx="500" cy="554" r="5" fill="#ffffff" stroke="#ed7d31" stroke-width="2"/>
+    <text x="512" y="558">1er mois, cache navigateur</text>
+
+    <circle cx="180" cy="580" r="5" fill="#ffffff" stroke="#375623" stroke-width="2"/>
+    <text x="192" y="584">Moy. sem. 2-4, sans cache</text>
+    <circle cx="500" cy="580" r="5" fill="#ffffff" stroke="#70ad47" stroke-width="2"/>
+    <text x="512" y="584">Moy. sem. 2-4, cache navigateur</text>
+
+    <circle cx="180" cy="606" r="5" fill="#ffffff" stroke="#5b2c6f" stroke-width="2"/>
+    <text x="192" y="610">Moy. mois 2-4, sans cache</text>
+    <circle cx="500" cy="606" r="5" fill="#ffffff" stroke="#b07cc6" stroke-width="2"/>
+    <text x="512" y="610">Moy. mois 2-4, cache navigateur</text>
+  </g>
+</svg>
