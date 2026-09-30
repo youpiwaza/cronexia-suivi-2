@@ -1,155 +1,79 @@
----
-
-PrismaClientExceptionFilter
-
----
-
-PrismaClientKnownRequestError:
-
-Invalid `tx.workflowOnWorkflowTab.createMany()` invocation in
-
-/Users/pierre-olivier/cronexia/cronexia-gta-back/app/src/workflow-tabs/workflow-tabs.service.ts:323:40
-
-
-
-  320   await tx.workflowOnWorkflowTab.createMany({ data: joinRows });
-
-  321 }
-
-  322 if (poolRows.length > 0) {
-
-→ 323   await tx.workflowOnWorkflowTab.createMany(
-
-Unique constraint failed on the fields: (`workflowId`)
-
-    at ei.handleRequestError (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/prisma/generated/client/runtime/library.js:125:7268)
-
-    at ei.handleAndLogRequestError (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/prisma/generated/client/runtime/library.js:125:6593)
-
-    at ei.request (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/prisma/generated/client/runtime/library.js:125:6300)
-
-    at async a (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/prisma/generated/client/runtime/library.js:134:9551)
-
-    at async <anonymous> (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/src/workflow-tabs/workflow-tabs.service.ts:323:9)
-
-    at async Proxy._transactionWithCallback (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/prisma/generated/client/runtime/library.js:134:8120) {
-
-  code: 'P2002',
-
-  meta: { modelName: 'WorkflowOnWorkflowTab', target: [ 'workflowId' ] },
-
-  clientVersion: '6.19.0'
-
-}
-
----
-
----
-
----
-
-WorkflowOnWorkflowTab > (workflowId): la valeur renseignée est déjà utilisée et doit être unique.
-
 ═══════════════════════════════════════════════════════
 
-🔴 MERCURIUS ERROR DEBUG
+Error message: Graphql validation error
 
-═══════════════════════════════════════════════════════
+Error path: undefined
 
-Error message: Conflict
-
-Error path: [ 'replaceWorkflowTabsOrganization' ]
-
-Error locations: [
-
-  {
-
-    "line": 3,
-
-    "column": 5
-
-  }
-
-]
+Error locations: undefined
 
 Error extensions: {}
 
 ───────────────────────────────────────────────────────
 
-Original Error name: ConflictException
+Original Error name: FastifyError
 
-Original Error message: Conflict
+Original Error message: Graphql validation error
 
-Original Error: ConflictException: Conflict
+Original Error: FastifyError [Error]: Graphql validation error
 
-    at catch (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/src/_utility/filters/exception/prisma-exception.filter.ts:268:15)
+    at Object.fastifyGraphQl [as graphql] (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/index.js:611:21)
 
-    at ExternalExceptionsHandler.invokeCustomFilters (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/@nestjs/core/exceptions/external-exceptions-handler.js:31:32)
+    at _Reply.graphql (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/index.js:302:16)
 
-    at ExternalExceptionsHandler.next (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/@nestjs/core/exceptions/external-exceptions-handler.js:14:29)
+    at executeQuery (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/lib/routes.js:240:18)
 
-    at Object.replaceWorkflowTabsOrganization (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/@nestjs/core/helpers/external-proxy.js:14:42)
+    at executeRegularQuery (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/lib/routes.js:253:12)
 
-    at async Object.fastifyGraphQl [as graphql] (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/index.js:650:23) {
+    at Object.<anonymous> (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/lib/routes.js:415:14)
 
-  response: {
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
 
-    statusCode: 409,
+  code: 'MER_ERR_GQL_VALIDATION',
 
-    message: 'Conflict',
+  statusCode: 400,
 
-    details: {
+  errors: [
 
-      description: 'La valeur renseignée est déjà utilisée et doit être unique.',
+    GraphQLError: Field "historisedEnumValueId" of required type "String!" was not provided.
 
-      prisma: [Object]
+        at coerceInputValueImpl (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/graphql/utilities/coerceInputValue.js:108:13)
 
-    },
+        at /Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/graphql/utilities/coerceInputValue.js:75:16
 
-    errorCronexia: null
+        at Function.from (<anonymous>)
 
-  },
+        at coerceInputValueImpl (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/graphql/utilities/coerceInputValue.js:73:20)
 
-  status: 409,
+        at coerceInputValueImpl (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/graphql/utilities/coerceInputValue.js:117:34)
 
-  options: {}
+        at coerceInputValueImpl (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/graphql/utilities/coerceInputValue.js:117:34)
 
-}
+        at coerceInputValueImpl (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/graphql/utilities/coerceInputValue.js:49:14)
 
-───────────────────────────────────────────────────────
+        at coerceInputValue (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/graphql/utilities/coerceInputValue.js:32:10)
 
-All execution errors:
+        at coerceVariableValues (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/graphql/execution/values.js:132:69)
 
-  [0] Conflict
+        at getVariableValues (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/graphql/execution/values.js:45:21)
 
-      at line 3, column 5
+        at buildExecutionContext (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/graphql/execution/execute.js:280:63)
 
-═══════════════════════════════════════════════════════
+        at Object.fastifyGraphQl [as graphql] (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/index.js:602:32)
 
-More details
+        at _Reply.graphql (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/index.js:302:16)
 
----
+        at executeQuery (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/lib/routes.js:240:18)
 
-ConflictException: Conflict
+        at executeRegularQuery (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/lib/routes.js:253:12)
 
-    at catch (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/src/_utility/filters/exception/prisma-exception.filter.ts:268:15)
+        at Object.<anonymous> (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/lib/routes.js:415:14) {
 
-    at ExternalExceptionsHandler.invokeCustomFilters (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/@nestjs/core/exceptions/external-exceptions-handler.js:31:32)
+      message: 'Variable "$data" got invalid value { effectDate: "2026-01-01", description: "city \\"undefined\\" le 2026-01-01", fieldnameHelper: "city", matriculeHelper: "300009F", resourceEnum: { connect: [Object] }, resourceField: { connect: [Object] }, resourceEnumStrVal: { connect: {} } } at "data.resourceEnumVals.create[0]"; Field "historisedEnumValueId" of required type "String!" was not provided.',
 
-    at ExternalExceptionsHandler.next (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/@nestjs/core/exceptions/external-exceptions-handler.js:14:29)
+      path: undefined,
 
-    at Object.replaceWorkflowTabsOrganization (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/@nestjs/core/helpers/external-proxy.js:14:42)
+      locations: [Array],
 
-    at async Object.fastifyGraphQl [as graphql] (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/index.js:650:23) {
+      extensions: [Object: null prototype] {}
 
-  path: [ 'replaceWorkflowTabsOrganization' ],
-
-  locations: [ { line: 3, column: 5 } ],
-
-  extensions: [Object: null prototype] {}
-
-}
-
----
-
----
+    }
