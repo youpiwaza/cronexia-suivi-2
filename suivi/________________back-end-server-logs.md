@@ -60,7 +60,7 @@ Original Error: FastifyError [Error]: Graphql validation error
 
         at Object.fastifyGraphQl [as graphql] (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/index.js:602:32)
 
-        at _Reply.graphql (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/index.js:302:16)
+          at _Reply.graphql (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/index.js:302:16)
 
         at executeQuery (/Users/pierre-olivier/cronexia/cronexia-gta-back/app/node_modules/mercurius/lib/routes.js:240:18)
 
