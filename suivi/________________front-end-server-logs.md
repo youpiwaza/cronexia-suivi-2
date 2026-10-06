@@ -1,88 +1,59 @@
-$ playwright test conflict-modes-admin
+⎯⎯⎯⎯⎯⎯ Failed Suites 4 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/routes/functions/cronexia/calendrier-annuel/personal-calendar-month-widget.helpers.test.ts [ src/routes/functions/cronexia/calendrier-annuel/personal-calendar-month-widget.helpers.test.ts ]
+ FAIL  src/routes/functions/cronexia/declaration-hours/declaration-hours-date-context.spec.ts [ src/routes/functions/cronexia/declaration-hours/declaration-hours-date-context.spec.ts ]
+ FAIL  src/routes/functions/cronexia/workflow/absence-workflow-create-options.spec.ts [ src/routes/functions/cronexia/workflow/absence-workflow-create-options.spec.ts ]
+Error: Cannot find module '$typesGraphql' imported from /home/runner/work/cronexia-gta-front-v2/cronexia-gta-front-v2/app/src/routes/functions/cronexia/absence/absence-etat-filter.ts
+ ❯ src/routes/functions/cronexia/absence/absence-etat-filter.ts:7:1
+      5|
+      6| // 👌 Types & props
+      7| import { WorkflowStateEnum } from '$typesGraphql';
+       | ^
+      8|
+ Test Files  4 failed | 94 passed | 2 skipped (100)
+      9| // 🦾 Functions
+ ❯ src/routes/states/cronexia/absence-search-state.svelte.ts:9:1
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+      Tests  621 passed | 48 skipped (669)
+ FAIL  src/routes/functions/cronexia/reports/report-form-values.test.ts [ src/routes/functions/cronexia/reports/report-form-values.test.ts ]
+   Start at  10:12:06
+   Duration  15.50s (transform 1.81s, setup 0ms, import 5.55s, tests 502ms, environment 267ms)
+Error: Cannot find module '$typesGraphql' imported from /home/runner/work/cronexia-gta-front-v2/cronexia-gta-front-v2/app/src/routes/functions/cronexia/absence/absence-etat-filter.ts
+ ❯ src/routes/functions/cronexia/absence/absence-etat-filter.ts:7:1
+      5|
+Error: Error: Cannot find module '$typesGraphql' imported from /home/runner/work/cronexia-gta-front-v2/cronexia-gta-front-v2/app/src/routes/functions/cronexia/absence/absence-etat-filter.ts
+ ❯ src/routes/functions/cronexia/absence/absence-etat-filter.ts:7:1
+ ❯ src/routes/states/cronexia/absence-search-state.svelte.ts:9:1
 
-Running 4 tests using 1 worker
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'ERR_MODULE_NOT_FOUND' }
 
-  ✓  1 [chromium] › e2e/conflict-modes-admin.flow.spec.ts:27:3 › Administration — réaction au conflit par profil › liste les profils avec leur mode et rappelle l’effet de chacun (3.1s)
-  ✓  2 [chromium] › e2e/conflict-modes-admin.flow.spec.ts:42:3 › Administration — réaction au conflit par profil › les modes du seed sont ceux attendus par profil (867ms)
-  ✓  3 [chromium] › e2e/conflict-modes-admin.flow.spec.ts:84:3 › Administration — réaction au conflit par profil › annuler depuis la toolbar revient à la valeur enregistrée (1.6s)
-  ✓  4 [chromium] › e2e/conflict-modes-admin.flow.spec.ts:98:3 › Administration — réaction au conflit par profil › enregistrer depuis la toolbar persiste, puis on restaure (2.4s)
+      6| // 👌 Types & props
+      7| import { WorkflowStateEnum } from '$typesGraphql';
+       | ^
+      8|
+      9| // 🦾 Functions
+ ❯ src/routes/functions/cronexia/reports/report-form-values.ts:22:1
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+Error: Error: Cannot find module '$typesGraphql' imported from /home/runner/work/cronexia-gta-front-v2/cronexia-gta-front-v2/app/src/routes/functions/cronexia/absence/absence-etat-filter.ts
+ ❯ src/routes/functions/cronexia/absence/absence-etat-filter.ts:7:1
+ ❯ src/routes/states/cronexia/absence-search-state.svelte.ts:9:1
 
-  4 passed (8.9s)
-❯ bun run test:e2e
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'ERR_MODULE_NOT_FOUND' }
 
-$ playwright test
+Error: Error: Cannot find module '$typesGraphql' imported from /home/runner/work/cronexia-gta-front-v2/cronexia-gta-front-v2/app/src/routes/functions/cronexia/absence/absence-etat-filter.ts
+ ❯ src/routes/functions/cronexia/absence/absence-etat-filter.ts:7:1
+ ❯ src/routes/functions/cronexia/reports/report-form-values.ts:22:1
 
-Running 22 tests using 8 workers
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'ERR_MODULE_NOT_FOUND' }
 
-  -   1 [chromium] › e2e/absence-conflict-replacement.flow.spec.ts:58:8 › Absences — remplacement d'un chevauchement › recouvrement total : l'existant est supprimé
-  -   2 [chromium] › e2e/absence-conflict-replacement.flow.spec.ts:66:8 › Absences — remplacement d'un chevauchement › recouvrement par la fin : l'existant est raccourci
-  -   3 [chromium] › e2e/absence-conflict-replacement.flow.spec.ts:71:8 › Absences — remplacement d'un chevauchement › recouvrement au milieu : l'existant est scindé en deux
-  -   4 [chromium] › e2e/absence-conflict-replacement.flow.spec.ts:77:8 › Absences — remplacement d'un chevauchement › demi-journée : l'existant garde son matin
-  -   5 [chromium] › e2e/absence-conflict-replacement.flow.spec.ts:82:8 › Absences — remplacement d'un chevauchement › « Tout conserver » laisse les deux events en place
-  -   6 [chromium] › e2e/absence-conflict-replacement.flow.spec.ts:87:8 › Absences — remplacement d'un chevauchement › fermer la fenêtre n'écrit rien
-  -   7 [chromium] › e2e/absence-conflict-replacement.flow.spec.ts:94:8 › Absences — une absence issue d'une demande est verrouillée › ni modifiable ni supprimable, et le tooltip le dit
-  ✓   8 [chromium] › e2e/conflict-arbitration.smoke.spec.ts:76:3 › Conflit d'événements — actions proposées selon le mode du profil › Acceptable : le choix est laissé (8.6s)
-  ✓   9 …hromium] › e2e/absence-conflict-replacement.flow.spec.ts:41:3 › Absences — remplacement d'un chevauchement › le tableau des absences en jours est accessible et la toolbar y répond (11.3s)  ✓  10 [chromium] › e2e/conflict-arbitration.smoke.spec.ts:96:3 › Conflit d'événements — actions proposées selon le mode du profil › la fenêtre liste le conflit et nomme le collaborateur (8.5s)
-  ✓  11 [chromium] › e2e/color.smoke.spec.ts:10:1 › color showcase page loads (10.1s)
-  ✓  12 … e2e/conflict-arbitration.smoke.spec.ts:83:3 › Conflit d'événements — actions proposées selon le mode du profil › Évité + événement non remplaçable : « Tout conserver » est rouvert (9.9s)  ✓  13 [chromium] › e2e/conflict-arbitration.smoke.spec.ts:49:3 › Conflit d'événements — actions proposées selon le mode du profil › Interdit : la saisie est rejetée, aucun arbitrage (9.3s)
-  ✓  14 … › e2e/conflict-arbitration.smoke.spec.ts:57:3 › Conflit d'événements — actions proposées selon le mode du profil › Interdit : aucun motif de blocage, seulement les chevauchements (10.0s)  ✓  15 [chromium] › e2e/conflict-arbitration.smoke.spec.ts:68:3 › Conflit d'événements — actions proposées selon le mode du profil › Évité : le remplacement est imposé (9.9s)
-  ✘  16 …dgets.flow.spec.ts:42:3 › Accueil collaborateur — widgets calendrier des absences / emploi du temps › navigation mois précédent/suivant met à jour le libellé et le bouton "retour" (23.1s)  ✘  17 …m] › e2e/home-employee-calendar-widgets.flow.spec.ts:33:3 › Accueil collaborateur — widgets calendrier des absences / emploi du temps › affiche les 2 widgets avec le mois en cours (23.1s)  ✓  18 …ome-employee-calendar-widgets.flow.spec.ts:61:3 › Accueil collaborateur — widgets calendrier des absences / emploi du temps › le lien "Voir mon calendrier annuel" mène à /calendar (24.6s)  ✓  19 [chromium] › e2e/login.flow.spec.ts:7:1 › logs in from / and reaches Super Admin home (5.1s)
-  ✓  20 …ployee-calendar-widgets.flow.spec.ts:67:3 › Accueil collaborateur — widgets calendrier des absences / emploi du temps › le lien "Voir mon emploi du temps annuel" mène à /timetable (24.9s)  ✓  21 [chromium] › e2e/login.smoke.spec.ts:3:1 › login page renders form landmarks (1.2s)
-  ✓  22 …2e/planning-palette-conflict.flow.spec.ts:54:3 › Planning collectif — barre de raccourcis › deux pastilles superposées ouvrent l’arbitrage à l’enregistrement, Annuler n’écrit rien (25.1s)
+Error: Error: Cannot find module '$typesGraphql' imported from /home/runner/work/cronexia-gta-front-v2/cronexia-gta-front-v2/app/src/routes/functions/cronexia/absence/absence-etat-filter.ts
+ ❯ src/routes/functions/cronexia/absence/absence-etat-filter.ts:7:1
+ ❯ src/routes/states/cronexia/absence-search-state.svelte.ts:9:1
 
-  1) [chromium] › e2e/home-employee-calendar-widgets.flow.spec.ts:33:3 › Accueil collaborateur — widgets calendrier des absences / emploi du temps › affiche les 2 widgets avec le mois en cours
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'ERR_MODULE_NOT_FOUND' }
 
-    Error: expect(locator).toBeVisible() failed
-
-    Locator: getByRole('heading', { name: 'Espace collaborateur' })
-    Expected: visible
-    Timeout: 15000ms
-    Error: element(s) not found
-
-    Call log:
-      - Expect "toBeVisible" with timeout 15000ms
-      - waiting for getByRole('heading', { name: 'Espace collaborateur' })
-
-
-      28 |     }
-      29 |
-    > 30 |     await expect(employeeHome).toBeVisible({ timeout: 15_000 });
-         |                                ^
-      31 |   });
-      32 |
-      33 |   test('affiche les 2 widgets avec le mois en cours', async ({ page }) => {
-        at /home/youpiwaza/code/cronexia-gta-front-v2/app/e2e/home-employee-calendar-widgets.flow.spec.ts:30:32
-
-    Error Context: test-results/home-employee-calendar-wid-d6539-dgets-avec-le-mois-en-cours-chromium/error-context.md
-
-  2) [chromium] › e2e/home-employee-calendar-widgets.flow.spec.ts:42:3 › Accueil collaborateur — widgets calendrier des absences / emploi du temps › navigation mois précédent/suivant met à jour le libellé et le bouton "retour"
-
-    Error: expect(locator).toBeVisible() failed
-
-    Locator: getByRole('heading', { name: 'Espace collaborateur' })
-    Expected: visible
-    Timeout: 15000ms
-    Error: element(s) not found
-
-    Call log:
-      - Expect "toBeVisible" with timeout 15000ms
-      - waiting for getByRole('heading', { name: 'Espace collaborateur' })
-
-
-      28 |     }
-      29 |
-    > 30 |     await expect(employeeHome).toBeVisible({ timeout: 15_000 });
-         |                                ^
-      31 |   });
-      32 |
-      33 |   test('affiche les 2 widgets avec le mois en cours', async ({ page }) => {
-        at /home/youpiwaza/code/cronexia-gta-front-v2/app/e2e/home-employee-calendar-widgets.flow.spec.ts:30:32
-
-    Error Context: test-results/home-employee-calendar-wid-a4150-ibellé-et-le-bouton-retour--chromium/error-context.md
-
-  2 failed
-    [chromium] › e2e/home-employee-calendar-widgets.flow.spec.ts:33:3 › Accueil collaborateur — widgets calendrier des absences / emploi du temps › affiche les 2 widgets avec le mois en cours
-    [chromium] › e2e/home-employee-calendar-widgets.flow.spec.ts:42:3 › Accueil collaborateur — widgets calendrier des absences / emploi du temps › navigation mois précédent/suivant met à jour le libellé et le bouton "retour"
-  7 skipped
-  13 passed (36.6s)
-error: script "test:e2e" exited with code 1
+error: script "test" exited with code 1
+Error: Process completed with exit code 1.
