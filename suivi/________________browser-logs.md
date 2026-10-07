@@ -1,18 +1,15 @@
-effects-DXkc1cZ5.js?v=10346b72:3295 Uncaught SyntaxError: "undefined" is not valid JSON
+2. How Enable Gzip Compression in Nginx
+On servers using Nginx, gzip compression cannot be activated automatically, so you have to enable gzip compression manually.
 
-	in <unknown>
-	in ModalBody.svelte
-	in AppModal.svelte
-	in PopulationModal.svelte
-	in ManagePopulation.svelte
-	in +page.svelte
-	in LayoutAppContent.svelte
-	in LayoutAppMain.svelte
-	in +layout.svelte
-	in +layout.svelte
-	in root.svelte
-	in undefined
- (at effects-DXkc1cZ5.js?v=10346b72:3295:4)
-    at JSON.parse (<anonymous>)
-    at Form.svelte:65:48
-    at Form (Form.svelte:65:29)
+You need to add the following code into the /etc/nginx/nginx.conf to enable gzip in Nginx servers. Do not add anywhere. You should add it inside the http {} section.
+
+gzip on;
+gzip_vary on;
+gzip_proxied any;
+gzip_comp_level 6;
+gzip_buffers 16 8k;
+gzip_http_version 1.1;
+gzip_types image/svg+xml text/plain text/html text/xml text/css text/javascript application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript application/x-font-ttf application/vnd.ms-fontobject font/opentype font/ttf font/eot font/otf;
+After adding the gzip compression lines, save and close the config file and restart NGINX with the command.
+
+sudo service nginx restart
