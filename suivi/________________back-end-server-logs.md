@@ -1,40 +1,21 @@
-
-
-/home/youpiwaza/code/cronexia-gta-back/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-prisma/seed-demo-arte.ts:59:7 - error TS2322: Type 'DemoSchedulesSeedResult' is not assignable to type 'DevSchedulesSeedResult | DemoSchedulesSeedResult'.
-  Type 'DemoSchedulesSeedResult' is missing the following properties from type 'DemoSchedulesSeedResult': scheduleHvar8hP, scheduleHvar7hP, scheduleHvar8hT, scheduleHvar7hT
-
-59       schedules: demo.demoSchedules,
-         ~~~~~~~~~
-
-  prisma/seeds-new/100-post-comon/interface/post-common-seeds-deps.interface.ts:13:3
-    13   schedules: DevSchedulesSeedResult;
-         ~~~~~~~~~
-    The expected type comes from property 'schedules' which is declared here on type 'PostCommonSeedsDeps'
-prisma/seed-demo-arte.ts:60:7 - error TS2322: Type 'DemoCyclesSeedResult' is not assignable to type 'DevCyclesSeedResult | DemoCyclesSeedResult'.
-  Type 'DemoCyclesSeedResult' is missing the following properties from type 'DemoCyclesSeedResult': cycleCvar39hP, cycleCvar40hP, cycleCvar39hT, cycleCvar40hT
-
-60       cycles: demo.demoCycles,
-         ~~~~~~
-
-  prisma/seeds-new/100-post-comon/interface/post-common-seeds-deps.interface.ts:14:3
-    14   cycles: DevCyclesSeedResult;
-         ~~~~~~
-    The expected type comes from property 'cycles' which is declared here on type 'PostCommonSeedsDeps'
-
-    at createTSError (/home/youpiwaza/code/cronexia-gta-back/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/home/youpiwaza/code/cronexia-gta-back/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/home/youpiwaza/code/cronexia-gta-back/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/home/youpiwaza/code/cronexia-gta-back/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/home/youpiwaza/code/cronexia-gta-back/app/node_modules/ts-node/src/index.ts:1617:30)
-    at node:internal/modules/cjs/loader:2096:10
-    at Object.require.extensions.<computed> [as .ts] (/home/youpiwaza/code/cronexia-gta-back/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1678:32)
-    at Module._load (node:internal/modules/cjs/loader:1470:12)
-    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19) {
-  diagnosticCodes: [ 2322, 2322 ]
-}
-error: script "reset-bdd-seed-demo-arte" exited with code 1
+sudo tail -n 20 /var/log/nginx/error.log
+2026/10/14 12:30:23 [error] 149691#149691: *13121 connect() failed (111: Connection refused) while connecting to upstream, client: 62.141.44.236, server: app.cronexia.com, request: "GET /robots.txt HTTP/1.1", upstream: "http://127.0.0.1:3001/robots.txt", host: "cronexia.fr"
+2026/10/14 12:30:23 [error] 149691#149691: *13121 connect() failed (111: Connection refused) while connecting to upstream, client: 62.141.44.236, server: app.cronexia.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:3001/", host: "cronexia.fr"
+2026/10/14 12:33:35 [error] 149691#149691: *13126 connect() failed (111: Connection refused) while connecting to upstream, client: 162.62.231.139, server: app.cronexia.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:3001/", host: "51.89.174.184:80"
+2026/10/14 12:33:38 [error] 149691#149691: *13128 connect() failed (111: Connection refused) while connecting to upstream, client: 45.79.207.110, server: app.cronexia.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:3001/", host: "51.89.174.184"
+2026/10/14 12:34:10 [error] 149691#149691: *13130 connect() failed (111: Connection refused) while connecting to upstream, client: 66.228.53.136, server: app.cronexia.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:3001/", host: "51.89.174.184"
+2026/10/14 13:34:28 [error] 149691#149691: *13157 connect() failed (111: Connection refused) while connecting to upstream, client: 45.198.224.125, server: app.cronexia.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:3001/", host: "51.89.174.184:80"
+2026/10/14 13:41:23 [error] 149691#149691: *13159 connect() failed (111: Connection refused) while connecting to upstream, client: 172.236.119.165, server: app.cronexia.com, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:3001/", host: "51.89.174.184"
+2026/10/14 14:11:42 [error] 149691#149691: *13169 user "admin_oaNA6gEMBmpz3RQN" was not found in "/var/www/.htpasswd", client: 104.28.243.189, server: cronexia.com, request: "GET / HTTP/1.1", host: "cronexia.com"
+2026/10/14 14:16:00 [error] 149688#149688: *13185 user "admin_oaNA6gEMBmpz3RQN" was not found in "/var/www/.htpasswd", client: 104.28.243.188, server: cronexia.com, request: "GET / HTTP/1.1", host: "app.cronexia.com"
+2026/10/14 14:16:35 [error] 149688#149688: *13197 upstream sent too big header while reading response header from upstream, client: 185.191.236.38, server: app.cronexia.com, request: "GET /login HTTP/1.1", upstream: "http://127.0.0.1:3001/login", host: "51.89.174.184"
+2026/10/14 14:16:35 [error] 149688#149688: *13197 upstream sent too big header while reading response header from upstream, client: 185.191.236.38, server: app.cronexia.com, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:3001/favicon.ico", host: "51.89.174.184"
+2026/10/14 14:16:40 [error] 149688#149688: *13202 upstream sent too big header while reading response header from upstream, client: 170.231.237.214, server: app.cronexia.com, request: "GET /.well-known/security.txt HTTP/1.1", upstream: "http://127.0.0.1:3001/.well-known/security.txt", host: "51.89.174.184"
+2026/10/14 14:28:24 [error] 149688#149688: *13214 upstream sent too big header while reading response header from upstream, client: 104.28.243.189, server: app.cronexia.com, request: "GET /login HTTP/1.1", upstream: "http://127.0.0.1:3001/login", host: "app.cronexia.com"
+2026/10/14 14:28:24 [error] 149688#149688: *13214 upstream sent too big header while reading response header from upstream, client: 104.28.243.189, server: app.cronexia.com, request: "GET /login HTTP/1.1", upstream: "http://127.0.0.1:3001/login", host: "app.cronexia.com"
+2026/10/14 14:28:25 [error] 149688#149688: *13214 upstream sent too big header while reading response header from upstream, client: 104.28.243.189, server: app.cronexia.com, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:3001/favicon.ico", host: "app.cronexia.com", referrer: "http://app.cronexia.com/login"
+2026/10/14 14:28:29 [error] 149688#149688: *13214 upstream sent too big header while reading response header from upstream, client: 104.28.243.189, server: app.cronexia.com, request: "GET /login HTTP/1.1", upstream: "http://127.0.0.1:3001/login", host: "app.cronexia.com"
+2026/10/14 14:28:29 [error] 149688#149688: *13214 upstream sent too big header while reading response header from upstream, client: 104.28.243.189, server: app.cronexia.com, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:3001/favicon.ico", host: "app.cronexia.com", referrer: "http://app.cronexia.com/login"
+2026/10/14 14:28:35 [error] 149688#149688: *13214 upstream sent too big header while reading response header from upstream, client: 104.28.243.189, server: app.cronexia.com, request: "GET /login HTTP/1.1", upstream: "http://127.0.0.1:3001/login", host: "app.cronexia.com"
+2026/10/14 14:28:35 [error] 149688#149688: *13214 upstream sent too big header while reading response header from upstream, client: 104.28.243.189, server: app.cronexia.com, request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:3001/favicon.ico", host: "app.cronexia.com", referrer: "http://app.cronexia.com/login"
+2026/10/14 14:35:19 [error] 149688#149688: *13233 upstream sent too big header while reading response header from upstream, client: 127.0.0.1, server: app.cronexia.com, request: "HEAD /login HTTP/1.1", upstream: "http://127.0.0.1:3001/login", host: "app.cronexia.com"
