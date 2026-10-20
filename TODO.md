@@ -70,6 +70,7 @@ List of pending tasks.
 - 🧩 Composant
 - 🍪 Cookies
 - 🔐 auth
+- 🌿 branche
 
 ## Raccourcis Cursor
 

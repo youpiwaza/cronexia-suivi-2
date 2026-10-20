@@ -18,7 +18,7 @@ Fichiers : cronexia-gta-back/app/src/user-profile-instances/functions/workflow-r
 
 ---
 
-Prend en compte la résolution du comportement du 2eme champ Boolean ~ isDelegationEffective si Référent absent aux dates dateStart <= now <= dateEnd
+Prend en compte la résolution du comportement du 2eme champ Boolean ~ isDelegationEffective si Responsable absent aux dates dateStart <= now <= dateEnd
 
 ---
 

@@ -1,4 +1,4 @@
-# 💾 Back / 🌊✔️Workflows / 👉 Délégations / 🐯🌐🔍 Délégué peut query les demandes du référent
+# 💾 Back / 🌊✔️Workflows / 👉 Délégations / 🐯🌐🔍 Délégué peut query les demandes du responsable
 
 Un délégué voit la même file de demandes que le titulaire.
 

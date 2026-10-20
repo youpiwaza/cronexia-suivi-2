@@ -1,4 +1,4 @@
-# 💾 Back / 🌊✔️Workflows / 👉 Délégations / 🐯🌐🖊️ Délégué peut valider/refuser les demandes du référent
+# 💾 Back / 🌊✔️Workflows / 👉 Délégations / 🐯🌐🖊️ Délégué peut valider/refuser les demandes du responsable
 
 Un délégué peut valider/refuser au nom du titulaire, avec trace des deux identités.
 
