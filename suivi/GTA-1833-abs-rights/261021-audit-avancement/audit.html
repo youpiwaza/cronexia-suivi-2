@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>audit.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="audit-davancement--absences-en-droit">Audit d'avancement — Absences en droit</h1>
+<p>21 octobre 2026. Statuts à reporter dans la colonne « Géré » du récap fonctionnel.</p>
+<h2 id="grille">Grille</h2>
+<ul>
+<li><strong>Géré</strong> : le comportement tourne, pas seulement le champ en base.</li>
+<li><strong>Géré partiellement</strong> : le champ, le CRUD ou les seeds existent, mais le moteur est incomplet ou ne couvre qu'un cas.</li>
+<li><strong>Non implémenté</strong> : pas de champ, ou aucun traitement.</li>
+</ul>
+<h2 id="constat-moteur">Constat moteur</h2>
+<p>La génération ne crée que les mouvements d'acquisition « en cours » (<code>addInProgress</code>), et seulement pour un droit géré par exercice dont la valeur d'acquisition est une constante, pour les ressources des populations cibles. Chaque date reçoit cette valeur telle quelle (montant par période, 2,5 ou 3 dans les seeds).</p>
+<p>Les droits non gérés par exercice et l'évaluation des compteurs sont encore des TODO : rien n'est produit. Les soldes ne sont pas recalculés. Les 18 natures de mouvement existent dans le référentiel. L'exemple 1 (années n-1, n, n+1) est chargé en données statiques, il n'est pas produit par le moteur.</p>
+<h2 id="1-objet-et-vocabulaire">1. Objet et vocabulaire</h2>
+<h3 id="11-vocabulaire">1.1 Vocabulaire</h3>
+<table>
+<thead>
+<tr>
+<th>Terme</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Droit</td>
+<td>Géré partiellement</td>
+<td>Paramétrage et versions en place. Acquisition, consommation, report et perte ne sont pas enchaînés.</td>
+</tr>
+<tr>
+<td>Event</td>
+<td>Géré partiellement</td>
+<td>Plusieurs droits peuvent pointer le même event. Pas de décompte à la pose.</td>
+</tr>
+<tr>
+<td>Ressource</td>
+<td>Géré</td>
+<td>Mouvements et soldes rattachés à la ressource, donc à son matricule.</td>
+</tr>
+<tr>
+<td>Population</td>
+<td>Géré partiellement</td>
+<td>L'éligibilité filtre la génération, seulement pour un droit géré par exercice et une valeur constante.</td>
+</tr>
+<tr>
+<td>Exercice</td>
+<td>Géré partiellement</td>
+<td>Une période d'acquisition et une période de prise par version. Le cas « non géré par exercice » n'est pas généré.</td>
+</tr>
+<tr>
+<td>En cours</td>
+<td>Géré partiellement</td>
+<td>Seul montant produit par la génération.</td>
+</tr>
+<tr>
+<td>Acquis</td>
+<td>Géré partiellement</td>
+<td>Colonne et seeds d'exemple. Pas produits par la génération. Pas de bascule quand acquisition et prise coïncident.</td>
+</tr>
+<tr>
+<td>Report</td>
+<td>Géré partiellement</td>
+<td>Délai, plafond et automatique stockés, plus les seeds d'exemple. Pas de bascule.</td>
+</tr>
+<tr>
+<td>Perdus / payés</td>
+<td>Géré partiellement</td>
+<td>Natures au référentiel et dans les seeds. Pas de colonne dédiée, pas de neutralisation calculée.</td>
+</tr>
+<tr>
+<td>Compteur</td>
+<td>Géré partiellement</td>
+<td>Liens prévus (acquisition, plafond de report, minoration, majoration, contrôle). Aucun n'est évalué.</td>
+</tr>
+<tr>
+<td>Mouvement</td>
+<td>Géré partiellement</td>
+<td>Ligne de trace en place. Seul l'ajout d'en cours est produit. Les autres natures sont au référentiel et dans les seeds.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-le-besoin--principes-généraux">2. Le besoin : principes généraux</h2>
+<h3 id="21-populations-et-volumes">2.1 Populations et volumes</h3>
+<table>
+<thead>
+<tr>
+<th>Réf.</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PG-01</td>
+<td>Géré partiellement</td>
+<td>Filtre par population à la génération, seulement si le droit est géré par exercice et la valeur est une constante.</td>
+</tr>
+<tr>
+<td>PG-09</td>
+<td>Géré partiellement</td>
+<td>Plusieurs droits peuvent pointer le même event (<code>ArPriority</code>), avec des populations par version. Pas de résolution à la pose.</td>
+</tr>
+<tr>
+<td>PG-13</td>
+<td>Géré partiellement</td>
+<td>Jours ou heures stocké. La génération ne distingue pas l'unité.</td>
+</tr>
+<tr>
+<td>PG-14</td>
+<td>Géré partiellement</td>
+<td>Constante écrite telle quelle sur chaque date (2,5 ou 3 dans les seeds). Compteur non évalué.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-acquisition-et-exercices">2.2 Acquisition et exercices</h3>
+<table>
+<thead>
+<tr>
+<th>Réf.</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PG-02</td>
+<td>Géré partiellement</td>
+<td>Dates relatives stockées. La génération lit les dates concrètes de l'exercice. Le cas sans exercice n'est pas généré.</td>
+</tr>
+<tr>
+<td>PG-04</td>
+<td>Géré partiellement</td>
+<td>Un exercice par version. Seeds n-1, n, n+1. Pas de cycle de vie entre exercices.</td>
+</tr>
+<tr>
+<td>PG-10</td>
+<td>Géré partiellement</td>
+<td>Politique d'anticipation stockée, non appliquée à la pose.</td>
+</tr>
+<tr>
+<td>PG-11</td>
+<td>Géré partiellement</td>
+<td>Lien vers un compteur de minoration stocké, non évalué. Pas de lien aux absences minorantes.</td>
+</tr>
+<tr>
+<td>PG-12</td>
+<td>Non implémenté</td>
+<td>Même montant pour chaque ressource de la population, sans entrée, sortie ni taux.</td>
+</tr>
+<tr>
+<td>PG-19</td>
+<td>Géré partiellement</td>
+<td>Remise à zéro à la sortie stockée en booléen. Aucun mouvement généré.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-prise-et-contrôles">2.3 Prise et contrôles</h3>
+<table>
+<thead>
+<tr>
+<th>Réf.</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PG-03</td>
+<td>Géré partiellement</td>
+<td>Dates de prise stockées (relatives et dates d'exercice), non contrôlées à la pose.</td>
+</tr>
+<tr>
+<td>PG-05</td>
+<td>Non implémenté</td>
+<td>Pas de moteur de prise, donc pas d'ordre entre exercices.</td>
+</tr>
+<tr>
+<td>PG-07</td>
+<td>Géré partiellement</td>
+<td>Jonction droit / event en place, CRUD de test. Pas de décompte.</td>
+</tr>
+<tr>
+<td>PG-08</td>
+<td>Géré partiellement</td>
+<td>Priorité entière, unique par event. Non consommée à la prise.</td>
+</tr>
+<tr>
+<td>PG-15</td>
+<td>Géré partiellement</td>
+<td>Délai de consommation stocké sur la population cible. Génération hors exercice absente.</td>
+</tr>
+<tr>
+<td>PG-22</td>
+<td>Non implémenté</td>
+<td>Pas de paramètre de plafond de prises sur une période.</td>
+</tr>
+<tr>
+<td>PG-23</td>
+<td>Non implémenté</td>
+<td>Pas de paramètre de jours consécutifs maximum.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="24-report-et-perte">2.4 Report et perte</h3>
+<table>
+<thead>
+<tr>
+<th>Réf.</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PG-06</td>
+<td>Géré partiellement</td>
+<td>Délai, plafond et report automatique stockés. Natures et seeds d'exemple. Pas de bascule.</td>
+</tr>
+<tr>
+<td>PG-21</td>
+<td>Non implémenté</td>
+<td>Pas d'alerte avant perte.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="25-ajustements-et-transferts">2.5 Ajustements et transferts</h3>
+<table>
+<thead>
+<tr>
+<th>Réf.</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PG-16</td>
+<td>Géré partiellement</td>
+<td>Natures d'ajustement manuel et saisie d'instance en page de test. Soldes non recalculés. Classé en deuxième temps dans le récap.</td>
+</tr>
+<tr>
+<td>PG-17</td>
+<td>Géré partiellement</td>
+<td>Population autorisée et plafond stockés. Pas d'exécution. Écran prévu plus tard dans le récap.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="26-soldes-et-restitution">2.6 Soldes et restitution</h3>
+<table>
+<thead>
+<tr>
+<th>Réf.</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PG-18</td>
+<td>Géré partiellement</td>
+<td>Modèle de solde et seeds de l'exemple 1. Pas de calcul à date ni prévisionnel.</td>
+</tr>
+<tr>
+<td>PG-20</td>
+<td>Non implémenté</td>
+<td>Pas de restitution des valeurs du droit dans des compteurs.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-paramétrage-dun-droit">3. Paramétrage d'un droit</h2>
+<h3 id="31-identification">3.1 Identification</h3>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Code du droit</td>
+<td>Géré</td>
+<td>Stocké, unique, éditable en CRUD de test.</td>
+</tr>
+<tr>
+<td>Libellé court</td>
+<td>Géré</td>
+<td></td>
+</tr>
+<tr>
+<td>Libellé long</td>
+<td>Géré</td>
+<td></td>
+</tr>
+<tr>
+<td>Verrou une fois les droits calculés</td>
+<td>Géré partiellement</td>
+<td>Le flag est affiché en lecture seule et l'info-bulle annonce un verrouillage. Le formulaire d'édition ne bloque pas les champs. Pas de bouton de forçage, ni de suppression des calculs, ni de régénération.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-gestion-population-et-acquisition">3.2 Gestion, population et acquisition</h3>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mode de gestion</td>
+<td>Géré partiellement</td>
+<td>Jours ou heures stocké. Le calcul ne distingue pas l'unité.</td>
+</tr>
+<tr>
+<td>Population cible</td>
+<td>Géré</td>
+<td>Plusieurs populations par version. La génération s'appuie dessus.</td>
+</tr>
+<tr>
+<td>Remise à zéro à la sortie de la population cible</td>
+<td>Géré partiellement</td>
+<td>Booléen stocké. Aucun mouvement de remise à zéro.</td>
+</tr>
+<tr>
+<td>Valeur d'acquisition</td>
+<td>Géré partiellement</td>
+<td>Constante écrite telle quelle sur chaque date. Compteur chargé mais non évalué.</td>
+</tr>
+<tr>
+<td>Périodicité d'acquisition</td>
+<td>Géré</td>
+<td>Les dates périodiques sont produites quand la valeur est une constante. Sans périodicité, la génération s'arrête.</td>
+</tr>
+<tr>
+<td>Event associé</td>
+<td>Géré partiellement</td>
+<td>Priorités stockées sur le droit, pas sur la version. Pas de décompte à la pose.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33-exercice-et-dates">3.3 Exercice et dates</h3>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Droit géré par un exercice</td>
+<td>Géré partiellement</td>
+<td>Génération seulement si oui. Le cas non est un TODO.</td>
+</tr>
+<tr>
+<td>Date de début d'acquisition</td>
+<td>Géré partiellement</td>
+<td>Date relative stockée. La génération lit la date concrète de l'exercice.</td>
+</tr>
+<tr>
+<td>Date de fin d'acquisition</td>
+<td>Géré partiellement</td>
+<td>Date relative stockée. La génération lit la date concrète de l'exercice.</td>
+</tr>
+<tr>
+<td>Date de début de prise</td>
+<td>Géré partiellement</td>
+<td>Stockée, non contrôlée à la pose.</td>
+</tr>
+<tr>
+<td>Date de fin de prise</td>
+<td>Géré partiellement</td>
+<td>Stockée, non contrôlée à la pose.</td>
+</tr>
+<tr>
+<td>Anticipation des droits en cours cumulés à la date du jour</td>
+<td>Géré partiellement</td>
+<td>Une des trois valeurs de l'enum. Non appliquée à la pose.</td>
+</tr>
+<tr>
+<td>Anticipation des droits en cours non encore cumulés</td>
+<td>Géré partiellement</td>
+<td>Même enum. Non appliquée à la pose.</td>
+</tr>
+<tr>
+<td>Date d'ouverture du droit</td>
+<td>Géré partiellement</td>
+<td>Champ stocké, inutilisé.</td>
+</tr>
+<tr>
+<td>Délai de prise à compter de la date d'acquisition</td>
+<td>Géré partiellement</td>
+<td>Stocké sur la population cible, pour les droits hors exercice. Cette génération n'existe pas.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="34-prise-et-contrôles">3.4 Prise et contrôles</h3>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vérification de l'appartenance à la population cible à la date de prise</td>
+<td>Non implémenté</td>
+<td>Aucun champ. Écart avec le récap d'octobre 2026.</td>
+</tr>
+<tr>
+<td>Solde minimum autorisé</td>
+<td>Géré partiellement</td>
+<td>Un nombre par population cible. Pas de contrôle à la pose. Pas de second seuil collaborateur / gestionnaire.</td>
+</tr>
+<tr>
+<td>Population autorisée pour transfert de solde</td>
+<td>Géré partiellement</td>
+<td>Population et plafond (constante ou compteur) stockés. Pas d'écran ni d'exécution. Le récap reporte l'écran.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="35-report">3.5 Report</h3>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Délai de report</td>
+<td>Géré partiellement</td>
+<td>Stocké par population. Pas de bascule en fin de prise.</td>
+</tr>
+<tr>
+<td>Plafond de report</td>
+<td>Géré partiellement</td>
+<td>Constante ou compteur stockés. Non appliqués.</td>
+</tr>
+<tr>
+<td>Report automatique</td>
+<td>Géré partiellement</td>
+<td>Booléen stocké. La surcharge manuelle du délai et du plafond, sans modifier le droit, n'est pas modélisée. Le récap la renvoie à un descriptif séparé.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="36-compteurs-et-ajustements-manuels">3.6 Compteurs et ajustements manuels</h3>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compteur de minoration / prorata</td>
+<td>Géré partiellement</td>
+<td>Lien stocké, non évalué.</td>
+</tr>
+<tr>
+<td>Compteur de majoration</td>
+<td>Géré partiellement</td>
+<td>Lien stocké, non évalué.</td>
+</tr>
+<tr>
+<td>Compteur de contrôle des prises</td>
+<td>Géré partiellement</td>
+<td>Lien stocké, non évalué. Seul emplacement possible pour les plafonds PG-22 et PG-23, encore inerte.</td>
+</tr>
+<tr>
+<td>Ajustement manuel des droits en cours</td>
+<td>Géré partiellement</td>
+<td>Nature de mouvement et saisie en page de test. Soldes non recalculés. Marqué en deuxième temps.</td>
+</tr>
+<tr>
+<td>Ajustement manuel des droits acquis</td>
+<td>Géré partiellement</td>
+<td>Nature de mouvement et saisie en page de test. Soldes non recalculés. Marqué en deuxième temps.</td>
+</tr>
+<tr>
+<td>Ajustement manuel de report</td>
+<td>Géré partiellement</td>
+<td>Nature de mouvement et saisie en page de test. Soldes non recalculés. Marqué en deuxième temps.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-règles-de-gestion">4. Règles de gestion</h2>
+<h3 id="41-cycle-de-vie-et-ordre-de-décompte">4.1 Cycle de vie et ordre de décompte</h3>
+<table>
+<thead>
+<tr>
+<th>Règle</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Périodes d'acquisition et de prise identiques : uniquement des acquis</td>
+<td>Non implémenté</td>
+<td>Quand la génération produit des lignes, ce sont des « en cours ». Jamais uniquement des acquis.</td>
+</tr>
+<tr>
+<td>Décompte : report, puis acquis, puis en cours si anticipation</td>
+<td>Non implémenté</td>
+<td>Pas de moteur de prise.</td>
+</tr>
+<tr>
+<td>Fin de report : reliquat perdu ou payé</td>
+<td>Non implémenté</td>
+<td>Les natures existent, elles ne sont pas produites.</td>
+</tr>
+<tr>
+<td>Sans report : reliquat perdu ou payé en fin de prise</td>
+<td>Non implémenté</td>
+<td>Les natures existent, elles ne sont pas produites.</td>
+</tr>
+<tr>
+<td>Tracer tous les mouvements</td>
+<td>Géré partiellement</td>
+<td>Seul l'ajout d'en cours est produit. Les autres natures sont dans le référentiel et les seeds.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-validation-dune-pose">4.2 Validation d'une pose</h3>
+<table>
+<thead>
+<tr>
+<th>Règle</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Contrôle à la pose (date retenue, prises jusqu'à la fin d'exercice, solde minimum, existence du droit, profil, période de prise)</td>
+<td>Non implémenté</td>
+<td>Pas de lien avec la pose d'un event. Les trois exemples (CP période légale, CP année civile, RTT) ont le même statut.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-historisation-et-calcul-des-soldes">4.3 Historisation et calcul des soldes</h3>
+<table>
+<thead>
+<tr>
+<th>Règle</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Une seule ligne par date d'effet et code droit</td>
+<td>Non implémenté</td>
+<td>Pas de contrainte d'unicité. Plusieurs natures le même jour, y compris dans les seeds. À clarifier avec le métier.</td>
+</tr>
+<tr>
+<td>Solde à date et solde prévisionnel</td>
+<td>Géré partiellement</td>
+<td>Dates d'effet, de création, de mise à jour et de dernier calcul présentes. Pas de lecture « dernière ligne inférieure ou égale à la date ».</td>
+</tr>
+<tr>
+<td>Valider la pose sur le solde prévisionnel</td>
+<td>Non implémenté</td>
+<td>Pas de contrôle de pose.</td>
+</tr>
+<tr>
+<td>Provision sur l'exercice suivant, puis transformation à l'ouverture</td>
+<td>Géré partiellement</td>
+<td>Nature de mouvement et cumul de provision en base. Pas de transformation à l'ouverture de l'exercice suivant.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-données-à-gérer-par-ressource">5. Données à gérer par ressource</h2>
+<h3 id="51-informations-dun-mouvement">5.1 Informations d'un mouvement</h3>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Matricule</td>
+<td>Géré</td>
+<td>Lien vers la ressource.</td>
+</tr>
+<tr>
+<td>Date de création / Date de mise à jour</td>
+<td>Géré partiellement</td>
+<td>Renseignées automatiquement à l'enregistrement. Les dates du fichier d'exemple ne sont pas rejouées.</td>
+</tr>
+<tr>
+<td>Code droit</td>
+<td>Géré partiellement</td>
+<td>Porté par la version, pas recopié sur la ligne.</td>
+</tr>
+<tr>
+<td>Date d'effet du mouvement</td>
+<td>Géré</td>
+<td></td>
+</tr>
+<tr>
+<td>Date d'expiration du droit</td>
+<td>Non implémenté</td>
+<td></td>
+</tr>
+<tr>
+<td>Nature du mouvement</td>
+<td>Géré</td>
+<td>Lien vers le référentiel des natures.</td>
+</tr>
+<tr>
+<td>Référence de l'exercice</td>
+<td>Géré</td>
+<td>Lien exercice et libellé d'aide. Nulle si le droit n'a pas d'exercice.</td>
+</tr>
+<tr>
+<td>Référence instance event</td>
+<td>Non implémenté</td>
+<td>Pas de lien vers l'absence en jours ou en heures.</td>
+</tr>
+<tr>
+<td>Date de fin de validité du droit</td>
+<td>Non implémenté</td>
+<td></td>
+</tr>
+<tr>
+<td>Droits en cours</td>
+<td>Géré</td>
+<td>Produit par la génération et par les seeds.</td>
+</tr>
+<tr>
+<td>Droits acquis</td>
+<td>Géré partiellement</td>
+<td>Colonne présente. Seeds et CRUD, pas la génération.</td>
+</tr>
+<tr>
+<td>Droits reports</td>
+<td>Géré partiellement</td>
+<td>Colonne présente. Seeds et CRUD, pas la génération.</td>
+</tr>
+<tr>
+<td>Droits perdus / payés</td>
+<td>Géré partiellement</td>
+<td>Pas de colonne dédiée. Les seeds replient ce montant dans les trois colonnes de montant.</td>
+</tr>
+<tr>
+<td>Pris sur en cours</td>
+<td>Géré partiellement</td>
+<td>Pas de colonne dédiée. Les seeds le portent en montant négatif sur les droits en cours.</td>
+</tr>
+<tr>
+<td>Pris sur acquis</td>
+<td>Géré partiellement</td>
+<td>Pas de colonne dédiée. Les seeds le portent en montant négatif sur les acquis.</td>
+</tr>
+<tr>
+<td>Pris sur report</td>
+<td>Géré partiellement</td>
+<td>Pas de colonne dédiée. Les seeds le portent en montant négatif sur le report.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-cumuls-et-soldes-sur-lexercice">5.2 Cumuls et soldes sur l'exercice</h3>
+<p>Tous les champs existent sur le solde par ressource. Ils sont remplis par les seeds de l'exemple 1, jamais recalculés.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cumul droits report sur l'exercice</td>
+<td>Géré partiellement</td>
+<td>Seed de l'exemple 1, jamais recalculé.</td>
+</tr>
+<tr>
+<td>Cumul droits report perdus / payés sur l'exercice</td>
+<td>Géré partiellement</td>
+<td>Seed de l'exemple 1, jamais recalculé.</td>
+</tr>
+<tr>
+<td>Cumul pris report sur l'exercice</td>
+<td>Géré partiellement</td>
+<td>Seed de l'exemple 1, jamais recalculé.</td>
+</tr>
+<tr>
+<td>Cumul droits acquis sur l'exercice</td>
+<td>Géré partiellement</td>
+<td>Seed de l'exemple 1, jamais recalculé.</td>
+</tr>
+<tr>
+<td>Cumul droits acquis perdus / payés sur l'exercice</td>
+<td>Géré partiellement</td>
+<td>Seed de l'exemple 1, jamais recalculé.</td>
+</tr>
+<tr>
+<td>Cumul pris acquis sur l'exercice</td>
+<td>Géré partiellement</td>
+<td>Seed de l'exemple 1, jamais recalculé.</td>
+</tr>
+<tr>
+<td>Cumul en cours sur l'exercice</td>
+<td>Géré partiellement</td>
+<td>Seed de l'exemple 1, jamais recalculé.</td>
+</tr>
+<tr>
+<td>Cumul pris en cours sur l'exercice</td>
+<td>Géré partiellement</td>
+<td>Seed de l'exemple 1, jamais recalculé.</td>
+</tr>
+<tr>
+<td>Cumul provision en cours sur l'exercice</td>
+<td>Géré partiellement</td>
+<td>Seed de l'exemple 1, jamais recalculé.</td>
+</tr>
+<tr>
+<td>Solde report sur l'exercice</td>
+<td>Géré partiellement</td>
+<td>Seed de l'exemple 1, jamais recalculé.</td>
+</tr>
+<tr>
+<td>Solde acquis sur l'exercice</td>
+<td>Géré partiellement</td>
+<td>Seed de l'exemple 1, jamais recalculé.</td>
+</tr>
+<tr>
+<td>Solde en cours sur l'exercice</td>
+<td>Géré partiellement</td>
+<td>Seed de l'exemple 1, jamais recalculé.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-liste-des-natures-de-mouvement">5.3 Liste des natures de mouvement</h3>
+<table>
+<thead>
+<tr>
+<th>N°</th>
+<th>Nature</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Ajout d'en cours</td>
+<td>Géré</td>
+<td>Produit par la génération.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Prise d'en cours sur exercice courant</td>
+<td>Géré partiellement</td>
+<td>Référentiel et lignes de l'exemple 1. Pas produite par le moteur.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Prise d'en cours sur exercice suivant</td>
+<td>Géré partiellement</td>
+<td>Référentiel et lignes de l'exemple 1. Pas produite par le moteur.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Transfert en cours vers acquis</td>
+<td>Géré partiellement</td>
+<td>Référentiel et lignes de l'exemple 1. Chargée à la génération, puis non écrite.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Prise d'acquis</td>
+<td>Géré partiellement</td>
+<td>Référentiel et lignes de l'exemple 1.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Perte d'acquis</td>
+<td>Géré partiellement</td>
+<td>Référentiel et lignes de l'exemple 1. Pas produite par le moteur.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Paiement d'acquis</td>
+<td>Géré partiellement</td>
+<td>Référentiel seul.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Transfert acquis vers report</td>
+<td>Géré partiellement</td>
+<td>Référentiel et lignes de l'exemple 1.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Prise de report</td>
+<td>Géré partiellement</td>
+<td>Référentiel et lignes de l'exemple 1. Pas produite par le moteur.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Perte de report</td>
+<td>Géré partiellement</td>
+<td>Référentiel et lignes de l'exemple 1. Pas produite par le moteur.</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Paiement de report</td>
+<td>Géré partiellement</td>
+<td>Référentiel seul.</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Ajustement manuel d'en cours</td>
+<td>Géré partiellement</td>
+<td>Référentiel et saisie en page de test. Deuxième temps dans le récap.</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Ajustement manuel d'acquis</td>
+<td>Géré partiellement</td>
+<td>Référentiel et saisie en page de test. Deuxième temps dans le récap.</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Ajustement manuel de report</td>
+<td>Géré partiellement</td>
+<td>Référentiel et saisie en page de test. Deuxième temps dans le récap.</td>
+</tr>
+</tbody>
+</table>
+<p>Le référentiel contient aussi quatre natures absentes du récap : bascule automatique en cours vers acquis, acquis vers report, acquis vers perte, acquis vers paiement. Elles ne sont pas produites par le moteur.</p>
+<h2 id="6-ce-que-les-informations-doivent-permettre-de-faire">6. Ce que les informations doivent permettre de faire</h2>
+<table>
+<thead>
+<tr>
+<th>N°</th>
+<th>Attendu</th>
+<th>Statut</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Soldes à une date, y compris prévisionnel</td>
+<td>Géré partiellement</td>
+<td>Données et seeds présents. Pas de lecture à une date donnée.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Expliquer la valeur des soldes</td>
+<td>Géré partiellement</td>
+<td>Les lignes de mouvement sont consultables en page de test. Pas d'explication calculée.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Bascule en cours vers acquis</td>
+<td>Non implémenté</td>
+<td>Nature chargée à la génération, puis non écrite.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Bascule acquis vers report, si report automatique</td>
+<td>Non implémenté</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Bascule acquis vers perdu ou payé</td>
+<td>Non implémenté</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Distinguer les droits par exercice</td>
+<td>Géré partiellement</td>
+<td>Lien exercice sur les mouvements et les soldes. Pas de cycle de vie entre exercices.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Rejeter une prise sans droit ou à solde insuffisant, selon le profil</td>
+<td>Non implémenté</td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Vérifier que la pose est dans la période de prise de l'exercice</td>
+<td>Non implémenté</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="écarts-avec-le-récap-doctobre-2026">Écarts avec le récap d'octobre 2026</h2>
+<ul>
+<li>La vérification d'appartenance à la population cible à la date de prise n'a pas de champ.</li>
+<li>La règle « une seule ligne par date d'effet et code droit » est incompatible avec plusieurs natures le même jour, y compris dans les seeds d'exemple.</li>
+<li>Le mouvement n'a ni date d'expiration, ni date de fin de validité, ni lien vers l'instance d'event.</li>
+<li>Les montants perdus ou payés, et les pris sur en cours, acquis et report, ne sont pas des colonnes séparées.</li>
+<li>PG-22 et PG-23 n'ont pas de paramètre. Le compteur de contrôle des prises est le seul emplacement possible, et il n'est pas évalué.</li>
+<li><code>RelativePeriod</code> n'est pas utilisé par les absences en droit. Les délais passent par <code>Period</code>. Les <code>RelativeDate</code> sont stockées et ne sont pas résolues à la génération.</li>
+<li>Quatre natures « bascule automatique » existent en plus des 14 du récap. Elles ne sont pas produites.</li>
+<li>Le plafond de transfert est en base. Il n'apparaît pas dans le tableau 3.4 du récap.</li>
+</ul>
+
+</body>
+</html>
