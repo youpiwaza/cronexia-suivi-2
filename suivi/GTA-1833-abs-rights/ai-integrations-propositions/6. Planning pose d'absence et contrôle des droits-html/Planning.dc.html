@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Planning, pose d'absence et contrôle des droits</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:14px;color:#1B2430;background:#F2F4F7}
+*{box-sizing:border-box}
+.root{position:relative;min-height:900px}
+.app{display:flex;flex-wrap:wrap;min-height:900px}
+.side{flex:0 0 232px;background:#16294A;color:#C9D3E6;padding:20px 12px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:600;font-size:15px;padding:0 8px 18px}
+.logo i{width:28px;height:28px;border-radius:7px;background:#E8A33D;display:block}
+.nav{padding:9px 10px;border-radius:6px;color:#C9D3E6;font-weight:500}
+.nav.on{background:#24427A;color:#fff}
+.main{flex:999 1 640px;min-width:0;display:flex;flex-direction:column}
+.top{min-height:56px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:0 28px;background:#fff;border-bottom:1px solid #DCE1E8}
+.crumb{color:#5B6676}.crumb b{color:#1B2430;font-weight:600}
+.av{width:32px;height:32px;border-radius:50%;background:#1F3A68;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.page{padding:20px 28px 32px;display:flex;flex-direction:column;gap:16px}
+.card{background:#fff;border:1px solid #DCE1E8;border-radius:8px}
+.btn{height:34px;padding:0 14px;border-radius:6px;border:1px solid #C5CCD6;background:#fff;color:#1B2430;font:inherit;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn.p{background:#1F3A68;border-color:#1F3A68;color:#fff}
+.btn.sq{width:34px;padding:0;justify-content:center}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:500;white-space:nowrap}
+.b-grey{background:#EAEDF1;color:#3A4556}.b-warn{background:#FEF0E1;color:#9A3F06}.b-blue{background:#E6EDF8;color:#1F3A68}.b-neg{background:#FDEAE8;color:#A12318}
+.ic{width:16px;height:16px;flex:none}
+.pal{display:inline-flex;align-items:center;justify-content:center;min-width:64px;height:30px;padding:0 12px;border-radius:5px;color:#fff;font-weight:600;font-size:13px}
+.gr{display:flex;border-bottom:1px solid #DCE1E8}
+.gl{flex:0 0 230px;padding:8px 14px;border-right:1px solid #DCE1E8;display:flex;flex-direction:column;justify-content:center;gap:2px;background:#fff}
+.gt{flex:1 1 0;min-width:0;position:relative;background-image:linear-gradient(to right,#E8ECF1 1px,transparent 1px);background-size:7.142857% 100%}
+.wk{position:absolute;top:0;bottom:0;width:14.2857%;background:rgba(220,225,232,.55)}
+.bar{position:absolute;top:11px;height:34px;border-radius:5px;color:#fff;font-weight:600;font-size:13px;display:flex;align-items:center;padding:0 10px;overflow:hidden}
+.dh{display:flex;flex:1 1 0;min-width:0}
+.dh span{flex:1 1 0;text-align:center;font-size:12px;padding:7px 0;line-height:1.25;color:#3A4556}
+.dh span.we{background:#EEF0F3;color:#5B6676}
+.muted{color:#5B6676}
+.ovl{position:absolute;inset:0;background:rgba(22,41,74,.5);display:flex;justify-content:center;align-items:flex-start;padding:150px 24px 24px}
+.modal{width:100%;max-width:760px;background:#fff;border-radius:10px;box-shadow:0 18px 50px rgba(10,20,40,.35);display:flex;flex-direction:column}
+table.t{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.t th{background:#F7F8FA;text-align:left;font-weight:600;color:#3A4556;padding:8px 12px;border-bottom:1px solid #DCE1E8}
+.t td{padding:8px 12px;border-bottom:1px solid #E8ECF1}
+</style>
+</helmet>
+<div class="root">
+<div class="app">
+  <nav class="side" aria-label="Navigation principale">
+    <div class="logo"><i></i>Temps &amp; Absences</div>
+    <div class="nav">Tableau de bord</div>
+    <div class="nav">Collaborateurs</div>
+    <div class="nav on">Planning</div>
+    <div class="nav">Absences</div>
+    <div class="nav">Droits à congés</div>
+    <div class="nav">Compteurs</div>
+    <div class="nav">Outils</div>
+    <div class="nav">Paramétrage</div>
+  </nav>
+  <div class="main">
+    <header class="top">
+      <div class="crumb">Gestion des temps › <b>Planning collectif</b></div>
+      <div class="av" aria-label="Utilisateur AD">AD</div>
+    </header>
+    <div class="page">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="btn">Actualiser</button><button class="btn p">Enregistrer</button><button class="btn">Aperçu</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <button class="btn sq" aria-label="Semaines précédentes"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></button>
+          <b>lun. 19 oct. – dim. 1 nov. 2026</b>
+          <button class="btn sq" aria-label="Semaines suivantes"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg></button>
+        </div>
+        <label style="display:flex;align-items:center;gap:8px;font-weight:500"><input type="checkbox"> Vue heure</label>
+      </div>
+
+      <section class="card" aria-label="Absences jour" style="padding:12px 16px;display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+        <b>Absence jour</b>
+        <span class="pal" style="background:#0B7C84;outline:3px solid #9AD3D7">CP</span>
+        <span class="pal" style="background:#6B4FA0">RTT</span>
+        <span class="pal" style="background:#B45309">RC</span>
+        <span class="pal" style="background:#4B5563">FAM</span>
+        <span class="muted" style="margin-left:auto;font-size:13px">Pinceau actif : <b style="color:#1B2430">CP · Congés payés</b> · Gomme pour effacer</span>
+      </section>
+
+      <section class="card" aria-label="Planning" style="overflow:hidden">
+        <div class="gr" style="background:#F7F8FA">
+          <div class="gl" style="background:#F7F8FA"><b>Ressource</b></div>
+          <div class="dh">
+            <span>lun.<br><b>19</b></span><span>mar.<br><b>20</b></span><span>mer.<br><b>21</b></span><span>jeu.<br><b>22</b></span><span>ven.<br><b>23</b></span><span class="we">sam.<br><b>24</b></span><span class="we">dim.<br><b>25</b></span>
+            <span>lun.<br><b>26</b></span><span>mar.<br><b>27</b></span><span>mer.<br><b>28</b></span><span>jeu.<br><b>29</b></span><span>ven.<br><b>30</b></span><span class="we">sam.<br><b>31</b></span><span class="we">dim.<br><b>1 nov.</b></span>
+          </div>
+        </div>
+
+        <div class="gr" style="height:58px">
+          <div class="gl"><b>Camille Durand</b><span class="muted" style="font-size:12px">123456A · Solde prév. DCP <b style="color:#1B2430">27,33 j</b></span></div>
+          <div class="gt">
+            <div class="wk" style="left:35.714%"></div><div class="wk" style="left:85.714%"></div>
+            <div class="bar" style="left:28.8%;width:6.6%;background:#6B4FA0">RTT</div>
+            <div class="bar" style="left:50.3%;width:35%;background:#0B7C84">CP · 5 j ✓</div>
+          </div>
+        </div>
+        <div class="gr" style="height:58px">
+          <div class="gl"><b>Adrien Petit</b><span class="muted" style="font-size:12px">004 · Solde prév. DCP <b style="color:#9A3F06">2,00 j</b></span></div>
+          <div class="gt">
+            <div class="wk" style="left:35.714%"></div><div class="wk" style="left:85.714%"></div>
+            <div class="bar" style="left:50.3%;width:35%;background:repeating-linear-gradient(45deg,#FDEAE8,#FDEAE8 6px,#fff 6px,#fff 12px);border:2px dashed #A12318;color:#A12318">CP · refusé : droits insuffisants</div>
+          </div>
+        </div>
+        <div class="gr" style="height:58px">
+          <div class="gl"><b>Kamel Benali</b><span class="muted" style="font-size:12px">M0000039 · Solde prév. DCP <b style="color:#1B2430">14,50 j</b></span></div>
+          <div class="gt">
+            <div class="wk" style="left:35.714%"></div><div class="wk" style="left:85.714%"></div>
+            <div class="bar" style="left:0.3%;width:21%;background:#0B7C84">CP · 3 j</div>
+          </div>
+        </div>
+        <div class="gr" style="height:58px;border-bottom:0">
+          <div class="gl"><b>Julie Rousseau</b><span class="muted" style="font-size:12px">M0000040 · Solde prév. DCP <b style="color:#1B2430">22,00 j</b></span></div>
+          <div class="gt">
+            <div class="wk" style="left:35.714%"></div><div class="wk" style="left:85.714%"></div>
+          </div>
+        </div>
+      </section>
+
+      <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:13px" class="muted">
+        <span>Le contrôle des droits s'exécute à l'enregistrement, sur le solde prévisionnel à la date de pose.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ovl" role="dialog" aria-modal="true" aria-label="Résultat du contrôle des droits">
+  <div class="modal">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 22px;border-bottom:1px solid #DCE1E8">
+      <div style="display:flex;align-items:center;gap:10px;font-size:17px;font-weight:600">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#9A3F06" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:22px;height:22px"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><path d="M12 9v4M12 17h.01"></path></svg>
+        Contrôle des droits à l'enregistrement
+      </div>
+      <span class="badge b-grey">1 acceptée · 1 refusée</span>
+    </div>
+    <div style="padding:18px 22px;display:flex;flex-direction:column;gap:16px">
+      <div style="border:1px solid #BFDDCB;background:#F3FAF6;border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><b style="color:#1D5C3A">Acceptée · Camille Durand (123456A)</b><span class="muted">CP du 26/10/2026 au 30/10/2026 · 5 jours ouvrés</span></div>
+        <div style="font-size:13px;display:flex;flex-wrap:wrap;gap:6px 26px">
+          <span>Report : <b>0,00 j</b> <span class="muted">(expiré le 31/08/2026)</span></span>
+          <span>Décompté sur droits acquis DCP 2026-27 : <b>5,00 j</b></span>
+          <span>Solde prévisionnel : <b>32,33 → 27,33 j</b></span>
+        </div>
+      </div>
+
+      <div style="border:1px solid #F0B7B0;background:#FEF6F5;border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><b style="color:#A12318">Refusée · Adrien Petit (004)</b><span class="muted">CP du 26/10/2026 au 30/10/2026 · 5 jours ouvrés</span></div>
+        <div style="font-size:13px">Les droits ne sont pas suffisants pour accepter cette absence (motif : CP).</div>
+        <table class="t" style="background:#fff;border:1px solid #DCE1E8">
+          <thead><tr><th>Droits à la date de pose (12/10/2026)</th><th style="text-align:right">Jours</th></tr></thead>
+          <tbody>
+            <tr><td>Report</td><td style="text-align:right">0,00</td></tr>
+            <tr><td>Acquis</td><td style="text-align:right">2,00</td></tr>
+            <tr><td>En cours cumulés <span class="muted">(prise anticipée autorisée)</span></td><td style="text-align:right">0,00</td></tr>
+            <tr><td><b>Solde prévisionnel</b></td><td style="text-align:right"><b>2,00</b></td></tr>
+            <tr><td>Absence demandée</td><td style="text-align:right">−5,00</td></tr>
+            <tr><td>Solde minimum autorisé pour votre profil</td><td style="text-align:right">0,00</td></tr>
+            <tr><td><b style="color:#A12318">Manque</b></td><td style="text-align:right"><b style="color:#A12318">3,00</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;padding:14px 22px;border-top:1px solid #DCE1E8">
+      <button class="btn">Voir les droits d'Adrien Petit</button>
+      <button class="btn">Réduire la pose à 2 jours</button>
+      <button class="btn p">Fermer</button>
+    </div>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

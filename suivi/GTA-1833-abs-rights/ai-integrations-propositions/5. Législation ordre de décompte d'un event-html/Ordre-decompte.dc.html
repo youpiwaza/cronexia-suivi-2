@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Législation, ordre de décompte d'un event</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:14px;color:#1B2430;background:#F2F4F7}
+*{box-sizing:border-box}
+.app{display:flex;flex-wrap:wrap}
+.side{flex:0 0 232px;background:#16294A;color:#C9D3E6;padding:20px 12px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:600;font-size:15px;padding:0 8px 18px}
+.logo i{width:28px;height:28px;border-radius:7px;background:#E8A33D;display:block}
+.nav{padding:9px 10px;border-radius:6px;color:#C9D3E6;font-weight:500}
+.nav.on{background:#24427A;color:#fff}
+.nav.sub{padding-left:26px;font-size:13px;font-weight:400}
+.nav.sub.on{background:#24427A;color:#fff;font-weight:500}
+.main{flex:999 1 640px;min-width:0;display:flex;flex-direction:column}
+.top{min-height:56px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:0 28px;background:#fff;border-bottom:1px solid #DCE1E8}
+.crumb{color:#5B6676}.crumb b{color:#1B2430;font-weight:600}
+.av{width:32px;height:32px;border-radius:50%;background:#1F3A68;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.page{padding:22px 28px 32px;display:flex;flex-direction:column;gap:16px}
+.card{background:#fff;border:1px solid #DCE1E8;border-radius:8px}
+.card-h{padding:13px 18px;border-bottom:1px solid #DCE1E8;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;font-weight:600;font-size:15px}
+.card-b{padding:18px}
+.btn{height:36px;padding:0 16px;border-radius:6px;border:1px solid #C5CCD6;background:#fff;color:#1B2430;font:inherit;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn.p{background:#1F3A68;border-color:#1F3A68;color:#fff}
+.btn.sm{height:30px;padding:0 10px;font-size:13px}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:500;white-space:nowrap}
+.b-grey{background:#EAEDF1;color:#3A4556}.b-warn{background:#FEF0E1;color:#9A3F06}.b-blue{background:#E6EDF8;color:#1F3A68}.b-ok{background:#E3F1EA;color:#1D5C3A}
+.ic{width:14px;height:14px;flex:none}
+.f{display:flex;flex-direction:column;gap:5px;min-width:0}
+.l{font-weight:500;font-size:13px}
+input[type=text],select{height:36px;border:1px solid #C5CCD6;border-radius:6px;padding:0 10px;font:inherit;background:#fff;color:#1B2430;min-width:0;width:100%}
+.help{font-size:12px;color:#5B6676;line-height:1.4}
+.inl{display:flex;gap:8px;align-items:center}
+table.t{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.t th{background:#F7F8FA;text-align:left;font-weight:600;color:#3A4556;padding:9px 12px;border-bottom:1px solid #DCE1E8;white-space:nowrap}
+.t td{padding:10px 12px;border-bottom:1px solid #E8ECF1;white-space:nowrap}
+.t tr.sel td{background:#EEF3FB}
+.t .strong{font-weight:600}
+.lrow{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:11px 14px;border-bottom:1px solid #E8ECF1}
+.lrow.on{background:#EEF3FB;box-shadow:inset 3px 0 0 #1F3A68}
+.pt{padding:9px 16px;font-weight:500;color:#3A4556;border-bottom:3px solid transparent}
+.pt.on{color:#1F3A68;border-bottom-color:#1F3A68}
+.step{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:600}
+.muted{color:#5B6676}
+.grip{color:#6B7482;letter-spacing:-2px;font-size:16px}
+</style>
+</helmet>
+<div class="app">
+  <nav class="side" aria-label="Navigation principale">
+    <div class="logo"><i></i>Temps &amp; Absences</div>
+    <div class="nav">Tableau de bord</div>
+    <div class="nav">Collaborateurs</div>
+    <div class="nav">Planning</div>
+    <div class="nav">Absences</div>
+    <div class="nav">Droits à congés</div>
+    <div class="nav">Compteurs</div>
+    <div class="nav">Outils</div>
+    <div class="nav on">Paramétrage</div>
+    <div class="nav sub">Droits à absence</div>
+    <div class="nav sub on">Législations des droits</div>
+    <div class="nav sub">Événements d'absence</div>
+    <div class="nav sub">Populations</div>
+    <div class="nav sub">Calendriers</div>
+  </nav>
+  <div class="main">
+    <header class="top">
+      <div class="crumb">Paramétrage › Législations des droits › STD · Législation standard › <b>Event CP</b></div>
+      <div class="av" aria-label="Utilisateur AD">AD</div>
+    </header>
+
+    <div class="page">
+      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center">
+        <div>
+          <h1 style="margin:0 0 4px;font-size:24px;font-weight:600">Législation STD · Standard</h1>
+          <div class="muted">Définit sur quels droits, dans quel ordre et avec quelles limites une absence est décomptée.</div>
+        </div>
+        <div style="display:flex;gap:10px"><button class="btn">Annuler</button><button class="btn p">Enregistrer</button></div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start">
+        <aside class="card" style="flex:0 0 230px" aria-label="Events">
+          <div class="card-h" style="font-size:14px">Events de la législation</div>
+          <div class="lrow on"><span><b>CP</b><br><span class="muted" style="font-size:12px">Congés payés</span></span><span class="badge b-grey">5 lignes</span></div>
+          <div class="lrow"><span><b>RTT</b><br><span class="muted" style="font-size:12px">Jours de RTT</span></span><span class="badge b-grey">1 ligne</span></div>
+          <div class="lrow"><span><b>RC</b><br><span class="muted" style="font-size:12px">Repos compensateur</span></span><span class="badge b-grey">1 ligne</span></div>
+          <div class="lrow" style="border-bottom:0"><span><b>AFO</b><br><span class="muted" style="font-size:12px">Absence en formation</span></span><span class="badge b-grey">3 lignes</span></div>
+        </aside>
+
+        <div style="flex:1 1 640px;min-width:0;display:flex;flex-direction:column;gap:16px">
+          <section class="card">
+            <div class="card-b" style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;padding-bottom:0">
+              <div class="f" style="flex:1 1 240px"><span class="l">Event d'absence</span><select><option>CP · Congés payés</option></select></div>
+              <div class="f" style="flex:1 1 200px"><span class="l">Décompte en</span><select><option>Jours ouvrés</option></select></div>
+              <div class="f" style="flex:2 1 300px"><span class="l">Vue</span><div style="display:flex"><span class="pt on">Ordre de décompte</span><span class="pt">Limites de prise</span><span class="pt">Soldes minimum</span></div></div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;padding:0 18px;border-bottom:1px solid #DCE1E8;margin-top:14px">
+              <span class="pt on">Toutes populations</span><span class="pt">Cadres dirigeants</span><span class="pt muted">+ Ajouter une population</span>
+            </div>
+            <div style="padding:16px 18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:13px">
+              <span class="muted">Dans chaque droit, le décompte suit toujours :</span>
+              <span class="step" style="background:#FEF0E1;color:#9A3F06">1 · Report</span><span class="muted">›</span>
+              <span class="step" style="background:#E6EDF8;color:#1F3A68">2 · Acquis</span><span class="muted">›</span>
+              <span class="step" style="background:#EAF1FA;color:#1F3A68">3 · En cours (si prise anticipée autorisée)</span>
+            </div>
+          </section>
+
+          <section class="card" aria-label="Droits décomptés">
+            <div class="card-h"><span>Droits décomptés pour l'event CP, dans l'ordre</span><button class="btn sm">+ Ajouter une ligne</button></div>
+            <div style="overflow-x:auto">
+            <table class="t">
+              <thead><tr><th></th><th>Ordre</th><th>Droit</th><th>Libellé</th><th>Exercice consommé</th><th class="n" style="text-align:right">Seuil</th><th>Limite</th><th></th></tr></thead>
+              <tbody>
+                <tr><td class="grip">⋮⋮</td><td>10</td><td class="strong">DCPA</td><td>Congés d'ancienneté</td><td>Exercice N-1 (reliquat)</td><td style="text-align:right">0,00</td><td>Sans limite</td><td><button class="btn sm">Modifier</button></td></tr>
+                <tr><td class="grip">⋮⋮</td><td>20</td><td class="strong">DCPA</td><td>Congés d'ancienneté</td><td>Exercice N</td><td style="text-align:right">0,00</td><td>Sans limite</td><td><button class="btn sm">Modifier</button></td></tr>
+                <tr><td class="grip">⋮⋮</td><td>30</td><td class="strong">DCP</td><td>Congés payés</td><td>Exercice N-1 (reliquat)</td><td style="text-align:right">0,00</td><td>Sans limite</td><td><button class="btn sm">Modifier</button></td></tr>
+                <tr><td class="grip">⋮⋮</td><td>40</td><td class="strong">DCP</td><td>Congés payés</td><td>Exercice N</td><td style="text-align:right">0,00</td><td>Sans limite</td><td><button class="btn sm">Modifier</button></td></tr>
+                <tr class="sel"><td class="grip">⋮⋮</td><td>50</td><td class="strong">DCP</td><td>Congés payés</td><td>Exercice N+1 (anticipation)</td><td style="text-align:right">0,00</td><td><span class="badge b-warn">10 j max, dès décembre</span></td><td><button class="btn sm">Modifier</button></td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div style="padding:12px 18px;display:flex;gap:16px;flex-wrap:wrap;font-size:13px;border-top:1px solid #E8ECF1">
+              <span class="muted">Une absence est décomptée sur la première ligne qui a du solde, puis déborde sur la suivante.</span>
+            </div>
+          </section>
+
+          <section class="card" aria-label="Limites de prise">
+            <div class="card-h">Limites de prise</div>
+            <div class="card-b" style="display:flex;flex-wrap:wrap;gap:20px">
+              <div class="f" style="flex:1 1 220px"><span class="l">Volume maximum de prises</span><div class="inl"><input type="text" value="2" style="width:70px" aria-label="Quantité"><span>jours par</span><select aria-label="Période" style="width:110px"><option>mois</option></select></div><span class="help">Exemple : pas plus de 2 jours de RTT par mois.</span></div>
+              <div class="f" style="flex:1 1 220px"><span class="l">Jours de prise consécutifs</span><div class="inl"><input type="text" value="3" style="width:70px" aria-label="Maximum"><span>jours maximum</span></div><span class="help">Au-delà, la pose est refusée.</span></div>
+              <div class="f" style="flex:1 1 260px"><span class="l">Compteur de contrôle personnalisé</span><select><option>Aucun</option></select><span class="help">Un compteur peut rejeter la prise et en donner la raison.</span></div>
+            </div>
+          </section>
+
+          <section class="card" aria-label="Soldes minimum">
+            <div class="card-h">Solde minimum selon le profil de l'utilisateur</div>
+            <div class="card-b" style="display:flex;flex-wrap:wrap;gap:20px">
+              <div class="f" style="flex:1 1 180px"><span class="l">Collaborateur</span><div class="inl"><input type="text" value="0" style="width:80px" aria-label="Solde minimum collaborateur"><span>jours</span></div></div>
+              <div class="f" style="flex:1 1 180px"><span class="l">Manager</span><div class="inl"><input type="text" value="−2" style="width:80px" aria-label="Solde minimum manager"><span>jours</span></div></div>
+              <div class="f" style="flex:1 1 180px"><span class="l">Gestionnaire RH</span><div class="inl"><input type="text" value="−3" style="width:80px" aria-label="Solde minimum gestionnaire RH"><span>jours</span></div></div>
+              <div class="help" style="flex:1 1 100%">Le solde minimum du droit s'applique par défaut. Un profil habilité peut le dépasser.</div>
+            </div>
+          </section>
+        </div>
+
+        <aside style="flex:0 0 330px;display:flex;flex-direction:column;gap:16px" aria-label="Modification de ligne">
+          <section class="card">
+            <div class="card-h">Modifier la ligne 50</div>
+            <div class="card-b" style="display:flex;flex-direction:column;gap:14px">
+              <label class="f"><span class="l">Droit</span><select><option>DCP · Congés payés</option></select></label>
+              <label class="f"><span class="l">Exercice consommé</span><select><option>Exercice N+1 (anticipation)</option></select></label>
+              <label class="f"><span class="l">Solde minimum (seuil)</span><input type="text" value="0,00"></label>
+              <div class="f"><span class="l">Anticipation autorisée</span><div class="inl"><span>À partir de</span><select aria-label="Mois" style="width:130px"><option>décembre</option></select><span>à hauteur de</span><input type="text" value="10" aria-label="Jours" style="width:60px"><span>j</span></div></div>
+              <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn sm">Supprimer</button><button class="btn sm p">Valider</button></div>
+            </div>
+          </section>
+          <section class="card">
+            <div class="card-h">Tester la législation</div>
+            <div class="card-b" style="display:flex;flex-direction:column;gap:12px">
+              <label class="f"><span class="l">Ressource</span><input type="text" value="Camille Durand (123456A)"></label>
+              <div class="inl"><label class="f" style="flex:1"><span class="l">Du</span><input type="text" value="26/10/2026"></label><label class="f" style="flex:1"><span class="l">Au</span><input type="text" value="30/10/2026"></label></div>
+              <button class="btn p" style="justify-content:center">Simuler la pose</button>
+              <div style="border:1px solid #DCE1E8;border-radius:8px;padding:12px 14px;background:#F7F8FA;display:flex;flex-direction:column;gap:6px;font-size:13px">
+                <b style="color:#1D5C3A">Pose acceptée · 5 jours ouvrés</b>
+                <div>Ligne 40 · DCP exercice N : <b>5,00 j</b> sur acquis</div>
+                <div class="muted">Report : 0 j (expiré le 31/08/2026)</div>
+                <div>Solde prévisionnel après pose : <b>27,33 j</b></div>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1760}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

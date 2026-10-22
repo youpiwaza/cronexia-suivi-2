@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Paramétrage d'un droit</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:14px;color:#1B2430;background:#F2F4F7}
+*{box-sizing:border-box}
+.app{display:flex;flex-wrap:wrap}
+.side{flex:0 0 232px;background:#16294A;color:#C9D3E6;padding:20px 12px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:600;font-size:15px;padding:0 8px 18px}
+.logo i{width:28px;height:28px;border-radius:7px;background:#E8A33D;display:block}
+.nav{padding:9px 10px;border-radius:6px;color:#C9D3E6;font-weight:500}
+.nav.on{background:#24427A;color:#fff}
+.nav.sub{padding-left:26px;font-size:13px;font-weight:400}
+.nav.sub.on{background:#24427A;color:#fff;font-weight:500}
+.main{flex:999 1 640px;min-width:0;display:flex;flex-direction:column}
+.top{min-height:56px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:0 28px;background:#fff;border-bottom:1px solid #DCE1E8}
+.crumb{color:#5B6676}.crumb b{color:#1B2430;font-weight:600}
+.av{width:32px;height:32px;border-radius:50%;background:#1F3A68;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.page{padding:22px 28px 32px;display:flex;flex-direction:column;gap:16px}
+.card{background:#fff;border:1px solid #DCE1E8;border-radius:8px}
+.card-h{padding:13px 18px;border-bottom:1px solid #DCE1E8;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;font-weight:600;font-size:15px}
+.card-b{padding:18px}
+.btn{height:36px;padding:0 16px;border-radius:6px;border:1px solid #C5CCD6;background:#fff;color:#1B2430;font:inherit;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn.p{background:#1F3A68;border-color:#1F3A68;color:#fff}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:500;white-space:nowrap}
+.b-grey{background:#EAEDF1;color:#3A4556}.b-warn{background:#FEF0E1;color:#9A3F06}.b-blue{background:#E6EDF8;color:#1F3A68}.b-ok{background:#E3F1EA;color:#1D5C3A}
+.ic{width:14px;height:14px;flex:none}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 24px}
+.f{display:flex;flex-direction:column;gap:5px;min-width:0}
+.l{font-weight:500;font-size:13px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+input[type=text],select{height:36px;border:1px solid #C5CCD6;border-radius:6px;padding:0 10px;font:inherit;background:#fff;color:#1B2430;min-width:0;width:100%}
+input[readonly],select[disabled],input[disabled]{background:#EEF0F3;color:#3A4556;border-color:#DCE1E8}
+.help{font-size:12px;color:#5B6676;line-height:1.4}
+.inl{display:flex;gap:8px;align-items:center}
+.tg{display:flex;align-items:center;gap:8px;height:36px;font-weight:500}
+.seg{display:inline-flex;border:1px solid #C5CCD6;border-radius:6px;overflow:hidden;background:#fff;flex:none}
+.seg span{padding:7px 12px;font-weight:500;color:#3A4556;font-size:13px}
+.seg span.on{background:#1F3A68;color:#fff}
+.lock{color:#5B6676;display:inline-flex}
+.tagx{font-size:11px;font-weight:600;padding:1px 7px;border-radius:9px;background:#E6EDF8;color:#1F3A68}
+.tagh{font-size:11px;font-weight:600;padding:1px 7px;border-radius:9px;background:#FEF0E1;color:#9A3F06}
+.lrow{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:10px 14px;border-bottom:1px solid #E8ECF1}
+.lrow.on{background:#EEF3FB;box-shadow:inset 3px 0 0 #1F3A68}
+.rule{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.45}
+.rule i{flex:none;width:18px;height:18px;border-radius:50%;background:#E6EDF8;color:#1F3A68;font-style:normal;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.muted{color:#5B6676}
+</style>
+</helmet>
+<div class="app">
+  <nav class="side" aria-label="Navigation principale">
+    <div class="logo"><i></i>Temps &amp; Absences</div>
+    <div class="nav">Tableau de bord</div>
+    <div class="nav">Collaborateurs</div>
+    <div class="nav">Planning</div>
+    <div class="nav">Absences</div>
+    <div class="nav">Droits à congés</div>
+    <div class="nav">Compteurs</div>
+    <div class="nav">Outils</div>
+    <div class="nav on">Paramétrage</div>
+    <div class="nav sub on">Droits à absence</div>
+    <div class="nav sub">Législations des droits</div>
+    <div class="nav sub">Événements d'absence</div>
+    <div class="nav sub">Populations</div>
+    <div class="nav sub">Calendriers</div>
+  </nav>
+  <div class="main">
+    <header class="top">
+      <div class="crumb">Paramétrage › Droits à absence › <b>DCP · Droits à congés payés</b></div>
+      <div class="av" aria-label="Utilisateur AD">AD</div>
+    </header>
+
+    <div class="page">
+      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <h1 style="margin:0;font-size:24px;font-weight:600">DCP · Droits à congés payés</h1>
+          <span class="badge b-ok">Actif</span>
+          <span class="badge b-grey">Droits déjà calculés</span>
+        </div>
+        <div style="display:flex;gap:10px"><button class="btn">Annuler</button><button class="btn">Dupliquer</button><button class="btn p">Enregistrer</button></div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start">
+        <!-- liste -->
+        <aside class="card" style="flex:0 0 250px" aria-label="Liste des droits">
+          <div class="card-h" style="font-size:14px"><span>Droits (6)</span><button class="btn" style="height:30px;padding:0 10px">+ Nouveau</button></div>
+          <div style="padding:10px 12px"><input type="text" placeholder="Filtrer par code ou libellé" aria-label="Filtrer les droits"></div>
+          <div class="lrow on"><span><b>DCP</b><br><span class="muted" style="font-size:12px">Droits à congés payés</span></span><span class="badge b-grey">Jour</span></div>
+          <div class="lrow"><span><b>DRTT</b><br><span class="muted" style="font-size:12px">Droit RTT</span></span><span class="badge b-grey">Jour</span></div>
+          <div class="lrow"><span><b>DRC</b><br><span class="muted" style="font-size:12px">Droit repos compensateur</span></span><span class="badge b-grey">Heure</span></div>
+          <div class="lrow"><span><b>DCPA</b><br><span class="muted" style="font-size:12px">Congés d'ancienneté</span></span><span class="badge b-grey">Jour</span></div>
+          <div class="lrow"><span><b>DCET</b><br><span class="muted" style="font-size:12px">Droit CET</span></span><span class="badge b-grey">Jour</span></div>
+          <div class="lrow" style="border-bottom:0"><span><b>DAFO</b><br><span class="muted" style="font-size:12px">Droit créé en formation</span></span><span class="badge b-grey">Heure</span></div>
+        </aside>
+
+        <!-- formulaire -->
+        <div style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;gap:10px;align-items:center;padding:10px 14px;border-radius:8px;background:#E6EDF8;color:#1F3A68;font-size:13px">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+            <span>Les champs avec un cadenas ne sont plus modifiables : des droits ont déjà été calculés avec ce paramétrage.</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;font-size:13px;font-weight:500">
+            <span class="badge b-blue">1 Identification</span><span class="badge b-blue">2 Gestion et acquisition</span><span class="badge b-blue">3 Exercice et dates</span><span class="badge b-blue">4 Prise et contrôles</span><span class="badge b-blue">5 Report et perte</span><span class="badge b-blue">6 Compteurs et ajustements</span>
+          </div>
+
+          <section class="card" aria-label="Identification">
+            <div class="card-h">1 · Identification</div>
+            <div class="card-b grid">
+              <label class="f"><span class="l">Code du droit * <span class="lock" title="Non modifiable une fois des droits calculés"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></span></span><input type="text" value="DCP" readonly=""></label>
+              <label class="f"><span class="l">Libellé court *</span><input type="text" value="Droits CP"></label>
+              <label class="f" style="grid-column:1 / -1"><span class="l">Libellé long *</span><input type="text" value="Droits à congés payés"></label>
+            </div>
+          </section>
+
+          <section class="card" aria-label="Gestion et acquisition">
+            <div class="card-h">2 · Gestion, population et acquisition</div>
+            <div class="card-b grid">
+              <label class="f"><span class="l">Mode de gestion * <span class="lock" title="Non modifiable une fois des droits calculés"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></span></span><select disabled=""><option>En jours</option></select><span class="help">Jours : l'unité du droit est la journée. Heures : l'unité est l'heure.</span></label>
+              <label class="f"><span class="l">Event associé * <span class="lock" title="Non modifiable une fois des droits calculés"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></span></span><select disabled=""><option>CP · Congés payés</option></select><span class="help">Plusieurs droits peuvent alimenter un même event : voir l'ordre de décompte.</span></label>
+              <label class="f"><span class="l">Population cible *</span><select><option>Tous</option></select><span class="help">Les ressources de la population sont éligibles à ce droit.</span></label>
+              <div class="f"><span class="l">Remise à zéro à la sortie de la population cible</span><label class="tg"><input type="checkbox"> Oui, perdre les droits restants</label><span class="help">Non : les droits acquis sont conservés.</span></div>
+              <div class="f"><span class="l">Valeur d'acquisition *</span><div class="inl"><div class="seg"><span class="on">Constante</span><span>Compteur</span></div><input type="text" value="2,0833" aria-label="Valeur d'acquisition"></div><span class="help">Donnée historisée. Avec un compteur, la périodicité est celle du compteur.</span></div>
+              <div class="f"><span class="l">Périodicité d'acquisition * <span class="lock" title="Non modifiable une fois des droits calculés"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></span></span><div class="inl"><input type="text" value="1" readonly="" aria-label="Nombre" style="width:80px"><select disabled="" aria-label="Unité"><option>Mois</option></select></div><span class="help">Obligatoire si la valeur d'acquisition est une constante.</span></div>
+            </div>
+          </section>
+
+          <section class="card" aria-label="Exercice et dates">
+            <div class="card-h"><span>3 · Exercice et dates</span><span class="muted" style="font-weight:400;font-size:12px"><span class="tagx">Exercice</span> uniquement si géré par un exercice · <span class="tagh">Hors exercice</span> sinon</span></div>
+            <div class="card-b grid">
+              <div class="f" style="grid-column:1 / -1"><span class="l">Droit géré par un exercice * <span class="lock" title="Non modifiable une fois des droits calculés"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></span></span><label class="tg"><input type="checkbox" checked="" disabled=""> Oui : 1 exercice = 1 période d'acquisition + 1 période de prise</label></div>
+              <div class="f"><span class="l">Début d'acquisition * <span class="tagx">Exercice</span></span><div class="inl"><input type="text" value="01/06" readonly="" aria-label="Jour et mois" style="width:96px"><select disabled="" aria-label="Année relative"><option>Année N-1</option></select></div></div>
+              <div class="f"><span class="l">Fin d'acquisition * <span class="tagx">Exercice</span></span><div class="inl"><input type="text" value="31/05" readonly="" aria-label="Jour et mois" style="width:96px"><select disabled="" aria-label="Année relative"><option>Année N</option></select></div></div>
+              <div class="f"><span class="l">Début de prise * <span class="tagx">Exercice</span></span><div class="inl"><input type="text" value="01/06" readonly="" aria-label="Jour et mois" style="width:96px"><select disabled="" aria-label="Année relative"><option>Année N</option></select></div></div>
+              <div class="f"><span class="l">Fin de prise * <span class="tagx">Exercice</span></span><div class="inl"><input type="text" value="31/05" readonly="" aria-label="Jour et mois" style="width:96px"><select disabled="" aria-label="Année relative"><option>Année N+1</option></select></div><span class="help">Doit être postérieure ou égale au début de prise.</span></div>
+              <div class="f"><span class="l">Prise anticipée des droits en cours cumulés à ce jour <span class="tagx">Exercice</span></span><label class="tg"><input type="checkbox" checked=""> Autorisée</label></div>
+              <div class="f"><span class="l">Prise anticipée des droits non encore cumulés <span class="tagx">Exercice</span></span><label class="tg"><input type="checkbox"> Autorisée</label><span class="help">Droits prévisionnels, jusqu'à la fin de l'exercice.</span></div>
+              <label class="f"><span class="l">Date d'ouverture du droit <span class="tagx">Exercice</span></span><input type="text" value="" placeholder="Indisponible" disabled=""><span class="help">Disponible seulement si la prise anticipée des droits non cumulés est autorisée. Sans date : ouverture au début de l'exercice d'acquisition.</span></label>
+              <label class="f"><span class="l">Délai de prise à compter de l'acquisition <span class="tagh">Hors exercice</span></span><input type="text" value="" placeholder="Non applicable" disabled=""><span class="help">Réservé aux droits sans exercice. Sans valeur, le droit court jusqu'à la sortie du salarié.</span></label>
+            </div>
+          </section>
+
+          <section class="card" aria-label="Prise et contrôles">
+            <div class="card-h">4 · Prise et contrôles</div>
+            <div class="card-b grid">
+              <div class="f"><span class="l">Vérifier l'appartenance à la population cible à la date de prise *</span><label class="tg"><input type="checkbox" checked=""> Oui</label><span class="help">La prise n'est validée que si la ressource est encore dans la population sur toute la période posée.</span></div>
+              <label class="f"><span class="l">Solde minimum autorisé</span><div class="inl"><input type="text" value="0" style="width:96px"><span>jours</span></div><span class="help">Valeur par défaut. Un gestionnaire RH peut être autorisé à descendre plus bas qu'un collaborateur.</span></label>
+              <label class="f"><span class="l">Population autorisée pour transfert de solde <span class="badge b-grey">Développement futur</span></span><select><option>Aucune : transferts interdits</option></select><span class="help">Si renseignée, un écran permettra de transférer tout ou partie du solde vers une ressource de cette population.</span></label>
+            </div>
+          </section>
+
+          <section class="card" aria-label="Report et perte">
+            <div class="card-h">5 · Report et perte</div>
+            <div class="card-b grid">
+              <div class="f"><span class="l">Délai de report *</span><div class="inl"><input type="text" value="3" style="width:80px" aria-label="Nombre"><select aria-label="Unité"><option>Mois</option></select></div><span class="help">0 : pas de report. Le délai court au lendemain de la fin de prise.</span></div>
+              <div class="f"><span class="l">Plafond de report</span><div class="inl"><div class="seg"><span class="on">Constante</span><span>Compteur</span></div><input type="text" value="5" style="width:80px" aria-label="Plafond"></div><span class="help">Vide : tous les droits restants sont reportés. Sinon le reliquat est perdu ou payé.</span></div>
+              <div class="f" style="grid-column:1 / -1"><span class="l">Report automatique *</span><label class="tg"><input type="checkbox" checked=""> Oui : appliqué le lendemain de la fin de prise pour toute la population</label><span class="help">Si non, un utilisateur habilité déclenche le report, avec délai et plafond modifiables pour l'occasion. Le report manuel fait l'objet d'un descriptif séparé.</span></div>
+            </div>
+          </section>
+
+          <section class="card" aria-label="Compteurs et ajustements">
+            <div class="card-h">6 · Compteurs et ajustements manuels</div>
+            <div class="card-b grid">
+              <label class="f"><span class="l">Compteur de minoration / prorata</span><select><option>Aucun</option></select><span class="help">Réduit la valeur du droit, par exemple après un congé sans solde.</span></label>
+              <label class="f"><span class="l">Compteur de majoration</span><select><option>Aucun</option></select><span class="help">Augmente la valeur du droit.</span></label>
+              <label class="f" style="grid-column:1 / -1"><span class="l">Compteur de contrôle personnalisé des prises</span><select><option>Aucun : contrôles habituels uniquement</option></select><span class="help">Vrai : la prise n'est pas bloquée. Faux : la prise est rejetée, avec un message qui explique le rejet.</span></label>
+              <div class="f" style="grid-column:1 / -1"><span class="l">Ajustements manuels <span class="badge b-grey">Phase 2</span></span><div style="display:flex;flex-wrap:wrap;gap:20px"><label class="tg"><input type="checkbox" disabled=""> Droits en cours</label><label class="tg"><input type="checkbox" disabled=""> Droits acquis</label><label class="tg"><input type="checkbox" disabled=""> Report</label></div></div>
+            </div>
+          </section>
+        </div>
+
+        <!-- résumé -->
+        <aside style="flex:0 0 320px;display:flex;flex-direction:column;gap:16px" aria-label="Résumé du droit">
+          <section class="card">
+            <div class="card-h">Résumé du droit</div>
+            <div class="card-b" style="display:flex;flex-direction:column;gap:12px;font-size:13px">
+              <div style="display:flex;justify-content:space-between"><span class="muted">Code</span><b>DCP</b></div>
+              <div style="display:flex;justify-content:space-between"><span class="muted">Unité</span><b>Jours</b></div>
+              <div style="display:flex;justify-content:space-between"><span class="muted">Event</span><b>CP</b></div>
+              <div style="display:flex;justify-content:space-between"><span class="muted">Population</span><b>Tous</b></div>
+              <div style="display:flex;justify-content:space-between"><span class="muted">Acquisition</span><b>2,0833 j par mois</b></div>
+              <div style="display:flex;justify-content:space-between"><span class="muted">Solde minimum</span><b>0 j</b></div>
+            </div>
+          </section>
+          <section class="card">
+            <div class="card-h">Frise d'un exercice</div>
+            <div class="card-b" style="display:flex;flex-direction:column;gap:10px">
+              <div style="position:relative;height:96px;font-size:11px">
+                <div style="position:absolute;left:0;width:44.4%;top:6px;height:22px;background:#9DBCE6;border-radius:4px 0 0 4px"></div>
+                <div style="position:absolute;left:44.4%;width:44.5%;top:6px;height:22px;background:#2F5FA8;"></div>
+                <div style="position:absolute;left:88.9%;width:11.1%;top:6px;height:22px;background:#B45309;border-radius:0 4px 4px 0"></div>
+                <div style="position:absolute;left:0;top:34px;width:44%;line-height:1.3"><b>Acquisition</b><br>01/06/N-1 → 31/05/N<br><span class="muted">en cours</span></div>
+                <div style="position:absolute;left:44.4%;top:34px;width:44%;line-height:1.3;padding-left:4px"><b>Prise</b><br>01/06/N → 31/05/N+1<br><span class="muted">acquis</span></div>
+                <div style="position:absolute;right:0;top:70px;width:100px;text-align:right;line-height:1.3"><b style="color:#9A3F06">Report 3 mois</b><br>→ 31/08/N+1</div>
+              </div>
+              <div class="help">Le 01/06/N, les « en cours » deviennent « acquis ». Après la prise, 5 jours maximum sont reportés ; le reste est perdu ou payé.</div>
+            </div>
+          </section>
+          <section class="card">
+            <div class="card-h">Règles en clair</div>
+            <div class="card-b" style="display:flex;flex-direction:column;gap:11px">
+              <div class="rule"><i>1</i><span>2,0833 jour acquis chaque mois, du 01/06/N-1 au 31/05/N.</span></div>
+              <div class="rule"><i>2</i><span>Prise du 01/06/N au 31/05/N+1, sur les droits en cours cumulés.</span></div>
+              <div class="rule"><i>3</i><span>Décompte : report, puis acquis, puis en cours.</span></div>
+              <div class="rule"><i>4</i><span>Report automatique de 5 jours maximum pendant 3 mois.</span></div>
+              <div class="rule"><i>5</i><span>Au-delà, les jours non pris sont perdus ou payés.</span></div>
+            </div>
+          </section>
+          <section class="card">
+            <div class="card-h">Liens utiles</div>
+            <div class="card-b" style="display:flex;flex-direction:column;gap:9px;font-size:13px">
+              <a href="#" style="color:#1F3A68;font-weight:600">Voir l'ordre de décompte de l'event CP</a>
+              <a href="#" style="color:#1F3A68;font-weight:600">Voir les compteurs associés</a>
+              <a href="#" style="color:#1F3A68;font-weight:600">Historique des modifications</a>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1760}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

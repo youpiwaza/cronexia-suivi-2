@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Mes droits et soldes, vue salarié</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:14px;color:#1B2430;background:#F2F4F7}
+*{box-sizing:border-box}
+.app{display:flex;flex-wrap:wrap;min-height:1050px}
+.side{flex:0 0 250px;background:#fff;border-right:1px solid #DCE1E8;padding:20px 14px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px;color:#16294A;padding:0 8px 22px}
+.logo i{width:30px;height:30px;border-radius:8px;background:#1F3A68;display:block}
+.nav{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:8px;color:#3A4556;font-weight:500}
+.nav.on{background:#E6EDF8;color:#1F3A68}
+.ic{width:18px;height:18px;flex:none}
+.main{flex:999 1 640px;min-width:0;display:flex;flex-direction:column}
+.top{min-height:64px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:0 32px;background:#fff;border-bottom:1px solid #DCE1E8}
+.av{width:34px;height:34px;border-radius:50%;background:#1F3A68;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.bell{position:relative;display:flex}
+.bell b{position:absolute;top:-6px;right:-8px;background:#B54708;color:#fff;font-size:10px;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.page{padding:24px 32px 36px;display:flex;flex-direction:column;gap:18px}
+.card{background:#fff;border:1px solid #DCE1E8;border-radius:10px}
+.card-h{padding:14px 20px;border-bottom:1px solid #E8ECF1;font-weight:600;font-size:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.btn{height:38px;padding:0 16px;border-radius:6px;border:1px solid #C5CCD6;background:#fff;color:#1B2430;font:inherit;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.kpi{flex:1 1 170px;padding:14px 22px;border-left:1px solid #E8ECF1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi.first{border-left:0;background:#EEF3FB;border-radius:8px}
+.kl{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.kv{font-size:32px;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.kv small{font-size:16px;font-weight:500}
+.ks{color:#5B6676;font-size:13px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid #DCE1E8}
+.tabbtn{background:none;border:0;border-bottom:3px solid transparent;padding:10px 18px;font:inherit;font-weight:500;color:#3A4556;cursor:pointer;margin-bottom:-1px}
+.tabbtn.on{color:#1F3A68;border-bottom-color:#1F3A68}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #E8ECF1;font-variant-numeric:tabular-nums}
+.row.tot{font-weight:600;color:#1F3A68}
+.row.fin{font-weight:600;background:#E6EDF8;color:#1F3A68;margin:0 -20px;padding:11px 20px;border-bottom:0}
+.inf{color:#5B6676;display:inline-flex;vertical-align:middle;margin-left:6px}
+.lbl{font-size:12px;color:#5B6676;font-weight:500;margin-bottom:5px}
+select{height:38px;border:1px solid #C5CCD6;border-radius:6px;padding:0 10px;font:inherit;background:#fff;color:#1B2430;width:100%}
+.sw{display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;font:inherit;cursor:pointer;color:#1B2430}
+.sw i{width:38px;height:22px;border-radius:11px;background:#9AA5B5;position:relative;display:block;flex:none}
+.sw i b{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;display:block}
+.sw.on i{background:#1F3A68}
+.sw.on i b{left:18px}
+.donut{width:170px;height:170px;border-radius:50%;background:conic-gradient(#1F3A68 0 83.78%,#5B8BD0 83.78% 94.59%,#E8A33D 94.59% 100%);display:flex;align-items:center;justify-content:center;flex:none}
+.donut div{width:104px;height:104px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.lgr{display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:13px;font-variant-numeric:tabular-nums}
+.lgr i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
+table.t{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.t th{text-align:left;font-weight:600;color:#3A4556;padding:11px 20px;border-bottom:1px solid #DCE1E8;background:#F7F8FA;white-space:nowrap}
+.t td{padding:12px 20px;border-bottom:1px solid #E8ECF1;white-space:nowrap}
+.t .n{text-align:right}
+.badge{display:inline-block;padding:2px 9px;border-radius:10px;font-size:12px;font-weight:500;white-space:nowrap}
+.b-blue{background:#E6EDF8;color:#1F3A68}.b-warn{background:#FEF0E1;color:#9A3F06}
+.muted{color:#5B6676}
+.link{color:#1F3A68;font-weight:600;text-decoration:none}
+</style>
+</helmet>
+<div class="app">
+  <nav class="side" aria-label="Navigation">
+    <div class="logo"><i></i>Mon Espace RH</div>
+    <div class="nav"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"></path><path d="M5 10v10h14V10"></path></svg>Accueil</div>
+    <div class="nav"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5M9 13h6M9 17h6"></path></svg>Mes demandes</div>
+    <div class="nav"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>Mon planning</div>
+    <div class="nav on"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"></path></svg>Mes droits &amp; soldes</div>
+    <div class="nav"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18M10 14l4 4M14 14l-4 4"></path></svg>Mes absences</div>
+    <div class="nav"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg>Mes justificatifs</div>
+    <div style="flex:1 1 auto;min-height:240px"></div>
+    <div class="nav"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"></path></svg>Aide &amp; Contact</div>
+    <div class="nav muted"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>Réduire le menu</div>
+  </nav>
+
+  <div class="main">
+    <header class="top">
+      <h1 style="margin:0;font-size:22px;font-weight:600">Mes droits &amp; soldes</h1>
+      <div style="display:flex;align-items:center;gap:22px">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Aide" role="img" style="width:22px;height:22px"><circle cx="12" cy="12" r="10"></circle><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"></path></svg>
+        <span class="bell"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Notifications, 3 nouvelles" role="img" style="width:22px;height:22px"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg><b>3</b></span>
+        <div style="display:flex;align-items:center;gap:10px"><div class="av" aria-hidden="true">SM</div><span style="font-weight:500">Sophie Martin</span><span class="muted">▾</span></div>
+      </div>
+    </header>
+
+    <div class="page">
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:12px 16px;border-radius:10px;background:#FEF0E1;border:1px solid #F3C99A;color:#7A3205">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top:2px"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><path d="M12 9v4M12 17h.01"></path></svg>
+        <span><b>Pensez à poser vos congés.</b> Au 31/05/2027, vos congés non pris ne pourront être reportés que dans la limite de 5 jours. Le reste sera perdu.</span>
+      </div>
+
+      <section class="card" aria-label="Congés payés" style="padding:18px 22px;display:flex;flex-wrap:wrap;gap:16px 0;align-items:center">
+        <div style="flex:1 1 250px;display:flex;align-items:center;gap:18px;padding-right:20px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1F3A68" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:54px;height:54px;flex:none"><path d="M3 12a9 9 0 0 1 18 0z"></path><path d="M12 12v7a2 2 0 0 0 4 0"></path><path d="M12 3v1"></path></svg>
+          <div><div style="font-size:18px;font-weight:600;letter-spacing:.02em">CONGÉS PAYÉS</div><div class="muted" style="margin-top:6px">Période de référence<br><span style="color:#1B2430;font-weight:500">01/06/2023 – 31/05/2024</span></div></div>
+        </div>
+        <div class="kpi first" style="flex:1.2 1 220px">
+          <span class="kl" style="color:#1F3A68">Solde disponible</span>
+          <span class="kv" style="color:#1F3A68">{{soldeN}} <small>{{unit}}</small></span>
+          <span class="ks">{{soldeAlt}}</span>
+        </div>
+        <div class="kpi"><span class="kl" style="color:#1F3A68">Acquis</span><span class="kv">{{acquisN}} <small>{{unit}}</small></span><span class="ks">{{acquisAlt}}</span></div>
+        <div class="kpi"><span class="kl" style="color:#9A3F06">Pris</span><span class="kv">{{prisN}} <small>{{unit}}</small></span><span class="ks">{{prisAlt}}</span></div>
+        <div class="kpi"><span class="kl" style="color:#5B4793">En cours</span><span class="kv">{{encN}} <small>{{unit}}</small></span><span class="ks">{{encAlt}}</span></div>
+        <div style="flex:1 1 100%;display:flex;justify-content:flex-end"><button class="btn"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path></svg>Télécharger le récapitulatif</button></div>
+      </section>
+
+      <div class="tabs" role="tablist" aria-label="Type de vue">
+        <button class="tabbtn {{simpleCls}}" role="tab" aria-selected="{{isSimple}}" onClick="{{goSimple}}">Vue simple</button>
+        <button class="tabbtn {{advCls}}" role="tab" aria-selected="{{isAdv}}" onClick="{{goAdv}}">Vue avancée</button>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start">
+        <div style="flex:1 1 640px;min-width:0;display:flex;flex-direction:column;gap:18px">
+          <div>
+            <h2 style="margin:0;font-size:20px;font-weight:600">{{viewTitle}}</h2>
+            <div class="muted" style="margin-top:3px">{{viewSub}}</div>
+          </div>
+
+          <sc-if value="{{isSimple}}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-wrap:wrap;gap:18px;align-items:stretch">
+              <section class="card" aria-label="Synthèse" style="flex:1 1 300px;min-width:0">
+                <div class="card-h">Synthèse</div>
+                <div style="padding:4px 20px 0">
+                  <div class="row"><span>Droits acquis (période en cours)</span><span>{{sAcq}}</span></div>
+                  <div class="row"><span>Congés ancienneté <span class="inf" title="Jours supplémentaires liés à l'ancienneté"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:15px;height:15px"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></span></span><span>{{sAnc}}</span></div>
+                  <div class="row"><span>Congés fractionnement <span class="inf" title="Jours supplémentaires accordés en cas de fractionnement"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:15px;height:15px"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></span></span><span>{{sFrac}}</span></div>
+                  <div class="row"><span>Reliquats reportés (N-1) <span class="inf" title="Droits non pris de l'exercice précédent, décomptés en priorité"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:15px;height:15px"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></span></span><span>{{sRel}}</span></div>
+                  <div class="row tot"><span>Total droits</span><span>{{sTot}}</span></div>
+                  <div class="row"><span>Congés pris</span><span>−{{sPris}}</span></div>
+                  <div class="row"><span>Congés en cours de prise</span><span>{{sEnc}}</span></div>
+                  <div class="row fin"><span>Solde disponible</span><span>{{sSolde}}</span></div>
+                </div>
+              </section>
+              <section class="card" aria-label="Répartition du solde" style="flex:1 1 320px;min-width:0">
+                <div class="card-h">Répartition de votre solde</div>
+                <div style="padding:22px 20px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:center">
+                  <div class="donut" role="img" aria-label="Solde de {{soldeN}} {{unit}} : acquis {{dAcq}}, ancienneté {{dAnc}}, fractionnement {{dFrac}}"><div><b style="font-size:26px;line-height:1">{{soldeN}}</b><span class="muted" style="font-size:13px">{{unit}}</span></div></div>
+                  <div style="flex:1 1 170px;display:flex;flex-direction:column;gap:14px">
+                    <div class="lgr"><span><i style="background:#1F3A68"></i>Acquis <span class="muted">(période en cours)</span></span><b>{{dAcq}}</b></div>
+                    <div class="lgr"><span><i style="background:#B45309"></i>Reliquats reportés</span><b>{{dRel}}</b></div>
+                    <div class="lgr"><span><i style="background:#5B8BD0"></i>Congés ancienneté</span><b>{{dAnc}}</b></div>
+                    <div class="lgr"><span><i style="background:#E8A33D"></i>Congés fractionnement</span><b>{{dFrac}}</b></div>
+                  </div>
+                </div>
+                <div style="padding:0 20px 18px;display:flex;gap:8px;align-items:flex-start;color:#5B6676;font-size:13px">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:16px;height:16px;margin-top:1px"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg>
+                  <span>{{unitNote}} Vos reliquats de l'exercice précédent ont été consommés en priorité.</span>
+                </div>
+              </section>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{isAdv}}" hint-placeholder-val="{{ false }}">
+            <section class="card" aria-label="Détail des mouvements">
+              <div class="card-h"><span>Détail des mouvements de la période</span><span class="muted" style="font-weight:400;font-size:13px">Comment votre solde est calculé</span></div>
+              <div style="overflow-x:auto">
+              <table class="t">
+                <thead><tr><th>Date</th><th>Nature du mouvement</th><th class="n">Quantité</th><th>Décompté sur</th><th class="n">Solde après</th></tr></thead>
+                <tbody>
+                  <tr><td>01/06/2023</td><td>Report de l'exercice précédent</td><td class="n">+{{aRel}}</td><td class="muted">—</td><td class="n">{{aS1}}</td></tr>
+                  <tr><td>01/06/2023 → 31/05/2024</td><td>Acquisition mensuelle</td><td class="n">+{{aAcq}}</td><td class="muted">—</td><td class="n">{{aS2}}</td></tr>
+                  <tr><td>01/06/2023 → 31/05/2024</td><td>Congés ancienneté et fractionnement</td><td class="n">+{{aSup}}</td><td class="muted">—</td><td class="n">{{aS3}}</td></tr>
+                  <tr><td>31/10/2023</td><td>Prise de report</td><td class="n">−{{aP1}}</td><td>Reliquat</td><td class="n">{{aS4}}</td></tr>
+                  <tr><td>26/12/2023</td><td>Prise de report</td><td class="n">−{{aP2}}</td><td>Reliquat</td><td class="n">{{aS5}}</td></tr>
+                  <tr><td>15/04/2024 → 19/04/2024</td><td>Prise de report</td><td class="n">−{{aP3}}</td><td>Reliquat</td><td class="n">{{aS6}}</td></tr>
+                  <tr><td>15/04/2024 → 19/04/2024</td><td>Prise d'acquis</td><td class="n">−{{aP4}}</td><td>Droits acquis</td><td class="n"><b>{{aS7}}</b></td></tr>
+                </tbody>
+              </table>
+              </div>
+              <div style="padding:12px 20px;color:#5B6676;font-size:13px;border-top:1px solid #E8ECF1">Ordre de décompte : reliquats reportés, puis droits acquis, puis droits en cours.</div>
+            </section>
+          </sc-if>
+
+          <section class="card" aria-label="Historique des prises">
+            <div class="card-h">Historique des prises (période en cours)</div>
+            <div style="overflow-x:auto">
+            <table class="t">
+              <thead><tr><th>Date de début</th><th>Date de fin</th><th>Type</th><th>Durée</th><th>Statut</th><th></th></tr></thead>
+              <tbody>
+                <tr><td>15/04/2024</td><td>19/04/2024</td><td>Congés payés</td><td>{{h1}}</td><td><span class="badge b-blue">Validée</span></td><td>›</td></tr>
+                <tr><td>26/12/2023</td><td>26/12/2023</td><td>Congés payés</td><td>{{h2}}</td><td><span class="badge b-blue">Validée</span></td><td>›</td></tr>
+                <tr><td>31/10/2023</td><td>31/10/2023</td><td>Congés payés</td><td>{{h3}}</td><td><span class="badge b-blue">Validée</span></td><td>›</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div style="padding:14px;text-align:center;border-top:1px solid #E8ECF1"><a href="#" class="link">Voir toutes mes prises ›</a></div>
+          </section>
+        </div>
+
+        <aside style="flex:0 0 310px;display:flex;flex-direction:column;gap:18px" aria-label="Filtres et informations">
+          <section class="card">
+            <div class="card-h">Filtres</div>
+            <div style="padding:16px 20px;display:flex;flex-direction:column;gap:16px">
+              <label><div class="lbl">Période de référence</div><select><option>01/06/2023 – 31/05/2024</option><option>01/06/2024 – 31/05/2025</option></select></label>
+              <label><div class="lbl">Type d'absence</div><select><option>Congés payés</option><option>RTT</option></select></label>
+              <button class="sw {{hoursCls}}" role="switch" aria-checked="{{hours}}" onClick="{{toggleHours}}"><i><b></b></i>Afficher en heures</button>
+            </div>
+          </section>
+          <section class="card">
+            <div class="card-h">Informations utiles</div>
+            <div style="padding:16px 20px 18px;display:flex;flex-direction:column;gap:18px">
+              <div style="display:flex;gap:14px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#1F3A68" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:22px;height:22px"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg><div><b>Votre prochaine période d'acquisition</b><div class="muted">01/06/2024 – 31/05/2025</div></div></div>
+              <div style="display:flex;gap:14px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#1F3A68" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:22px;height:22px"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg><div><b>Date limite de prise des congés</b><div class="muted">31/05/2025</div></div></div>
+              <div style="display:flex;gap:14px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#1F3A68" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:22px;height:22px"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg><div><b>Report autorisé</b><div class="muted">Oui (jusqu'au 31/05/2025)</div></div></div>
+              <a href="#" class="link" style="display:flex;justify-content:space-between;align-items:center;font-size:13px">En savoir plus sur vos droits <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:15px;height:15px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"></path></svg></a>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1150}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = this.state || {};
+    const H = !!st.hours;
+    const k = H ? 8 : 1;
+    const unit = H ? 'heures' : 'jours';
+    const n = (d) => (d * k).toFixed(1).replace('.', ',');
+    const t = (d) => n(d) + ' ' + unit;
+    const alt = (d) => (H ? (d).toFixed(1).replace('.', ',') + ' jours' : (d * 8).toFixed(1).replace('.', ',') + ' heures');
+    const isSimple = (st.tab || 'simple') === 'simple';
+    return {
+      hours: H,
+      hoursCls: H ? 'on' : '',
+      toggleHours: () => this.setState({ hours: !H }),
+      isSimple: isSimple,
+      isAdv: !isSimple,
+      simpleCls: isSimple ? 'on' : '',
+      advCls: isSimple ? '' : 'on',
+      goSimple: () => this.setState({ tab: 'simple' }),
+      goAdv: () => this.setState({ tab: 'adv' }),
+      viewTitle: isSimple ? 'Vue simple' : 'Vue avancée',
+      viewSub: isSimple ? 'Synthèse de vos droits et prises pour la période en cours.' : 'Mouvements détaillés de vos droits et de vos prises pour la période en cours.',
+      unit: unit,
+      unitNote: H ? 'Les heures sont calculées sur la base de 8 heures par jour ouvré.' : 'Les jours sont affichés en jours ouvrés (5 jours par semaine).',
+      soldeN: n(18.5), soldeAlt: alt(18.5),
+      acquisN: n(25), acquisAlt: alt(25),
+      prisN: n(6.5), prisAlt: alt(6.5),
+      encN: n(0), encAlt: alt(0),
+      sAcq: t(19), sAnc: t(2), sFrac: t(1), sRel: t(3), sTot: t(25), sPris: t(6.5), sEnc: t(0), sSolde: t(18.5),
+      dAcq: t(15.5), dRel: t(0), dAnc: t(2), dFrac: t(1),
+      aRel: t(3), aAcq: t(19), aSup: t(3),
+      aP1: t(0.5), aP2: t(1), aP3: t(1.5), aP4: t(3.5),
+      aS1: t(3), aS2: t(22), aS3: t(25), aS4: t(24.5), aS5: t(23.5), aS6: t(22), aS7: t(18.5),
+      h1: t(5), h2: t(1), h3: t(0.5)
+    };
+  }
+}
+</script>
+</body>
+</html>

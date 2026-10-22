@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Consultation collective des droits</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:14px;color:#1B2430;background:#F2F4F7}
+*{box-sizing:border-box}
+.app{display:flex;flex-wrap:wrap}
+.side{flex:0 0 232px;background:#16294A;color:#C9D3E6;padding:20px 12px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:600;font-size:15px;padding:0 8px 18px}
+.logo i{width:28px;height:28px;border-radius:7px;background:#E8A33D;display:block}
+.nav{padding:9px 10px;border-radius:6px;color:#C9D3E6;font-weight:500}
+.nav.on{background:#24427A;color:#fff}
+.nav.sub{padding-left:26px;font-size:13px;font-weight:400}
+.main{flex:999 1 640px;min-width:0;display:flex;flex-direction:column}
+.top{min-height:56px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:0 28px;background:#fff;border-bottom:1px solid #DCE1E8}
+.crumb{color:#5B6676}.crumb b{color:#1B2430;font-weight:600}
+.srch{display:flex;align-items:center;gap:8px;height:34px;width:260px;border:1px solid #C5CCD6;border-radius:6px;padding:0 10px;color:#5B6676;background:#fff}
+.srch input{border:0;outline:0;font:inherit;width:100%;background:transparent}
+.av{width:32px;height:32px;border-radius:50%;background:#1F3A68;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.page{padding:24px 28px 32px;display:flex;flex-direction:column;gap:18px}
+.card{background:#fff;border:1px solid #DCE1E8;border-radius:8px}
+.card-h{padding:13px 18px;border-bottom:1px solid #DCE1E8;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;font-weight:600;font-size:15px}
+.btn{height:36px;padding:0 14px;border-radius:6px;border:1px solid #C5CCD6;background:#fff;color:#1B2430;font:inherit;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn.p{background:#1F3A68;border-color:#1F3A68;color:#fff}
+.btn.sq{width:34px;padding:0;justify-content:center}
+.btn[disabled]{color:#6B7482;background:#F2F4F7;cursor:not-allowed}
+.seg{display:inline-flex;border:1px solid #C5CCD6;border-radius:6px;overflow:hidden;background:#fff}
+.seg span{padding:7px 14px;font-weight:500;color:#3A4556}
+.seg span.on{background:#1F3A68;color:#fff}
+.lbl{font-size:12px;color:#5B6676;font-weight:500;margin-bottom:4px}
+.fld{height:36px;border:1px solid #C5CCD6;border-radius:6px;padding:0 12px;display:flex;align-items:center;background:#fff;font-weight:500}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:500;white-space:nowrap}
+.b-grey{background:#EAEDF1;color:#3A4556}.b-warn{background:#FEF0E1;color:#9A3F06}.b-blue{background:#E6EDF8;color:#1F3A68}.b-neg{background:#FDEAE8;color:#A12318}
+.ic{width:16px;height:16px;flex:none}
+table.t{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.t th{background:#F7F8FA;text-align:left;font-weight:600;color:#3A4556;padding:9px 10px;border-bottom:1px solid #DCE1E8;white-space:nowrap}
+.t td{padding:9px 10px;border-bottom:1px solid #E8ECF1;white-space:nowrap}
+.t .n{text-align:right}
+.t tr.grp td{background:#EEF1F5;font-weight:600;border-bottom:1px solid #DCE1E8}
+.t tr.sel td{background:#EEF3FB}
+.t .strong{font-weight:600}
+.t td.neg{background:#FDEAE8;color:#A12318;font-weight:600}
+.stat{flex:1 1 220px;padding:14px 18px;display:flex;flex-direction:column;gap:4px}
+.big{font-size:28px;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.muted{color:#5B6676}
+</style>
+</helmet>
+<div class="app">
+  <nav class="side" aria-label="Navigation principale">
+    <div class="logo"><i></i>Temps &amp; Absences</div>
+    <div class="nav">Tableau de bord</div>
+    <div class="nav">Collaborateurs</div>
+    <div class="nav">Planning</div>
+    <div class="nav">Absences</div>
+    <div class="nav on">Droits à congés</div>
+    <div class="nav sub">Consultation individuelle</div>
+    <div class="nav sub">Consultation collective</div>
+    <div class="nav">Compteurs</div>
+    <div class="nav">Outils</div>
+    <div class="nav">Paramétrage</div>
+  </nav>
+  <div class="main">
+    <header class="top">
+      <div class="crumb">Gestion des temps › Droits à congés › <b>Consultation collective</b></div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <label class="srch"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg><input type="text" placeholder="Rechercher un salarié…" aria-label="Rechercher un salarié"></label>
+        <div class="av" aria-label="Utilisateur AD">AD</div>
+      </div>
+    </header>
+
+    <div class="page">
+      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <h1 style="margin:0;font-size:24px;font-weight:600">Droits aux congés</h1>
+          <div class="muted">Population <b style="color:#1B2430">Pilotes</b> · 48 ressources · 144 lignes de droits</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <div class="seg"><span>Individuel</span><span class="on">Collectif</span></div>
+          <button class="btn"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path></svg>Exporter</button>
+        </div>
+      </div>
+
+      <section class="card" aria-label="Filtres" style="padding:14px 18px;display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end">
+        <div>
+          <div class="lbl">Population</div>
+          <div class="fld" style="min-width:180px;justify-content:space-between;gap:8px"><span>Pilotes</span><span class="muted">▾</span></div>
+        </div>
+        <div>
+          <div class="lbl">Période affichée</div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <button class="btn sq" aria-label="Période précédente"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></button>
+            <div class="fld" style="min-width:210px;justify-content:center">01/06/2025 – 31/05/2027</div>
+            <button class="btn sq" aria-label="Période suivante"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg></button>
+          </div>
+        </div>
+        <div>
+          <div class="lbl">Droits</div>
+          <div class="fld" style="min-width:200px;justify-content:space-between;gap:8px"><span>DCP, DRTT, DRC</span><span class="muted">▾</span></div>
+        </div>
+        <div>
+          <div class="lbl">Unité</div>
+          <div class="seg"><span class="on">Tous</span><span>Jours</span><span>Heures</span></div>
+        </div>
+        <div>
+          <div class="lbl">Rupture par</div>
+          <div class="fld" style="min-width:150px;justify-content:space-between;gap:8px"><span>Ressource</span><span class="muted">▾</span></div>
+        </div>
+        <label style="display:flex;align-items:center;gap:8px;height:36px;font-weight:500"><input type="checkbox"> Soldes négatifs uniquement</label>
+        <div style="margin-left:auto">
+          <div class="lbl">Date de calcul</div>
+          <div class="fld" style="min-width:170px;justify-content:center">Aujourd'hui 12/10/2026</div>
+        </div>
+      </section>
+
+      <div style="display:flex;flex-wrap:wrap;gap:18px">
+        <div class="card stat"><span class="lbl" style="margin:0">Ressources dans la population</span><span class="big">48</span></div>
+        <div class="card stat" style="border-color:#E7B78A"><span class="lbl" style="margin:0">Soldes prévisionnels négatifs</span><span class="big" style="color:#9A3F06">4</span><span class="muted" style="font-size:12px">Filtrer pour les traiter</span></div>
+        <div class="card stat" style="border-color:#E7B78A"><span class="lbl" style="margin:0">Droits expirant sous 30 jours</span><span class="big" style="color:#9A3F06">7</span><span class="muted" style="font-size:12px">Dont 5 reportés automatiquement</span></div>
+        <div class="card stat"><span class="lbl" style="margin:0">Absences en attente de droits</span><span class="big">2</span><span class="muted" style="font-size:12px">Voir les anomalies de planning</span></div>
+      </div>
+
+      <section class="card" aria-label="Droits par ressource">
+        <div class="card-h"><span>Droits par ressource</span><span class="muted" style="font-weight:400;font-size:13px">Cliquer sur une ligne pour ouvrir le détail des mouvements</span></div>
+        <div style="overflow-x:auto">
+        <table class="t">
+          <thead><tr>
+            <th><input type="checkbox" aria-label="Tout sélectionner"></th><th>Ressource</th><th>Code</th><th>Libellé du droit</th><th>Unité</th><th>Début</th><th>Fin</th><th>N°</th>
+            <th class="n">Droits</th><th class="n">Pris</th><th class="n" style="background:#FEF0E1">Pris prév.</th><th class="n" style="background:#FEF0E1">Solde prév.</th><th>Alerte</th>
+          </tr></thead>
+          <tbody>
+            <tr class="grp"><td></td><td colspan="12">⌄ &nbsp;Georges Lambert <span class="muted" style="font-weight:400">(234501) · 3 lignes</span></td></tr>
+            <tr><td><input type="checkbox" aria-label="Sélectionner la ligne"></td><td>Lambert Georges</td><td class="strong">DCP</td><td>Droit congés payés (CP)</td><td>JOUR</td><td>01/06/2026</td><td>31/05/2027</td><td>3</td><td class="n">36,33</td><td class="n">8,00</td><td class="n">5,00</td><td class="n strong">23,33</td><td></td></tr>
+            <tr><td><input type="checkbox" aria-label="Sélectionner la ligne"></td><td>Lambert Georges</td><td class="strong">DRTT</td><td>Droit RTT</td><td>JOUR</td><td>01/01/2026</td><td>31/12/2026</td><td>3</td><td class="n">7,47</td><td class="n">4,00</td><td class="n">1,00</td><td class="n strong">2,47</td><td></td></tr>
+            <tr><td><input type="checkbox" aria-label="Sélectionner la ligne"></td><td>Lambert Georges</td><td class="strong">DRC</td><td>Droit repos comp. remplacement</td><td>HEURE</td><td>28/08/2026</td><td>28/10/2026</td><td>—</td><td class="n">07:00</td><td class="n">03:30</td><td class="n">00:00</td><td class="n strong">03:30</td><td><span class="badge b-warn">Expire le 28/10</span></td></tr>
+
+            <tr class="grp"><td></td><td colspan="12">⌄ &nbsp;Jérôme Roux <span class="muted" style="font-weight:400">(234518) · 2 lignes</span></td></tr>
+            <tr><td><input type="checkbox" aria-label="Sélectionner la ligne"></td><td>Roux Jérôme</td><td class="strong">DCP</td><td>Droit congés payés (CP)</td><td>JOUR</td><td>01/06/2026</td><td>31/05/2027</td><td>3</td><td class="n">36,33</td><td class="n">12,00</td><td class="n">0,00</td><td class="n strong">24,33</td><td></td></tr>
+            <tr class="sel"><td><input type="checkbox" checked="" aria-label="Sélectionner la ligne"></td><td>Roux Jérôme</td><td class="strong">DRTT</td><td>Droit RTT</td><td>JOUR</td><td>01/01/2026</td><td>31/12/2026</td><td>3</td><td class="n">7,47</td><td class="n">6,00</td><td class="n">3,00</td><td class="n neg">−1,53</td><td><span class="badge b-neg">Solde négatif</span></td></tr>
+
+            <tr class="grp"><td></td><td colspan="12">⌄ &nbsp;Philippe Garnier <span class="muted" style="font-weight:400">(234532) · 2 lignes</span></td></tr>
+            <tr class="sel"><td><input type="checkbox" checked="" aria-label="Sélectionner la ligne"></td><td>Garnier Philippe</td><td class="strong">DCP</td><td>Droit congés payés (CP)</td><td>JOUR</td><td>01/06/2026</td><td>31/05/2027</td><td>3</td><td class="n">36,33</td><td class="n">33,50</td><td class="n">5,00</td><td class="n neg">−2,17</td><td><span class="badge b-neg">Solde négatif</span></td></tr>
+            <tr><td><input type="checkbox" aria-label="Sélectionner la ligne"></td><td>Garnier Philippe</td><td class="strong">DRTT</td><td>Droit RTT</td><td>JOUR</td><td>01/01/2026</td><td>31/12/2026</td><td>3</td><td class="n">7,47</td><td class="n">2,00</td><td class="n">0,00</td><td class="n strong">5,47</td><td></td></tr>
+
+            <tr class="grp"><td></td><td colspan="12">⌄ &nbsp;Bruno Moreau <span class="muted" style="font-weight:400">(234547) · 2 lignes</span></td></tr>
+            <tr><td><input type="checkbox" aria-label="Sélectionner la ligne"></td><td>Moreau Bruno</td><td class="strong">DCP</td><td>Droit congés payés (CP)</td><td>JOUR</td><td>01/06/2026</td><td>31/05/2027</td><td>3</td><td class="n">36,33</td><td class="n">4,00</td><td class="n">0,00</td><td class="n strong">32,33</td><td></td></tr>
+            <tr><td><input type="checkbox" aria-label="Sélectionner la ligne"></td><td>Moreau Bruno</td><td class="strong">DRTT</td><td>Droit RTT</td><td>JOUR</td><td>01/01/2026</td><td>31/12/2026</td><td>3</td><td class="n">7,47</td><td class="n">7,47</td><td class="n">0,00</td><td class="n strong">0,00</td><td></td></tr>
+          </tbody>
+        </table>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:12px 18px;background:#16294A;color:#fff;border-radius:0 0 8px 8px">
+          <b>2 lignes sélectionnées</b>
+          <span style="color:#C9D3E6">Actions groupées :</span>
+          <button class="btn" style="height:32px">Initialiser</button>
+          <button class="btn" style="height:32px">Ajuster manuellement</button>
+          <button class="btn" style="height:32px" disabled="">Reporter (phase 2)</button>
+          <button class="btn" style="height:32px" disabled="">Transférer (à venir)</button>
+          <span style="margin-left:auto;color:#C9D3E6;font-size:12px">Les ajustements sont tracés dans l'historique des mouvements</span>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
