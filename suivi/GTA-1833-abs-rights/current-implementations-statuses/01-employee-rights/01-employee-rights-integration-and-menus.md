@@ -64,7 +64,7 @@ Le dossier « 1. Consultation individuelle » est l'écran RH, hors de cette pag
 
 ## 8. Colonne latérale
 
-- [x] `EmployeeRightsFilters.svelte` : deux `InputSvelecte` `size="S"` désactivés (`isClearable={false}`, pas de `name` ; période = exercice de la fixture, droit `DCP`, libellé « Droits à Congés payés ») et `MdSwitchWithLabel` désactivé « Afficher en heures ». `disabled` passe par les props rest.
+- [x] `EmployeeRightsFilters.svelte` : deux `InputSvelecte` `size="S"` actifs (`isClearable={false}`, pas de `name` ; période = exercice de la fixture, droit `DCP`, libellé « Droits à Congés payés ») et `MdSwitchWithLabel` « Afficher en heures ».
 - [x] `EmployeeRightsInfo.svelte` : prochaine période d'acquisition, date limite de prise, report autorisé, depuis les dates de la fixture.
 - [x] `ButtonWithIcon` « En savoir plus sur vos droits » (`open_in_new`, `trailing`, `block`), actif, sans destination.
 
