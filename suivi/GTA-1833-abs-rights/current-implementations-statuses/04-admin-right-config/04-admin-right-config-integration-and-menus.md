@@ -43,7 +43,7 @@ Un motif `/^\/admin\/right(\/|$)/`. Pas de nouveau droit. Pas d'édition de `*.s
 - [x] `rights-admin-config/admin-right-config-fixture.ts`. Retourne `{ absenceRights, absenceRight }` en `AbsenceRightModel`. Seule la page de route l'importe.
 - [x] Droit `DCP`. `labelShort` `Droits CP`. `labelLong` `Droits à Congés payés`. `effectDateEnd` `2030-12-31`. `isRightsAlreadyCalculated` `false`. `isAllowToChangeEvents` `true`. Event `CP` (`Congés payés`).
 - [x] Ligne de liste `RTT_2025`, libellé `Droits à RTT`, en jours. Pas de détail de version pour cette ligne. La liste compte `Droits (2)`. `DRTT`, `DRC`, `DCPA`, `DCET`, `DAFO` sont absents.
-- [x] Trois versions sur `DCP`, mêmes dates relatives et mêmes populations. Dates relatives (mois relatif, donc `MM`) : début d'acquisition `01/MM/Année N-1`, fin `31/MM/Année N`, début de prise `01/MM/Année N+1`, fin `31/MM/Année N+1`. Périodicité `1 mois`. Anticipation `Droits cumulés à ce jour`. La date d'ouverture seedée n'est pas affichée : `VersionTakeSection` ne la montre que pour « non cumulés au-delà de ce jour ».
+- [x] Trois versions sur `DCP`, mêmes dates relatives et mêmes populations. Dates relatives (mois relatif, donc `MM`) : début d'acquisition `01/MM/Année N-1`, fin `31/MM/Année N`, début de prise `01/MM/Année N`, fin `31/MM/Année N+1`. Périodicité `1 mois`. Anticipation `Droits cumulés à ce jour`. La date d'ouverture seedée n'est pas affichée : `VersionTakeSection` ne la montre que pour « non cumulés au-delà de ce jour ».
 - [x] Version 1 : effet `2024-06-01`, libellé `Année N-1`, exercice `CP_EX_2025` (acquisition `01/06/2024–31/05/2025`, prise `01/06/2025–31/05/2026`). Liste de transferts vide.
 - [x] Version 2 : effet `2025-06-01`, libellé `Année N`, exercice `CP_EX_2026` (acquisition `01/06/2025–31/05/2026`, prise `01/06/2026–31/05/2027`). Liste de transferts vide.
 - [x] Version 3 : effet `2026-06-01`, libellé `Année N+1`, exercice `CP_EX_2027` (acquisition `01/06/2026–31/05/2027`, prise `01/06/2027–31/05/2028`). Seule version qui porte les transferts.
@@ -77,7 +77,7 @@ L'état `idArVersion` vit dans la page. Les champs du droit ne changent pas quan
 Quatre `MdElevatedCard`, alimentées par `buildAdminRightConfigSummary` de la version sélectionnée. Changer de version met à jour l'aside et la pile ensemble.
 
 - [x] Résumé : code `DCP`, unité Jours, event `CP`, population de la première cible, acquisition `2,5 j par mois`, solde minimum `0 j`.
-- [x] Frise : couleurs `colors.primary` et `colors.warning` via `getColorInlineStyle`. Libellés = dates absolues de l'exercice de la version, et report `1 an` / plafond `10` de la première cible. Pas de hex du HTML.
+- [x] Frise : couleurs `colors.primary` et `colors.warning` via `getColorInlineStyle`. Pas de hex du HTML. Dates relatives de la version, forme `01/06/N-1` : acquisition `01/06/N-1 → 31/05/N` (`en cours`), prise `01/06/N → 31/05/N+1` (`acquis`). Report : `Report 1 an` puis `→ 31/05/N+2` (fin de prise + délai de report de la première cible). Note : `Le 01/06/N, les « en cours » deviennent « acquis ».` et `Après la prise, 10 jours maximum sont reportés ; le reste est perdu ou payé.` Largeurs au prorata des durées, plancher 1 jour. Les trois versions partagent ces champs : le select ne déplace pas la frise.
 - [x] Règles en clair, cinq lignes dérivées. L'ordre de décompte (« report, puis acquis, puis en cours ») est la phrase statique de la page individuelle, pas un champ stocké.
 - [x] Liens utiles visibles et inert. Pas de route législation.
 
