@@ -21,7 +21,7 @@ List of pending tasks.
 - 🎨🌐 Front / GraphQL & api/
 - 🚚 Contenus/notes dans les autres fichiers TODO
 - 💩 KO
-  - ⏳ en attente
+- ⏳ en attente
 - 🤏 Petite partie
 - 👌 Cleaner / ajouter des types
 - 📧 email envoyé/à envoyer
