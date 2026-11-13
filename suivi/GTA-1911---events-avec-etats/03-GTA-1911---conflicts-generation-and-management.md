@@ -1,4 +1,4 @@
-# GTA-1911 / Génération et gestion des conflits selon l'état des events
+# GTA-1911 / Génération et gestion des conflits selon l'état des events / ✅ Done
 
 Découpe de [01-GTA-1911---ticket-de-base.md](01-GTA-1911---ticket-de-base.md), lignes « gestion des conflits entre events » (Annulé KO, Refusé et Brouillon OK, A valider à vérifier).
 

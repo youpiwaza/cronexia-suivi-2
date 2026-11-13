@@ -1,14 +1,14 @@
-# GTA-1911 / Génération des anomalies selon l'état des events
+# GTA-1911 / Génération des anomalies selon l'état des events / ✅ Done
 
 Découpe de [01-GTA-1911---ticket-de-base.md](01-GTA-1911---ticket-de-base.md), lignes « génération des anomalies » (états Annulé / Brouillon / Refusé, et état A valider).
 
 Un event compte pour le générateur d'anomalies seulement s'il n'a pas de workflow, ou si sa demande est à l'état Validé. Tout autre état est ignoré, y compris pour les anomalies de conflit (CONFLIMLTP, CONFLIMLTPNEUTRE, CONFLIEXCL, CONFLIOVRL). Les conflits d'une demande A valider restent portés par le contrôle de chevauchement à la saisie, qui est un autre ticket.
 
-Le filtre est livré par Ferhat le 12/11/2026, commit `4f6cb56a` sur `hfix-1789-ajustement` (pas encore dans `main`). Jours et heures : sans workflow, ou `validated`. A valider ne compte plus. La popup de conflit le compte toujours. Les branches GTA-1789 ont été effacées, pas commentées.
+Le filtre est dans `main` depuis la PR #96 (`cba79633`, commit `4f6cb56a`, 12/11/2026, Ferhat). Jours et heures : sans workflow, ou `validated`. A valider ne compte plus. La popup de conflit le compte toujours. Les branches GTA-1789 ont été effacées, pas commentées. Ce chantier ne les rétablit pas.
+
+La régénération à l'entrée et à la sortie de Validé est livrée sur `feat-1911-events-states-impacts`. Aujourd'hui et le futur restent exclus. Pas de régénération ponctuelle des journées déjà en base.
 
 Hors de ce ticket : compteurs ([GTA-1915](https://cronexia.atlassian.net/jira/browse/GTA-1915)), conflits à la saisie, affichage des états dans le front.
-
-Estimation proposée : ⏱️ ~1 j (le 0,1 j du ticket de base ne couvre que le filtre). À confirmer après les deux questions PO en fin de ticket.
 
 ---
 
@@ -20,8 +20,8 @@ Estimation proposée : ⏱️ ~1 j (le 0,1 j du ticket de base ne couvre que le 
 | --- | --- |
 | Pas de workflow (`workflowResourceId` null, saisie admin / gestionnaire) | Compte |
 | `validated` — Validé | Compte |
-| `pending` — A valider | Ignoré (livré sur `hfix-1789-ajustement`) |
-| `awaitingAttachements` — En attente de justificatif | Ignoré avec A valider (le commentaire du commit le dit ; à confirmer PO) |
+| `pending` — A valider | Ignoré (dans `main` depuis la PR #96) |
+| `awaitingAttachements` — En attente de justificatif | Ignoré avec A valider. Le filtre mergé le dit. Ce chantier ne le rouvre pas |
 | `draft` — Brouillon | Ignoré |
 | `refused` — Refusé | Ignoré |
 | `cancelled` — Annulé | Ignoré |
@@ -30,74 +30,59 @@ Même règle pour une absence en jours (`EventRangeOnResource`), une absence en 
 
 ---
 
-## État des lieux
+## Filtre
 
-Le filtre du générateur, sur `hfix-1789-ajustement` (`4f6cb56a`, pas encore dans `main`), est une liste blanche dans `build-counted-workflow-state-where.ts` :
+Liste blanche dans `build-counted-workflow-state-where.ts`, déjà dans `main` :
 
 - Jours : `workflowResourceId` null, ou `workflowResource.state = validated`.
-- Heures : saisie directe, déclaration sans demande, ou déclaration `validated`. La branche qui laissait passer un event saisi d'une déclaration en attente est retirée. ADEC / PDEC n'ont plus de cas particulier : ils passent par la même branche `validated`.
-- `pending` et `awaitingAttachements` ne passent plus. `WORKFLOW_STATES_NOT_COUNTED_AS_INPUT` et `DECLARATION_DEVIATION_EVENT_IDS` sont retirés du fichier.
-- Le spec `build-counted-workflow-state-where.spec.ts` attend déjà « null ou `validated` » pour les deux fonctions.
+- Heures : saisie directe, déclaration sans demande, ou déclaration `validated`. ADEC / PDEC passent par la même branche `validated`.
+- `pending` et `awaitingAttachements` ne passent plus.
+- Le spec `build-counted-workflow-state-where.spec.ts` attend « null ou `validated` » pour les deux fonctions.
 
-`main` a encore la liste noire GTA-1789 (`notIn [draft, refused, cancelled]`), qui laisse passer A valider. Le comportement décrit ci-dessus arrive avec le merge de la branche.
-- Le générateur ne relit pas l'état au moment d'écrire les anomalies. Il consomme les events déjà filtrés par `resourcesManualEventRangeByDaysByPeriod` et `resourcesManualEventByDaysByPeriod`. Changer le filtre suffit pour le calcul. Ça ne suffit pas pour les journées déjà générées.
-
-Régénération aujourd'hui quand une demande change d'état :
-
-- Une surcharge d'horaire qui passe à `validated` empile la génération des jours passés (`enqueueEventGenerationAfterScheduleOverloadValidated`, appelé depuis `userProfileInstanceUpdateWrlsStatusWithCascade`).
-- Les autres sujets (absence, déclaration) n'empilent rien à la validation.
-- La soumission d'un workflow sans valideur passe la demande à `validated` et ne recalcule que les compteurs.
-- L'annulation d'une demande validée sans valideur supprime la demande et son event, et ne régénère pas.
-
-Conséquence sur les données déjà en base : une absence A valider a pu clôturer une anomalie (ABSINJ, PNA, conflit). Cette clôture reste en base tant que la période n'est pas régénérée.
+Le générateur ne relit pas l'état au moment d'écrire les anomalies. Il consomme les events déjà filtrés par `resourcesManualEventRangeByDaysByPeriod` et `resourcesManualEventByDaysByPeriod`. Le filtre suffit pour le prochain calcul. Il ne corrige pas les journées déjà générées : d'où l'empilement ci-dessous.
 
 ---
 
-## Ce qu'il convient de faire
+## Régénération livrée
 
-### 1. Filtre : sans workflow, ou Validé
+`enqueueEventGenerationForPastPeriod` borne la période à hier. Aujourd'hui et le futur restent ignorés.
 
-Livré sur `hfix-1789-ajustement`, commit `4f6cb56a` (12/11/2026, Ferhat). Pas encore dans `main`.
-
-`buildCountedWorkflowStateWhere` et `buildCountedDeclarationEventByDayWhere` ne gardent que la saisie sans workflow et l'état `validated`. Le commentaire du fichier dit que brouillon, en attente de validation, en attente de justificatif, refusée et annulée sont ignorées, et que la popup de conflit compte encore « en attente ».
-
-Écart avec ce ticket : les branches GTA-1789 ont été effacées, pas commentées. `WORKFLOW_STATES_NOT_COUNTED_AS_INPUT` aussi. Les rétablir demande de les réécrire. Si on veut garder la marche arrière dans le fichier, les remettre en commentaire sur cette branche, avec un `// TODO:` « règle GTA-1789, décommenter si A valider doit de nouveau compter ».
-
-Le même commit supprime `merge-same-attendance-manual-events.ts` et son spec, sans appelant depuis `bdd79147`. Le comportement vivant est `resolvingManualEventCoverage`.
-
-### 2. Régénérer quand la demande entre dans Validé, ou le quitte
-
-`enqueueEventGenerationForPastPeriod` borne déjà la période à hier. Aujourd'hui et le futur restent ignorés.
-
-Entrées dans Validé, l'event commence à compter, il faut empiler :
-
-- Soumission d'un workflow à 0 niveau. `resourcesSubmitWorkflowResource` appelle `resolveDemandStateWithoutValidator` : le brouillon soumis en `pending` devient `validated`. Le recalcul des compteurs est déjà là (`enqueueCounterRecalcForWrEventRange`). La génération d'events ne l'est pas.
-- Validation du dernier niveau, ou outrepassement qui ne laisse plus aucun niveau `pending` / `awaitingAttachements`. `buildValidatedWorkflowResourcePatch` pose alors `state: validated`, appliqué dans `userProfileInstanceUpdateWrlsStatusWithCascade`. L'empilement actuel ne part que si `workflow.type === scheduleOverload`.
-
-Sortie de Validé, l'event cesse de compter, il faut empiler :
-
-- Annulation d'une demande validée sans valideur (`workflowLevels` à 0) dans `resourcesCancelWorkflowResource`. La demande et son sujet sont supprimés (`deleteWorkflowResourceCascade` : `EventRangeOnResource` et ses jours, `EventByDay` de la déclaration, lignes de surcharge d'horaire). Ce n'est pas un passage à `cancelled`. Les dates sont à lire avant la suppression, et l'empilement se fait après le commit, sur le même modèle que la génération après changement de cycle dans `resources.service.ts`.
-
-Généraliser `enqueueEventGenerationAfterScheduleOverloadValidated` en un seul empilement, appelé à la place de l'actuel, pour ne pas empiler deux fois une surcharge d'horaire. La période dépend du sujet de la demande :
+`workflowResourceGenerationPeriod` donne la période selon le sujet, sans regarder l'état. L'appelant tranche l'entrée ou la sortie de Validé.
 
 - `eventRangeOnResource` : `dateStart` → `dateEnd`
-- `declaration` : dates des `DeclarationDaily` / `DeclarationHourly`
-- `scheduleOverLoads` : `effectDate` min → max (comportement actuel de `scheduleOverloadGenerationPeriod`)
+- `declarationDays` : dates des `DeclarationDaily`
+- `declarationHours` : dates des `DeclarationHourly`
+- `scheduleOverload` : `effectDate` min → max
+- `clockingOverload` et `remoteWorkByScheduleTypeOverload` : rien. Le pointage régénère déjà (`clockings.service.ts` appelle `resourcesGenerateEventsByPeriod`). Pas de second empilement.
 
-Transitions qui ne franchissent pas Validé. Avec le nouveau filtre, les deux états ignorent l'event, aucun empilement :
+`enqueueEventGenerationForWorkflowResource` enchaîne les deux. Il remplace `enqueueEventGenerationAfterScheduleOverloadValidated` et `scheduleOverloadGenerationPeriod`. Une surcharge d'horaire validée n'empile qu'une fois.
 
-- Brouillon → A valider, ou → En attente de justificatif (`resourcesSubmitWorkflowResource`, workflow avec niveaux).
-- A valider ↔ En attente de justificatif (`recomputeDeferredDemandStateAfterWrlsValidated`).
-- A valider ou En attente de justificatif → Refusé. Le validateur ne peut agir que sur ces deux états (`isWrActionableForValidator`). L'auto-refus pour délai de pièces jointes (`applyDeferredAttachmentDeadlineAutoRefuse`) part des mêmes états.
-- Suppression d'un brouillon ou d'une demande encore en attente (`resourcesCancelWorkflowResource`, première branche).
+Les resolvers n'injectent pas la file (`EventGenerationQueueModule` importe `ResourcesModule`). `ResourcesService.enqueueEventGenerationForWorkflowResource` passe par le `moduleRef` déjà en place.
 
-Annulation d'une demande validée qui a des valideurs : non implémentée. `resourcesCancelWorkflowResource` lève `CRO_WR_000000008` (TODO demande d'annulation). Le jour où elle existera, elle devra empiler la génération. Rien à coder pour ce cas dans ce ticket.
+Entrée dans Validé, l'event commence à compter :
 
-Demandes de pointage (`clockingOverload`) : le filtre d'état des events ne les lit pas. Ne pas ajouter un second empilement si l'enregistrement du pointage régénère déjà (`clockings.service.ts` appelle `resourcesGenerateEventsByPeriod`).
+- Dernier niveau validé, ou outrepassement qui ne laisse plus aucun niveau `pending` / `awaitingAttachements`. `userProfileInstanceUpdateWrlsStatusWithCascade` empile si l'état de la demande après cascade est `validated`. Un niveau intermédiaire laisse la demande `pending` : rien.
+- Soumission d'un workflow à 0 niveau. `resourcesSubmitWorkflowResource` : le brouillon soumis en `pending` devient `validated` (`resolveDemandStateWithoutValidator`). L'empilement est à côté du recalcul des compteurs.
 
-### 3. Données déjà générées
+Sortie de Validé, l'event cesse de compter :
 
-Les anomalies déjà clôturées par une demande A valider restent en l'état jusqu'à une régénération de la période. Refuser ou supprimer cette demande ne les rouvre pas : les deux états sont ignorés, et aucun des chemins ci-dessus n'empile. Décision PO en fin de ticket : régénération ponctuelle, ou correction au fil de l'eau.
+- Annulation d'une demande validée sans valideur (`workflowLevels` à 0) dans `resourcesCancelWorkflowResource`. La demande et son sujet sont supprimés. Ce n'est pas un passage à `cancelled`. Les dates sont déjà dans `wr` (`WORKFLOW_RESOURCE_RESOURCES_CANCEL_INCLUDE`), lues avant le delete. L'empilement est après le commit, seulement si la suppression a réussi.
+- Mutation `deleteWorkflowResource` (`workflow-resources.resolver.ts`). Elle supprime n'importe quelle demande, validée comprise. Avant la cascade, une lecture charge l'état et les dates. Après le delete, empilement seulement si l'état était `validated` (`enqueueEventGenerationIfWorkflowResourceWasValidated`).
+
+Rien à empiler quand les deux états ignorent déjà l'event :
+
+- Brouillon → A valider, ou → En attente de justificatif.
+- A valider ↔ En attente de justificatif.
+- A valider ou En attente de justificatif → Refusé, y compris l'auto-refus pour délai de pièces jointes.
+- Suppression d'un brouillon ou d'une demande encore en attente (première branche de `resourcesCancelWorkflowResource`, et `deleteWorkflowResource` hors `validated`).
+
+Annulation d'une demande validée qui a des valideurs : non implémentée. `resourcesCancelWorkflowResource` lève `CRO_WR_000000008`. Le jour où elle existera, elle devra empiler. Rien codé pour ce cas.
+
+---
+
+## Données déjà générées
+
+Décision : pas de régénération ponctuelle. Une anomalie déjà clôturée par une demande A valider reste en l'état jusqu'à la prochaine génération naturelle de la journée (édition de pointage, changement de cycle, ou une des transitions ci-dessus). Refuser ou supprimer cette demande ne la rouvre pas : les deux états sont ignorés, et ces chemins n'empilent pas.
 
 ---
 
@@ -142,7 +127,7 @@ Régénérations déjà en place, déclencheur inchangé, nouveau filtre appliqu
 
 ### Déjà conforme, à ne pas retoucher
 
-- Surcharge d'horaire : `scheduleOverloadGenerationPeriod` ne renvoie une période que pour `scheduleOverload` + `validated`. `resources-schedule-instances-core-by-period.ts` ne charge une surcharge que si elle n'a pas de workflow ou si la demande est `validated`.
+- Surcharge d'horaire chargée pour les horaires en vigueur : `resources-schedule-instances-core-by-period.ts` ne charge une surcharge que si elle n'a pas de workflow ou si la demande est `validated`.
 - Surcharge des pointages théoriques 2 et 3 utilisée pour la plage repas : `resource-merge-times-by-day.ts` ne prend la déclaration que si `workflowResource.state = validated`.
 
 ### Hors impact (un autre filtre, un autre ticket)
@@ -157,15 +142,17 @@ Régénérations déjà en place, déclencheur inchangé, nouveau filtre appliqu
 
 ## Non-régression
 
-### Specs à mettre à jour
+### Specs
 
-À lancer à la main.
+À lancer à la main. Écrites, pas encore rejouées dans ce chantier.
 
-- `build-counted-workflow-state-where.spec.ts` : déjà à jour dans `4f6cb56a`. Les deux fonctions attendent « null ou `validated` ». Relancer à la main sur la branche.
-- `user-profile-instance-update-wrls-status-with-cascade.spec.ts` : l'empilement part pour une absence ou une déclaration qui atteint `validated`, et continue de partir une seule fois pour une surcharge d'horaire validée.
-- `resources-cancel-workflow-resource.spec.ts` : empilement après suppression d'une demande validée sans valideur, avec les dates lues avant le delete. Pas d'empilement pour un brouillon ou une demande encore en attente.
-- `resources-submit-workflow-resource.spec.ts` : empilement quand la soumission sans valideur pose `validated`. Pas d'empilement pour une soumission qui reste `pending` ou `awaitingAttachements`.
-- Spec de la fonction d'empilement généralisée : période selon le sujet, rien à empiler si l'état résultant n'est pas `validated` (hors annulation), rien si la période clampée à hier est vide.
+- `build-counted-workflow-state-where.spec.ts` : déjà à jour dans `4f6cb56a`. « null ou `validated` ».
+- `workflow-resource-generation-period.spec.ts` : une période par type de sujet, rien pour un pointage ou un télétravail par type d'horaire.
+- `enqueue-event-generation-for-workflow-resource.spec.ts` : un seul appel, fin bornée à hier, rien si la période est vide ou future.
+- `user-profile-instance-update-wrls-status-with-cascade.spec.ts` : empile pour une absence, une déclaration ou une surcharge qui atteint `validated`. N'empile pas si la demande reste `pending` ou est refusée.
+- `resources-submit-workflow-resource.spec.ts` : empile quand la soumission sans valideur pose `validated`. Pas pour `pending` ni `awaitingAttachements`.
+- `resources-cancel-workflow-resource.spec.ts` : empile après suppression d'une demande validée sans valideur, avec les dates lues avant le delete. Pas pour un brouillon, une demande encore en attente, ou un delete en échec.
+- `enqueue-event-generation-if-workflow-resource-was-validated.spec.ts` : empile seulement si l'état supprimé était `validated`. Pas de spec du resolver `deleteWorkflowResource`.
 
 ### Recette sur un jour passé
 
@@ -185,6 +172,7 @@ Transitions, sans bouton de régénération :
 
 - A valider → Validé : l'anomalie se ferme.
 - Validé → suppression (workflow sans valideur, dans le délai) : l'anomalie se rouvre.
+- Validé → `deleteWorkflowResource` : l'anomalie se rouvre.
 - A valider → Refusé : l'anomalie reste ouverte. Rien ne change.
 - Validation d'un niveau intermédiaire (la demande reste A valider) : l'anomalie reste ouverte.
 
@@ -210,8 +198,8 @@ Les seeds décrivent des modèles de workflow, pas une instance par état. Recet
 
 ## Questions PO
 
-1. `awaitingAttachements` est ignoré avec A valider dans `4f6cb56a` (le commentaire du fichier le dit). À confirmer.
-2. Anomalies déjà clôturées par une demande A valider : régénération ponctuelle des périodes concernées, ou correction à la prochaine génération naturelle de ces journées ?
+1. `awaitingAttachements` est ignoré avec A valider par le filtre mergé. Ce chantier ne change pas ce point. Toujours ouvert si PO veut le faire compter.
+2. Anomalies déjà clôturées par une demande A valider : correction à la prochaine génération naturelle. Pas de script de rattrapage.
 
 ---
 
@@ -228,14 +216,17 @@ Les seeds décrivent des modèles de workflow, pas une instance par état. Recet
 - Génération
   - `cronexia-gta-back\app\src\resources\functions\events\generate\resources-generate-events-query-by-period.ts`
   - `cronexia-gta-back\app\src\resources\functions\events\generate\resources-generate-events-by-period.ts`
-  - empilement : `cronexia-gta-back\app\src\resources\functions\events\generate\queue\enqueue-event-generation-for-past-period.ts`
-- Déclencheurs à brancher
+  - période du sujet : `cronexia-gta-back\app\src\resources\functions\events\generate\workflow-resource-generation-period.ts`
+  - empilement borné à hier : `cronexia-gta-back\app\src\resources\functions\events\generate\queue\enqueue-event-generation-for-past-period.ts`
+  - empilement par sujet : `cronexia-gta-back\app\src\resources\functions\events\generate\queue\enqueue-event-generation-for-workflow-resource.ts`
+  - après delete si l'état était `validated` : `cronexia-gta-back\app\src\resources\functions\events\generate\queue\enqueue-event-generation-if-workflow-resource-was-validated.ts`
+  - accès file depuis les resolvers : `ResourcesService.enqueueEventGenerationForWorkflowResource` dans `cronexia-gta-back\app\src\resources\resources.service.ts`
+- Déclencheurs
   - validation : `cronexia-gta-back\app\src\user-profile-instances\functions\workflow-resource\user-profile-instance-update-wrls-status-with-cascade.ts`
-  - empilement actuel, à généraliser : `cronexia-gta-back\app\src\user-profile-instances\functions\workflow-resource\functions\enqueue-event-generation-after-schedule-overload-validated.ts`
-  - période surcharge : `cronexia-gta-back\app\src\resources\functions\events\generate\schedule-overload-generation-period.ts`
   - soumission sans valideur : `cronexia-gta-back\app\src\resources\functions\workflow-resource\resources-submit-workflow-resource.ts`
   - état sans valideur : `cronexia-gta-back\app\src\workflow-resources\functions\resolve-demand-state-without-validator.ts`
   - annulation / suppression : `cronexia-gta-back\app\src\resources\functions\workflow-resource\resources-cancel-workflow-resource.ts`
+  - suppression admin : `deleteWorkflowResource` dans `cronexia-gta-back\app\src\workflow-resources\workflow-resources.resolver.ts`
   - cascade de suppression : `cronexia-gta-back\app\src\resources\functions\workflow-resource\delete-workflow-resource-cascade.ts`
 - Enum
   - `cronexia-gta-back\app\prisma\schema\workflow.prisma` (`enum WorkflowStateEnum`)
