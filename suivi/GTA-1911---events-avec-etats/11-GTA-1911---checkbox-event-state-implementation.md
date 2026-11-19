@@ -50,25 +50,25 @@ Helper pur, à côté du filtre brouillon planning : [is-cancelled-or-refused-ev
 
 Chaque page applique ce prédicat sur sa propre liste au moment du rendu, après le chargement. Ne pas généraliser tout de suite le parcours `resources → dates → events` de `filterPlanningDatasDraftForViewer` : cette forme est propre au planning. Le planning pourra s'en inspirer dans son plan de page, dans une fonction séparée.
 
-Checkbox : un seul composant, [ShowCancelledOrRefusedEventsCheckbox.svelte](../../../cronexia-gta-front-v2/app/src/routes/components/cronexia/event/ShowCancelledOrRefusedEventsCheckbox.svelte). Il possède le libellé et appelle `persistScopedBoolean` sur `EVENTS__SHOW_CANCELLED_OR_REFUSED`. Chaque page le monte une fois et lit `checked`. Ne pas créer une autre checkbox, ne pas recopier le libellé, ne pas appeler `persistScopedBoolean` sur cette clé ailleurs. Pas d'état global tant qu'une seule page est affichée.
+Checkbox : un seul composant, [ShowCancelledOrRefusedEventsCheckbox.svelte](../../../cronexia-gta-front-v2/app/src/routes/components/cronexia/event/ShowCancelledOrRefusedEventsCheckbox.svelte). Il possède le libellé et appelle `persistScopedBoolean` sur `EVENTS__SHOW_CANCELLED_OR_REFUSED`. Il est monté une seule fois, dans l'accordéon **Options** (sous Affichage, replié par défaut) du panneau profil [MenuUserPanel.svelte](../../../cronexia-gta-front-v2/app/src/routes/components/common/menu/user/MenuUserPanel.svelte). La valeur partagée est [show-cancelled-or-refused-events.state.svelte.ts](../../../cronexia-gta-front-v2/app/src/routes/components/cronexia/event/show-cancelled-or-refused-events.state.svelte.ts) (`showCancelledOrRefusedEvents`, défaut `true`). Chaque écran la lit pour filtrer sa liste. Ne pas créer une autre checkbox, ne pas recopier le libellé, ne pas appeler `persistScopedBoolean` sur cette clé ailleurs. Ce n'est pas un switch.
 
 ---
 
 ## Pages / filters
 
-Quatre surfaces réelles pour six libellés. Anomalies, la synthèse, les trois plannings, le calendrier d'absences et l'emploi du temps sont câblés. Toutes montent [ShowCancelledOrRefusedEventsCheckbox.svelte](../../../cronexia-gta-front-v2/app/src/routes/components/cronexia/event/ShowCancelledOrRefusedEventsCheckbox.svelte) : ne pas en créer une autre.
+Quatre surfaces réelles pour six libellés. Anomalies, la synthèse, les trois plannings, le calendrier d'absences et l'emploi du temps lisent `showCancelledOrRefusedEvents`. Aucun ne monte la checkbox : elle est dans le profil.
 
 ### Anomalies / ✅ Terminé
 
 Entrée : [anomalies](<../../../cronexia-gta-front-v2/app/src/routes/(app)/(with-filters)/anomalies>). Rendu events : [AnomalyDayTimeline.svelte](../../../cronexia-gta-front-v2/app/src/routes/components/cronexia/anomaly/AnomalyDayTimeline.svelte). Le brouillon est déjà filtré en amont dans [DayTimelineAccordion.svelte](../../../cronexia-gta-front-v2/app/src/routes/components/common/accordion/DayTimelineAccordion.svelte).
 
-`ShowCancelledOrRefusedEventsCheckbox` est montée une fois dans les actions du `FilterToolbar` de [AnomaliesArray.svelte](../../../cronexia-gta-front-v2/app/src/routes/components/cronexia/anomaly/AnomaliesArray.svelte), page seulement (`hideFilters` faux : la modale planning ne la monte pas et ne filtre pas). Liste filtrée : `events` passé à `AnomaliesArrayTr`, avant `DayTimelineAccordion`. Le filtre brouillon de l'accordéon n'est pas modifié.
+La case n'est pas sur la page. Liste filtrée dans [AnomaliesArray.svelte](../../../cronexia-gta-front-v2/app/src/routes/components/cronexia/anomaly/AnomaliesArray.svelte) : `events` passé à `AnomaliesArrayTr`, avant `DayTimelineAccordion`. La modale planning (`hideFilters`) ne filtre pas. Le filtre brouillon de l'accordéon n'est pas modifié.
 
 ### Synthèse / ✅ Terminé
 
 Entrée : [summary](<../../../cronexia-gta-front-v2/app/src/routes/(app)/(with-filters)/summary>). Grille : [SummaryArray.svelte](../../../cronexia-gta-front-v2/app/src/routes/components/cronexia/summary/SummaryArray.svelte). Le brouillon est déjà retiré dans le `+page.svelte` via `hideDrafts`.
 
-`ShowCancelledOrRefusedEventsCheckbox` est montée une fois dans les actions du `FilterToolbar` de `SummaryArray`. Listes filtrées au rendu, à côté du brouillon : `absences` et `presences` de chaque ligne (pastilles, filtre de contenu, quantité en jours), et `events` de la timeline passé à `SummaryArrayTr` avant `DayTimelineAccordion`. `withEventWorkflowFields` n'est pas modifié.
+La case n'est pas sur la page. Listes filtrées au rendu dans `SummaryArray`, à côté du brouillon : `absences` et `presences` de chaque ligne (pastilles, filtre de contenu, quantité en jours), et `events` de la timeline passé à `SummaryArrayTr` avant `DayTimelineAccordion`. `withEventWorkflowFields` n'est pas modifié.
 
 ### Planning collectif / ✅ Terminé
 
@@ -76,13 +76,13 @@ Entrée : [collective-schedule](<../../../cronexia-gta-front-v2/app/src/routes/(
 
 Le filtre annulé / refusé s'applique sur les events déjà mappés, à côté du passage brouillon de `mapPlanningData` ([planning-data.mapper.ts](../../../cronexia-gta-front-v2/app/src/routes/functions/cronexia/planning/collective/planning-data.mapper.ts)), sans le modifier.
 
-`ShowCancelledOrRefusedEventsCheckbox` est montée une fois dans `rightTools` de l'en-tête, en mode collectif (pas d'aperçu lecture seule). Liste filtrée : events non `schedule` de `resourcesForDisplay`, via [filter-mapped-planning-cancelled-or-refused.ts](../../../cronexia-gta-front-v2/app/src/routes/functions/cronexia/planning/collective/filter-mapped-planning-cancelled-or-refused.ts), avant `resourcesWithWorkflow`. L'aperçu lecture seule ne filtre pas.
+La case n'est pas dans l'en-tête. Liste filtrée : events non `schedule` de `resourcesForDisplay`, via [filter-mapped-planning-cancelled-or-refused.ts](../../../cronexia-gta-front-v2/app/src/routes/functions/cronexia/planning/collective/filter-mapped-planning-cancelled-or-refused.ts), avant `resourcesWithWorkflow`. L'aperçu lecture seule ne filtre pas.
 
 ### Planning individuel / ✅ Terminé
 
 Même écran que le collectif, monté en mode individuel : [individual-schedule](<../../../cronexia-gta-front-v2/app/src/routes/(app)/(with-filters)/individual-schedule>) importe `CollectiveSchedulePage`.
 
-Même montage et même liste que le collectif : `ShowCancelledOrRefusedEventsCheckbox` dans `rightTools`, filtre `filterMappedPlanningCancelledOrRefused` sur les events non `schedule` avant `resourcesWithWorkflow`. Le cookie est le même. L'aperçu lecture seule (`IndividualPlanningPreview`, `readOnlyPreview`) ne monte pas la checkbox et ne filtre pas.
+Même liste que le collectif : filtre `filterMappedPlanningCancelledOrRefused` sur les events non `schedule` avant `resourcesWithWorkflow`. Le cookie est le même. L'aperçu lecture seule (`IndividualPlanningPreview`, `readOnlyPreview`) ne filtre pas.
 
 ### Calendrier d'absences / ✅ Terminé
 
@@ -90,16 +90,16 @@ Entrée : [calendar](<../../../cronexia-gta-front-v2/app/src/routes/(app)/(witho
 
 La légende est déjà persistée (`statusFilters`, cookie `CALENDAR__LEGEND_FILTERS` scopé page). Ne pas y ranger cette option.
 
-`ShowCancelledOrRefusedEventsCheckbox` est montée une fois dans la barre du calendrier, à côté de `CalendarToolbarFilters`. Liste filtrée : `filteredEvents` (segments `absences` / `hourAbsences`, puis l'event s'il n'en reste plus), avant `eventsByDate`. Le cookie de légende n'est pas modifié.
+La case n'est pas dans la barre. Liste filtrée : `filteredEvents` (segments `absences` / `hourAbsences`, puis l'event s'il n'en reste plus), avant `eventsByDate`. Le cookie de légende n'est pas modifié.
 
 ### Emploi du temps / ✅ Terminé
 
 Entrée : [timetable](<../../../cronexia-gta-front-v2/app/src/routes/(app)/(without-filters)/timetable>). Même `PersonalCalendarPage` que le calendrier d'absences.
 
-Même montage et même liste que le calendrier : `ShowCancelledOrRefusedEventsCheckbox` dans la barre, filtre `withoutCancelledOrRefusedCalendarEvents` sur `filteredEvents` avant `eventsByDate`. Le cookie est le même, pas scopé `absences` / `timetable`. Le cookie de légende n'est pas modifié.
+Même liste que le calendrier : filtre `withoutCancelledOrRefusedCalendarEvents` sur `filteredEvents` avant `eventsByDate`. Le cookie est le même, pas scopé `absences` / `timetable`. Le cookie de légende n'est pas modifié.
 
 ### Planning d'équipe / ✅ Terminé
 
 Même écran que les plannings collectif et individuel : [team-schedule](<../../../cronexia-gta-front-v2/app/src/routes/(app)/(without-filters)/team-schedule>) importe `CollectiveSchedulePage` en mode équipe.
 
-`ShowCancelledOrRefusedEventsCheckbox` est montée une fois dans `teamRequestTools`, à côté de `WorkflowNewDemandButton`. Même liste que le collectif : events non `schedule` de `resourcesForDisplay`, via `filterMappedPlanningCancelledOrRefused`, avant `resourcesWithWorkflow`. Le cookie est le même. `isTeamPlanningEventVisibleForViewer` n'est pas modifié : les events refusés d'autrui restent masqués quand la case est cochée.
+La case n'est pas à côté de `WorkflowNewDemandButton`. Même liste que le collectif : events non `schedule` de `resourcesForDisplay`, via `filterMappedPlanningCancelledOrRefused`, avant `resourcesWithWorkflow`. Le cookie est le même. `isTeamPlanningEventVisibleForViewer` n'est pas modifié : les events refusés d'autrui restent masqués quand la case est cochée.
