@@ -13,6 +13,8 @@ Objectif de la grande étape 1 : étendre les fonctions NestJS / GraphQL du work
 
 Les tests (Jest, tsc, seeds) sont lancés par l'équipe, pas par l'agent. Chaque étape liste les specs à écrire, puis une vérification à faire à la main.
 
+L'étape 0 du plan front (`GTA-1744-wf-events-hourly-frontend.md`) est terminée : les payloads qui renvoient des EbD portent `workflowResource { idWorkflowResource state workflow { type } }` pour une demande directe. Les docs le décrivent déjà (demande directe `eventByDay` ou déclaration `declarationHours`, clé directe prioritaire, aucun filtre d'état) : `src/resources/docs/resources-event-by-days-by-period.doc.ts`, `resources-all-events-by-days-by-period.doc.ts`, `resources-planning-datas.doc.ts`, `resources-declaration-hourly-grouped-by-resource-by-date.doc.ts`.
+
 ## Conventions
 
 - Tous les chemins sont relatifs à `cronexia-gta-back/app/`.
@@ -59,6 +61,7 @@ Les tests (Jest, tsc, seeds) sont lancés par l'équipe, pas par l'agent. Chaque
 | 6 | Collaborateur : soumission, annulation, suppression | 3, 5 |
 | 7 | Valideur : cascade de statut | 3, 5 |
 | 8 | Documentation et vérification finale | 1 à 7 |
+| 9 | Lecture liste : type et drapeaux de la cible heures | 2 |
 | 2.1 à 2.4 | Seeds droits d'absence DRC (grande étape 2) | - |
 
 ---
@@ -374,6 +377,29 @@ Statut : doc faite, vérification par l'équipe en attente
 - Jest ciblé sur les specs ajoutées, puis suite backend complète avec les exclusions habituelles (voir `261120-suivi.md`).
 - Seed dev après reset de la base, puis scénario manuel de bout en bout sur DEP et RC : création, soumission, validation, refus, annulation.
 - Redémarrage de l'API (cycle `forwardRef` entre `EventByDaysModule` et `WorkflowResourcesModule`).
+
+---
+
+## Étape 9 - Cible heures des listes : type et drapeaux / ✅ Terminé
+
+Statut : fait
+
+Objectif : `resourcesGetWorkflowResource` et `userProfileInstanceGetWorkflowResource` peuvent sélectionner `workflow.targetEventForTypeEventByDay { labelShort code type isRemoteWork isOnCallDuty isTravelling isRightsCalculationAssociated }` sans erreur. Le résolveur Workflow ne recharge pas un Event déjà préchargé : le select partiel doit contenir `type` (non nullable) et les trois drapeaux.
+
+### Fichiers à modifier
+
+- `src/resources/functions/workflow-resource/workflow-resource-resources-get-include.ts` : `type`, `isRemoteWork`, `isOnCallDuty`, `isTravelling` sur `targetEventForTypeEventByDay` et sur `targetEventForTypeEventRangeOnResource` (les drapeaux jours revenaient `null`). `name` conservé.
+- `src/user-profile-instances/functions/workflow-resource/type/workflow-resource-for-validator-row.type.ts` : les quatre mêmes clés sur `targetEventForTypeEventByDay` seulement. La cible jours n'est pas préchargée.
+- Docs : `src/resources/docs/resources-get-workflow-resource.doc.ts`, `src/user-profile-instances/docs/user-profile-instance-get-workflow-resource.doc.ts`.
+- Pas de changement de schéma ni de types générés. Include d'annulation inchangé.
+
+### Specs
+
+- `src/resources/functions/workflow-resource/workflow-resource-target-event-list-select.spec.ts` : 3 tests passés (clés des trois selects).
+
+### Vérification
+
+- Playground : `workflowType: eventByDay`, demandes seedées de Céline Lefevre (septembre et octobre 2024). `typedEventByDay` rempli, `typedEventRangeOnResource` à `null`, `targetEventForTypeEventByDay.type` à `Absence`. DEP : `isTravelling: true`. RC : `isRightsCalculationAssociated: true`. Redémarrer l'API si elle ne recharge pas le fichier.
 
 ---
 ---
