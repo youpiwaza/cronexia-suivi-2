@@ -12,6 +12,7 @@ Notes:
   - Follow import organization convention (Svelte/packages, Utility, Functions, Components, Variables, Behavior)
   - No need to test in cursor browser, i'm testing live in watch mode
   - Do not update GraphQL generated files/types, they'll be reset automatically
+- Fr unit testing conventions and rules that MUST be applied, see cronexia-gta-front-v2\instructions-tests-unitaires.md
 
 Imports conventions :
 
