@@ -14,7 +14,7 @@ Les slices 01 et 02 ont laissé l'API client résoudre `EnumString` et `EnumNumb
 - La clé JSON `value` de l'enveloppe historisée (`{ value, effectDate }`) ne change pas de nom. Pour une liste, son contenu est le `code` de la valeur.
 - Organisation : l'objet préféré est `{ code, referentiel }`. La clé `value` à la place de `code` reste acceptée. Si les deux sont envoyées, `code` est utilisé. Le contenu est le `code` de la valeur, pas le libellé.
 - `referentiel` reste le code du référentiel (`ResourceEnum.code`).
-- Pas de repli sur le libellé. Exemples de seeds : `CDI` reste `CDI`, `Île-de-France` devient `ILE_DE_FRANCE`, l'échelon `14` a le code `"14"`, `Service 1` devient `SERVICE_01`.
+- Pas de repli sur le libellé. Exemples de seeds : `CDI` reste `CDI`, `Île-de-France` devient `IDF`, l'échelon `14` a le code `"14"`, `Service 1` devient `SERVICE_01`.
 - Lookup : `findFirst` sur `code`, borné au référentiel du champ. `code` est en citext, la casse est déjà ignorée. Trim de la chaîne reçue avant la requête.
 - Un nombre JSON est converti avec `String(...)` : `14` et `"14"` tombent sur le code `"14"`. Ne plus passer par `Number()`, pour qu'un code non numérique reste acceptable.
 - Organisation : chercher ce code string à la fois sur `resourceEnumStrVal` et sur `resourceEnumNbrVal`, filtré par `resourceEnum.code`. Le branchement « seulement si la valeur est un nombre » disparaît.

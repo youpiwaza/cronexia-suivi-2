@@ -40,9 +40,9 @@ Les migrations sont gitignorées et recréées au reset de la BDD. Pas de script
 
 ## Étape 2 — Seeds
 
-Convention (à écrire une fois en commentaire dans le seed recommandé) : ASCII majuscules, accents supprimés, espaces et tirets remplacés par `_`.
+Convention (à écrire une fois en commentaire dans le seed recommandé) : ASCII majuscules, accents supprimés, espaces et tirets remplacés par `_`, max 10 caractères.
 
-Exemples : `CDI` → `CDI`, `Île-de-France` → `ILE_DE_FRANCE`, `En heures avec pointages réels` → `EN_HEURES_AVEC_POINTAGES_REELS`. Les codes sont uniques par enum parent, donc `Cadre` dans status et `Cadre` dans category donnent tous les deux `CADRE`.
+Exemples : `CDI` → `CDI`, `Île-de-France` → `IDF`, `En heures avec pointages réels` → `HEURE_REEL`. Les codes sont uniques par enum parent, donc `Cadre` dans status et `Cadre` dans category donnent tous les deux `CADRE`.
 
 ### 2.1 — Seed recommandé, partie 1 / ✅ Terminé
 
@@ -64,7 +64,7 @@ Même convention, `code` littéral sur chaque ligne.
 
 Fichier : `cronexia-gta-back/app/prisma/seeds-new/25-demo/resource-enums/resource-enum-str-val.demo.seed.ts`
 
-Codes générés dans les boucles : `POLE_01`, `DIRECTION_01`, `SERVICE_01`, `SECTEUR_01`, `SOCIETE_01`, `ETABLISSEMENT_01` (avec padding 2 chiffres).
+Codes générés dans les boucles : `POLE_01`, `DIR_01`, `SERVICE_01`, `SECTEUR_01`, `SOCIETE_01`, `ETAB_01` (avec padding 2 chiffres).
 Ajouter aussi `code: string` dans l'annotation de type inline du tableau `data`.
 
 ### 2.5 — Seed demo-arte / ✅ Terminé
